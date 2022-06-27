@@ -1,4 +1,6 @@
 import React from 'react';
+import Overview from './Overview/Overview.jsx';
+import StarRating from './Overview/StarRating.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -8,7 +10,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <h1>Hello World</h1>
+      <div id='container' style={{width: '60%', margin: 'auto', padding: '10px'}}>
+      <h1>To be changed into a nav bar</h1>
+      <Overview />
+      </div>
     );
   }
 };
