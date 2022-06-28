@@ -1,6 +1,7 @@
 import React from 'react';
 import Overview from './Overview/Overview.jsx';
 import StarRating from './Overview/StarRating.jsx';
+import './app.css';
 
 class App extends React.Component {
   constructor() {
