@@ -24,26 +24,17 @@ var options ={
   }
 }
 
-app.get('/reviews',(req,res)=>{
-  // var product_id = req.body.product_id;
-  // var page = req.body.page;
-  // var sort = req.body.sort;
-  // var count = req.body.count;
-   var product_id = 2;
-  var page = 1;
-  var sort = "newest";
-  var count = 5;
-
-  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
+app.get('/products',(req,res)=>{
+  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/`
   // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
   console.log(url)
 
-  axios.get(url,options)
+  axios.get(url,{headers:options.headers})
   .then(data=>{
-    console.log('API data in get reviews '+ data);
+    console.log(data);
     res.send('success API')
   })
-  .catch(err=> res.status(500).send('API err inside data get reviews'))
+  .catch(err=> res.status(500).send('Error when retrieving data'))
 
 })
 
