@@ -53,7 +53,7 @@ var QA = () => {
           <input className='pointer' type='button' value='MORE ANSWERED QUESTIONS' />
         </div>
         <div>
-          <input className='pointer' type='button' value='ADD A QUESTION      ' /><i class="fa fa-plus" aria-hidden="true"></i>
+          <input className='pointer' type='button' value='ADD A QUESTION      ' /><i className="fa fa-plus" aria-hidden="true"></i>
         </div>
       </div>
     </div>
