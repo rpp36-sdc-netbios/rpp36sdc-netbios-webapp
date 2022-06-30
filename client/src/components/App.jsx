@@ -1,6 +1,7 @@
 import React from 'react';
 import Overview from './Overview/Overview.jsx';
 import StarRating from './Overview/StarRating.jsx';
+import QA from './QuestionsandAnswers/QA.jsx';
 import './app.css';
 
 class App extends React.Component {
@@ -11,10 +12,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id='container' style={{width: '60%', margin: 'auto', padding: '10px'}}>
-      <h1>To be changed into a nav bar</h1>
-      <Overview />
+      <React.Fragment>
+      <div id='nav'>
+        <span>Nav Bar</span>
       </div>
+      <div id='container'>
+        <section>
+        <Overview />
+        </section>
+        <section>
+          <h3>Related Products</h3>
+        </section>
+        <section>
+          <QA />
+        </section>
+      </div>
+      </React.Fragment>
     );
   }
 };

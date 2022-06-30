@@ -1,4 +1,15 @@
-/* test */
-div {
-  background-color: aqua;
+#nav {
+  height: 40px;
+  background-color: gray;
+  margin-bottom: 10px;
+}
+
+#container {
+  width: 60%;
+  margin: auto;
+  padding: 10px;
+}
+
+section {
+  height: 500px;
 }
