@@ -30,9 +30,9 @@ app.get('/reviews',(req,res)=>{
   // var sort = req.body.sort;
   // var count = req.body.count;
    var product_id = 2;
-  var page = 1;
-  var sort = "newest";
   var count = 5;
+  var sort = 'newest';
+  var page = 1;
 
   var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
   // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
@@ -40,8 +40,8 @@ app.get('/reviews',(req,res)=>{
 
   axios.get(url,options)
   .then(data=>{
-    console.log('API data in get reviews '+ data);
-    res.send('success API')
+    console.log('API data in get reviews '+ data.data.results);
+    res.send(data.data)
   })
   .catch(err=> res.status(500).send('API err inside data get reviews'))
 
