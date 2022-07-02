@@ -1,13 +1,57 @@
 import React from 'react';
 import './qa.css';
+import { useState, useEffect } from 'react';
+import { keyframes } from '@emotion/react';
 
-var QA = () => {
+var QA = (props) => {
+  var [ qSearch, setQSearch ] = useState('');
+  var [ waiting, setWaiting ] = useState(true);
+  var [ questions, setQuestions ] = useState([]);
+  var temp = true;
+
+  var product = props.productId;
+
+  var search = () => {
+    if (!waiting) {
+      console.log(qSearch);
+    }
+  }
+
+  // useEffect(() => {
+  //   fetch('qa' + product)
+  //   .then(res => {
+  //     return res.json();
+  //   }).then(data => {
+  //     setQuestions(data);
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    if (temp) {
+      setTimeout(() => {
+        setWaiting(false)
+      }, 3000)
+      temp = false;
+    }
+    search();
+  }, [qSearch]);
+
+  var qHandler = (e) => {
+    setQSearch(e.target.value);
+  };
+
+  var aFeedbackHandler = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className='qa-container'>
       <h3>QUESTIONS & ANSWERS</h3>
       <div>
         <div className='qa-search-container'>
-          <input className='qa-search' type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' />
+          <input className='qa-search' type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={qHandler} />
           <i className="fa fa-search pointer"></i>
         </div>
       </div>
@@ -22,10 +66,10 @@ var QA = () => {
             </div>
           </div>
           <div className='qa-item-right'>
-            <p>Helpful? <span className='pointer'>Yes</span>  |  <span className='pointer'>Add Answer</span></p>
+            <p>Helpful? <span className='pointer' onClick={(e) => aFeedbackHandler('helpful')}>Yes</span>  |  <span className='pointer' onClick={(e) => aFeedbackHandler('add')}>Add Answer</span></p>
           </div>
           <div className='qa-user'>
-            <p>by User, Date  |  Helpful? <span className='pointer'>Yes</span>  |  <span className='pointer'>Report</span></p>
+            <p>by User, Date  |  Helpful? <span className='pointer' onClick={(e) => aFeedbackHandler('helpful')}>Yes</span>  |  <span className='pointer' onClick={(e) => aFeedbackHandler('report')}>Report</span></p>
           </div>
         </div>
         <div className='qa-item'>
@@ -38,10 +82,10 @@ var QA = () => {
             </div>
           </div>
           <div className='qa-item-right'>
-            <p>Helpful? <span className='pointer'>Yes</span>  |  <span className='pointer'>Add Answer</span></p>
+            <p>Helpful? <span className='pointer'  onClick={(e) => aFeedbackHandler('helpful')}>Yes</span>  |  <span className='pointer' onClick={(e) => aFeedbackHandler('add')}>Add Answer</span></p>
           </div>
           <div className='qa-user'>
-            <p>by User, Date  |  Helpful? <span className='pointer'>Yes</span>  |  <span className='pointer'>Report</span></p>
+            <p>by User, Date  |  Helpful? <span className='pointer' onClick={(e) => aFeedbackHandler('helpful')}>Yes</span>  |  <span className='pointer' onClick={(e) => aFeedbackHandler('report')}>Report</span></p>
           </div>
         </div>
         <div className='qa-more-answers'>

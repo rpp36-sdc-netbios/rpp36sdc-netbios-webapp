@@ -2,12 +2,29 @@ import React from 'react';
 import Overview from './Overview/Overview.jsx';
 import QA from './QuestionsandAnswers/QA.jsx';
 import Rating from './Rating/Rating.jsx';
+import RelatedProducts from './RelatedProducts/RelatedProducts.jsx';
 import './app.css';
 
 class App extends React.Component {
   constructor() {
     super();
+    this.state = {
+      currentId: 71701,
+      product: {}
+    }
+  }
 
+  componentDidMount() {
+    fetch('products' + this.state.currentId)
+    .then(res => {
+      return res.json();
+    }).then(product => {
+      this.setState({ product }, () => {
+        console.log(this.state);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {
@@ -20,10 +37,10 @@ class App extends React.Component {
           <Overview />
         </section>
         <section>
-          <h3>Related Products</h3>
+          <RelatedProducts />
         </section>
         <section>
-          <QA />
+          <QA productId={this.state.product.id}/>
         </section>
         <section>
           <Rating />
