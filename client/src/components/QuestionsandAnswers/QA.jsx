@@ -10,24 +10,24 @@ var QA = (props) => {
   var temp = true;
 
   var product = props.product || 71697
-  
+
   var search = () => {
     if (!waiting) {
       console.log(qSearch);
     }
   }
 
-  useEffect(() => {
-    fetch('qa' + product)
-    .then(res => {
-      return res.json();
-    }).then(data => {
-      setQuestions(data);
-      console.log(data);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('qa' + product)
+  //   .then(res => {
+  //     return res.json();
+  //   }).then(data => {
+  //     setQuestions(data);
+  //     console.log(data);
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (temp) {

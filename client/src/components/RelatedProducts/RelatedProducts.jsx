@@ -1,8 +1,11 @@
 import React from 'react';
+import './related.css';
 
 var RelatedProducts = () => {
   return (
-    <h3>Related Products</h3>
+    <div id='related'>
+      <h3>Related Products</h3>
+    </div>
   );
 };
 
