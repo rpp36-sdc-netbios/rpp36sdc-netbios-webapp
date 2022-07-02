@@ -4,6 +4,8 @@ import StarRating from './Overview/StarRating.jsx';
 import './app.css';
 import fakeData from './Rating/FakeData.js';
 import Rating from './Rating/Rating.jsx';
+import Summary from './Rating/Summary.jsx';
+import meta from './Rating/MetaData.js'
 
 
 class App extends React.Component {
@@ -13,6 +15,7 @@ class App extends React.Component {
       reviewsResults:fakeData,
       product_id :1,
       sort:'newest',
+      meta:meta,
 
     }
 
@@ -24,6 +27,7 @@ class App extends React.Component {
       <h1>To be changed into a nav bar</h1>
 
       <Rating results = {this.state.reviewsResults}/>
+      <Summary results ={this.state.meta}/>
       </div>
     );
   }

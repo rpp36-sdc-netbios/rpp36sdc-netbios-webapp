@@ -1,19 +1,41 @@
 import React from 'react';
 import  Review from './Review.jsx';
-const Rating = (props) => {
+class Rating extends React.Component {
+  constructor(props){
+    super(props);
 
-  console.log('props.results'+props.results)
 
-  return(
-    <div id = " ratingContainer">
-    <h4> {props.results.length} reviews </h4>
+  }
+
+  render(){
+    return(
+      <div id = " ratingContainer">
+        <h4> {this.props.results.length} reviews </h4>
+        <label>
+          sorted by:
+          <select >
+            <option value="helpful">helpful</option>
+            <option value="newest">newest</option>
+            <option value="relevance">relevance</option>
+
+          </select>
+        </label>
       <div>
-      {props.results.map((review, key)=> <Review review={review} key = {review.review_id}/>
+      {this.props.results.map((review, key)=> <Review review={review} key = {review.review_id}/>
       )}
       </div>
-    </div>
+      <button> More Reviews</button>
+      <button> Add A Review </button>
 
-    );
+      </div>
+
+
+    )
+
+
+  }
 }
+
+
 
 export default Rating;
