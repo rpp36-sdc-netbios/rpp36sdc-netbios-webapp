@@ -40,7 +40,7 @@ class App extends React.Component {
           <RelatedProducts />
         </section>
         <section>
-          <QA />
+          <QA productId={this.state.product.id}/>
         </section>
         <section>
           <Rating />

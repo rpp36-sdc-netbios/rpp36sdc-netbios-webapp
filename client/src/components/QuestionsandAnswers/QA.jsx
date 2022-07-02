@@ -9,7 +9,7 @@ var QA = (props) => {
   var [ questions, setQuestions ] = useState([]);
   var temp = true;
 
-  var product = props.product || 71697
+  var product = props.productId;
 
   var search = () => {
     if (!waiting) {
@@ -23,7 +23,6 @@ var QA = (props) => {
   //     return res.json();
   //   }).then(data => {
   //     setQuestions(data);
-  //     console.log(data);
   //   }).catch((err) => {
   //     console.log(err);
   //   });

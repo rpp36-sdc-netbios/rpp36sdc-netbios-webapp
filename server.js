@@ -37,3 +37,14 @@ app.get('/products:product_id',(req,res)=>{
 
 });
 
+app.get('/qa:product_id', (req, res) => {
+  var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${req.params.product_id}`;
+  axios.get(url, {headers: options.headers})
+  .then(apiRes => {
+    res.json(apiRes.data);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
