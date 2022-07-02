@@ -30,7 +30,6 @@ app.get('/products:product_id',(req,res)=>{
 
   axios.get(url,{headers:options.headers})
   .then(apiRes=>{
-    console.log(apiRes.data);
     res.json(apiRes.data)
   })
   .catch(err=> res.status(500).send('Error when retrieving data'))

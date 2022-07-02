@@ -9,24 +9,22 @@ var QA = (props) => {
   var [ questions, setQuestions ] = useState([]);
   var temp = true;
 
-  var product = props.productId;
-
   var search = () => {
     if (!waiting) {
       console.log(qSearch);
     }
   }
 
-  // useEffect(() => {
-  //   fetch('qa' + product)
-  //   .then(res => {
-  //     return res.json();
-  //   }).then(data => {
-  //     setQuestions(data);
-  //   }).catch((err) => {
-  //     console.log(err);
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch('qa' + props.productId)
+    .then(res => {
+      return res.json();
+    }).then(data => {
+      setQuestions(data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
 
   useEffect(() => {
     if (temp) {
