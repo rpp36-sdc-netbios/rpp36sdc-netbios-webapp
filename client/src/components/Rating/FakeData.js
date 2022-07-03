@@ -1,35 +1,28 @@
-var data = [
-  {
-    "review_id": 5,
-    "rating": 3,
-    "summary": "I'm enjoying wearing these shades",
-    "recommend": false,
-    "response": null,
-    "body": "Comfortable and practical.",
-    "date": "2019-04-14T00:00:00.000Z",
-    "reviewer_name": "shortandsweeet",
-    "helpfulness": 5,
-    "photos": [{
-        "id": 1,
-        "url": "urlplaceholder/review_5_photo_number_1.jpg"
-      },
-      {
-        "id": 2,
-        "url": "urlplaceholder/review_5_photo_number_2.jpg"
-      },
-    ]
-  },
-  {
-    "review_id": 3,
-    "rating": 4,
-    "summary": "I am liking these glasses",
-    "recommend": true,
-    "response": "Glad you're enjoying the product!",
-    "body": "They are very dark. But that's good because I'm in very sunny spots",
-    "date": "2019-06-23T00:00:00.000Z",
-    "reviewer_name": "bigbrotherbenjamin",
-    "helpfulness": 5,
-    "photos": [],
-  }
-]
+var data = [{"review_id":1275260,
+  "rating":5,
+  "summary":"dgs",
+  "recommend":true,
+  "response":null,
+  "body":"sjsjkgskjhslvhslhsljhsjkvhsjvhsljvhsljvhsjkvhsjvhvfv",
+  "date":"2022-06-13T00:00:00.000Z",
+  "reviewer_name":"test",
+  "helpfulness":1,"photos":[]},
+{"review_id":1275253,
+"rating":5,
+"summary":"really like it ",
+"recommend":true,
+"response":null,
+"body":"really like it really like it really like it really like it ",
+"date":"2022-06-11T00:00:00.000Z","reviewer_name":"test","helpfulness":3,"photos":[]},
+{"review_id":1275244,"rating":3,"summary":"","recommend":true,"response":null,
+"body":"sad;flkjsad;lfkjas;dlkfja;slkdjf;aslkdjf;lkasjdf;lkajsdff;lk",
+"date":"2022-06-10T00:00:00.000Z","reviewer_name":"asdf","helpfulness":9,"photos":[]},
+{"review_id":1275236,"rating":4,"summary":"Good quality","recommend":true,
+"response":null,"body":"the quality is good, might need some more colors, great",
+"date":"2022-06-09T00:00:00.000Z","reviewer_name":"ssss","helpfulness":12,"photos":[]},
+{"review_id":1275188,"rating":5,"summary":"love it","recommend":true,
+"response":null,
+"body":"If the reviewer recommends buying the product, the text “I recommend this product and a checkmark icon will display below the review",
+ "date":"2022-06-07T00:00:00.000Z",
+"reviewer_name":"test","helpfulness":89,"photos":[]}]
 export default data;

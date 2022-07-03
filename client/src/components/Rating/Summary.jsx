@@ -1,5 +1,6 @@
 import React from 'react';
 import './rating.css';
+import Stars from './Stars.jsx';
 
 class Summary extends React.Component {
   constructor(props){
@@ -17,6 +18,9 @@ class Summary extends React.Component {
     }
 
     console.log('total'+total)
+    var num = (Math.round(total/25*10)/10/5)*100;
+    var str =num.toString()+"%";
+    console.log('str in summary'+str)
     var keys=['Fit','Length',"Comforyt"]
     // for(var key in this.props.characteristics){
 
@@ -36,6 +40,7 @@ class Summary extends React.Component {
       comfort:this.props.results.characteristics.Comfort ? this.props.results.characteristics.Comfort.value:5,
       quality: this.props.results.characteristics.Quality  ? this.props.results.characteristics.Quality.value:5,
       width: this.props.results.characteristics.Width  ? this.props.results.characteristics.Width.value:5,
+      starsDisplay:str,
     }
   }
   render(){
@@ -43,6 +48,7 @@ class Summary extends React.Component {
       <div className="summary-box">
         <h1> RATINGS &amp; REVIEWS</h1>
         <h2>{this.state.average}</h2>
+        <Stars starsDisplay ={this.state.starsDisplay}/>
         <p> {this.state.percent}% of reviews recommend this product </p>
         <div>5 stars {this.state.star5}</div>
         <div>4 stars {this.state.star4}</div>

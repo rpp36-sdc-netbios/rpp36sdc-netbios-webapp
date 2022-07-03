@@ -17,20 +17,23 @@ class App extends React.Component {
       product_id :1,
       sort:'newest',
       meta:meta,
+      currentId: 71701,
+      product: {},
 
     }
 
-  // componentDidMount(){
-  //   fetch('products' + this.state.currentId)
-  //   .then(res => {
-  //     return res.json();
-  //   }).then(product => {
-  //     this.setState({ product }, () => {
-  //       console.log(this.state);
-  //     });
-  //   }).catch(err => {
-  //     console.log(err);
-  //   });
+  }
+  componentDidMount() {
+    fetch('products' + this.state.currentId)
+    .then(res => {
+      return res.json();
+    }).then(product => {
+      this.setState({ product }, () => {
+        console.log(this.state);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render(){
@@ -39,14 +42,14 @@ class App extends React.Component {
       <div id='nav'>
         <span>Bauhaus</span>
       </div>
-        <section>
+      <section>
           <Overview />
         </section>
         <section>
           <RelatedProducts />
         </section>
         <section>
-          <QA productId={this.state.product_id}/>
+          <QA productId={this.state.product.id}/>
         </section>
         <section>
         <Rating results = {this.state.reviewsResults}/>
