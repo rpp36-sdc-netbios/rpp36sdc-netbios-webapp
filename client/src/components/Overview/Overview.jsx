@@ -1,6 +1,8 @@
 import React from 'react';
 import Gallery from './Gallery.jsx';
-import StarRating from './StarRating.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import StyleSelector from './StyleSelector.jsx';
+import AddToCart from './AddToCart.jsx'
 
 class Overview extends React.Component {
   render () {
@@ -11,8 +13,9 @@ class Overview extends React.Component {
         </div>
 
         <div style={{width: '30%', float:'right'} }>
-          placeholder for product details, style, add to basket
-          <StarRating />
+          <ProductInfo />
+          <StyleSelector />
+          <AddToCart />
         </div>
       </div>
     )

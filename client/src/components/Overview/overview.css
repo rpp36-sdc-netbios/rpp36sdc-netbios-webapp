@@ -1,0 +1,90 @@
+.pd-star-left {
+  display: inline-block;
+  margin-top: 30px;
+}
+
+
+#read-review {
+  text-decoration: underline;
+  font-size: small;
+  display: inline-block;
+
+}
+
+
+#expand-name {
+  margin-top: 15px;
+  font-size: xx-large;
+
+}
+
+#category-name {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 15px;
+}
+
+#price {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+#bold {
+  font-weight: bold;
+}
+
+#style-button {
+  background-color: grey;
+  border: white;
+  padding: 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 10px;
+  border-radius: 50%;
+}
+
+.style-select-word{
+  margin-bottom: 20px;
+}
+
+.style-select {
+  margin-bottom: 20px;
+}
+
+#add-to-bag{
+  width: 80%;
+  height:50px;
+  margin-bottom:20px;
+  font-weight: bold;
+  text-align:left;
+  font-size: medium;
+}
+
+#favourite{
+  width:20%;
+  height:50px;
+  margin-bottom:20px;
+  text-align:left;
+  font-weight: bold;
+  font-size: medium;
+}
+
+#select-size{
+  width:70%;
+  height:50px;
+  margin-bottom:20px;
+  font-weight: bold;
+  text-align:left;
+  font-size: medium;
+}
+
+#select-quantity{
+  width:30%;
+  height:50px;
+  margin-bottom:20px;
+  font-weight: bold;
+  text-align:left;
+  font-size: medium;
+}
+

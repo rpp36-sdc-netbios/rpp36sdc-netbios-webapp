@@ -40,8 +40,8 @@ class Summary extends React.Component {
   }
   render(){
     return(
-      <div className="summary">
-        <h1> RATINGS &amp; Reviews Rating</h1>
+      <div className="summary-box">
+        <h1> RATINGS &amp; REVIEWS</h1>
         <h2>{this.state.average}</h2>
         <p> {this.state.percent}% of reviews recommend this product </p>
         <div>5 stars {this.state.star5}</div>

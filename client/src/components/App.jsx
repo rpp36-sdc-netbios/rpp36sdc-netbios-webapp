@@ -1,9 +1,10 @@
 import React from 'react';
 import Overview from './Overview/Overview.jsx';
-import StarRating from './Overview/StarRating.jsx';
+import QA from './QuestionsandAnswers/QA.jsx';
+import Rating from './Rating/Rating.jsx';
+import RelatedProducts from './RelatedProducts/RelatedProducts.jsx';
 import './app.css';
 import fakeData from './Rating/FakeData.js';
-import Rating from './Rating/Rating.jsx';
 import Summary from './Rating/Summary.jsx';
 import meta from './Rating/MetaData.js'
 
@@ -19,15 +20,38 @@ class App extends React.Component {
 
     }
 
+  // componentDidMount(){
+  //   fetch('products' + this.state.currentId)
+  //   .then(res => {
+  //     return res.json();
+  //   }).then(product => {
+  //     this.setState({ product }, () => {
+  //       console.log(this.state);
+  //     });
+  //   }).catch(err => {
+  //     console.log(err);
+  //   });
   }
 
-  render() {
+  render(){
     return (
-      <div id='container' style={{width: '60%', margin: 'auto', padding: '10px'}}>
-      <h1>To be changed into a nav bar</h1>
-
-      <Rating results = {this.state.reviewsResults}/>
-      <Summary results ={this.state.meta}/>
+      <div id='container'>
+      <div id='nav'>
+        <span>Bauhaus</span>
+      </div>
+        <section>
+          <Overview />
+        </section>
+        <section>
+          <RelatedProducts />
+        </section>
+        <section>
+          <QA productId={this.state.product_id}/>
+        </section>
+        <section>
+        <Rating results = {this.state.reviewsResults}/>
+        <Summary results ={this.state.meta}/>
+        </section>
       </div>
     );
   }

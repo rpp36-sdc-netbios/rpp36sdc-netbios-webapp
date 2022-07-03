@@ -1,0 +1,9 @@
+{
+  "parser": "@babel/eslint-parser",
+  "rules": {
+    "max-len": [1, 150, 2],
+    "camelcase": "warn"
+  },
+  "root": true
+}
+

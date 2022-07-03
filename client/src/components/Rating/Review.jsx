@@ -20,7 +20,7 @@ class Review extends React.Component {
       <div> {this.state.text}
         <button> Yes </button>
         <p>{this.state.yes}</p>
-        <button> Report </button>
+        <button > Report </button>
        </div>
     </div>
     )

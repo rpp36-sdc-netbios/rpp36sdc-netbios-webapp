@@ -54,17 +54,38 @@ app.get('/reviews/meta/:product_id',(req,res)=>{
    var product_id = 71697;
 
   var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${product_id}`
-  // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
-  console.log(url)
 
   axios.get(url,options)
   .then(data=>{
     console.log('API data in get meta reviews '+ data.data.results);
     res.send(data.data)
   })
-  .catch(err=> res.status(500).send('API err inside data get reviews'))
-
+  .catch(err=> res.status(500).send('API err inside data get meta reviews'))
 })
+
+app.get('/products:product_id',(req,res)=>{
+  var id = req.params.product_id;
+  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`;
+
+  axios.get(url,{headers:options.headers})
+  .then(apiRes=>{
+    console.log(apiRes.data);
+    res.json(apiRes.data)
+  })
+  .catch(err=> res.status(500).send('Error when retrieving data'))
+
+});
+
+app.get('/qa:product_id', (req, res) => {
+  var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${req.params.product_id}`;
+  axios.get(url, {headers: options.headers})
+  .then(apiRes => {
+    res.json(apiRes.data);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
 
 app.get('/products',(req,res)=>{
   // var product_id = req.body.product_id;
@@ -74,7 +95,6 @@ app.get('/products',(req,res)=>{
 
 
   var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products`
-  // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
   console.log(url)
 
   axios.get(url,options)

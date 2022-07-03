@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Rating from './Rating.jsx';
+import './rating.css';
 
 describe('Rating test', () => {
     it('testing the test', () => {
