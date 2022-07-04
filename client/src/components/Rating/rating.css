@@ -29,12 +29,12 @@
 
 }
 .summary-box{
-  width: 30%;
+  width: 25%;
   float: left;
 
 }
 .rating-box{
-  width: 70%;
+  width: 65%;
   float: right;
 }
 .button-helpful{
@@ -61,7 +61,7 @@
 
 
 .rating-container {
-  width: 70%;
+  width: 50%;
   float: right;
   margin-left: auto;
   margin-right: auto;
@@ -91,4 +91,10 @@
   font-size: 10px;
   float: right;
 
+}
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
 }
