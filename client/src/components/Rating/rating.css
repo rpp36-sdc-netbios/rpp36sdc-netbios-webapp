@@ -4,6 +4,7 @@
 }
 .review{
   background-color: honeydew;
+  padding-top: 20px;
 }
 .button {
   background-color: white;
@@ -26,10 +27,11 @@
   min-width: 300px;
   flex-wrap: wrap;
   gap: 16px;
+  padding-top: 30px;
 
 }
 .summary-box{
-  width: 25%;
+  width: 35%;
   float: left;
 
 }

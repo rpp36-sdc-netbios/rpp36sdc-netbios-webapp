@@ -1,29 +1,26 @@
 import React from 'react';
 import Overview from './Overview/Overview.jsx';
 import QA from './QuestionsandAnswers/QA.jsx';
-import Rating from './Rating/Rating.jsx';
 import RelatedProducts from './RelatedProducts/RelatedProducts.jsx';
 import './app.css';
-import fakeData from './Rating/FakeData.js';
-import Summary from './Rating/Summary.jsx';
-import meta from './Rating/MetaData.js'
+import ReviewsRatings from './Rating/ReviewsRatings.jsx';
+
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      reviewsResults:fakeData,
-      product_id :1,
-      sort:'newest',
-      meta:meta,
-      currentId: 71701,
+      currentId: 71697,
       product: {},
-
+      sort:'newest',
+      count:5,
+      productId:71697,
     }
 
   }
   componentDidMount() {
+
     fetch('products' + this.state.currentId)
     .then(res => {
       return res.json();
@@ -34,6 +31,37 @@ class App extends React.Component {
     }).catch(err => {
       console.log(err);
     });
+    this.ratingDisplay();
+    this.summaryDisplay();
+
+  }
+
+
+
+  ratingDisplay(){
+    let productId = this.props.productId;
+    var sort = this.state.sort;
+    var count = this.state.count;
+    var page = 1;
+
+    console.log('d')
+    let url =`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data=>{this.setState({reviewsResults:data.results})})
+    .catch(err=> console.log('err inside ratingdisplay'))
+
+
+  }
+  summaryDisplay(){
+    console.log('s');
+    let productId = this.props.productId;
+    let url =`/reviews/meta/${productId}`
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data=>{console.log('data ID '+data.recommended.false);this.setState({metaData:data})})
+    .catch(err=> console.log('err inside summaryplay'))
   }
 
   render(){
@@ -52,8 +80,7 @@ class App extends React.Component {
           <QA productId={this.state.product.id}/>
         </section>
         <section>
-        <Rating results = {this.state.reviewsResults}/>
-        <Summary results ={this.state.meta}/>
+          <ReviewsRatings productId ={this.state.currentId}/>
         </section>
       </div>
     );

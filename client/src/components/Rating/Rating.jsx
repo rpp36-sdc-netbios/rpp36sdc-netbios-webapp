@@ -10,7 +10,7 @@ class Rating extends React.Component {
 
   render(){
     return(
-      <div className ="rating-box">
+      <div >
         <h4> {this.props.results.length} reviews </h4>
         <label>
           sorted by:

@@ -7,6 +7,12 @@ import StarBar from "./StarBar.jsx";
 class Summary extends React.Component {
   constructor(props){
     super(props);
+
+  }
+
+
+
+  render(){
     var recommend = parseInt(this.props.results.recommended.true);
     var negative = parseInt(this.props.results.recommended.false);
     var star_1=0;
@@ -26,68 +32,59 @@ class Summary extends React.Component {
     var totalStars = parseInt(this.props.results.ratings[5])+
     parseInt(this.props.results.ratings[4])+parseInt(this.props.results.ratings[3])
     + parseInt(this.props.results.ratings[2])+parseInt(this.props.results.ratings[1]);
-    console.log("totalStars"+totalStars);
+    // console.log("totalStars"+totalStars);
     var bar5 = Math.floor(parseInt(this.props.results.ratings[5])/totalStars*100);
-    console.log('bar5'+bar5);
+    // console.log('bar5'+bar5);
     var bar4 = Math.floor(parseInt(this.props.results.ratings[4])/totalStars*100);
     var bar3 = Math.floor(parseInt(this.props.results.ratings[3])/totalStars*100);
     var bar2 = Math.floor(parseInt(this.props.results.ratings[2])/totalStars*100);
     var bar1 = Math.floor(parseInt(this.props.results.ratings[1])/totalStars*100);
-
-    var keys=['Fit','Length',"Comforyt"]
-
-
-    this.state ={
-      percent:Math.floor((recommend/(recommend+negative))*100),
-      star5:this.props.results.ratings[5],
-      star4:this.props.results.ratings[4],
-      star3:this.props.results.ratings[3],
-      star2:this.props.results.ratings[2],
-      star1:this.props.results.ratings[1],
-      average:Math.round(total/25*10)/10,
-      size :this.props.results.characteristics.Size ? this.props.results.characteristics.Size.value:5,
-      fit :this.props.results.characteristics.Fit ? this.props.results.characteristics.Fit.value:5,
-      length:this.props.results.characteristics.Length ? this.props.results.characteristics.Length.value:5,
-      comfort:this.props.results.characteristics.Comfort ? this.props.results.characteristics.Comfort.value:5,
-      quality: this.props.results.characteristics.Quality  ? this.props.results.characteristics.Quality.value:5,
-      width: this.props.results.characteristics.Width  ? this.props.results.characteristics.Width.value:5,
-      starsDisplay:str,
-      bar5Display:bar5.toString()+"%",
-      bar4Display:bar4.toString()+"%",
-      bar3Display:bar3.toString()+"%",
-      bar2Display:bar2.toString()+"%",
-      bar1Display:bar1.toString()+"%",
-
-    }
-  }
-  render(){
+    var percent=Math.floor((recommend/(recommend+negative))*100);
+    var star5 = this.props.results.ratings[5];
+    var star4 = this.props.results.ratings[4];
+    var star3 = this.props.results.ratings[3];
+    var star2 = this.props.results.ratings[2];
+    var star1 = this.props.results.ratings[1];
+    var average = Math.round(total/25*10)/10;
+    var size = this.props.results.characteristics.Size ? this.props.results.characteristics.Size.value:5;
+    var fit = this.props.results.characteristics.Fit ? this.props.results.characteristics.Fit.value:5;
+    var length = this.props.results.characteristics.Length ? this.props.results.characteristics.Length.value:5;
+    var comfort = this.props.results.characteristics.Comfort ? this.props.results.characteristics.Comfort.value:5;
+    var quality =this.props.results.characteristics.Quality  ? this.props.results.characteristics.Quality.value:5;
+    var width = this.props.results.characteristics.Width  ? this.props.results.characteristics.Width.value:5;
+    var starsDisplay = str;
+    var  bar5Display = bar5.toString()+"%";
+    var bar4Display = bar4.toString()+"%";
+    var  bar3Display =bar3.toString()+"%";
+    var  bar2Display = bar2.toString()+"%";
+    var  bar1Display= bar1.toString()+"%";
     return(
-      <div className="summary-box">
+      <div s>
         <h1> RATINGS &amp; REVIEWS</h1>
-        <h2>{this.state.average}</h2>
-        <Stars starsDisplay ={this.state.starsDisplay}/>
-        <p> {this.state.percent}% of reviews recommend this product </p>
+        <h2>{average}</h2>
+        <Stars starsDisplay ={starsDisplay}/>
+        <p> {percent}% of reviews recommend this product </p>
         <div>5 stars
-          <StarBar barDisplay = {this.state.bar5Display}/>
+          <StarBar barDisplay = {bar5Display}/>
         </div>
         <div>4 stars
-          <StarBar barDisplay = {this.state.bar4Display}/>
+          <StarBar barDisplay = {bar4Display}/>
         </div>
         <div>3 starsDisplay
-          <StarBar barDisplay = {this.state.bar3Display}/>
+          <StarBar barDisplay = {bar3Display}/>
         </div>
         <div>2 stars
-          <StarBar barDisplay = {this.state.bar2Display}/>
+          <StarBar barDisplay = {bar2Display}/>
         </div>
         <div>1 stars
-          <StarBar barDisplay = {this.state.bar1Display}/>
+          <StarBar barDisplay = {bar1Display}/>
         </div>
-        <div> Size {this.state.size} </div>
-        <div> Width {this.state.width} </div>
-        <div> Comfort {this.state.comfort} </div>
-        <div> Quality {this.state.quality} </div>
-        <div> Length {this.state.length} </div>
-        <div> Fit {this.state.fit} </div>
+        <div> Size {size} </div>
+        <div> Width {width} </div>
+        <div> Comfort {comfort} </div>
+        <div> Quality {quality} </div>
+        <div> Length {length} </div>
+        <div> Fit {fit} </div>
       </div>
 
     )
