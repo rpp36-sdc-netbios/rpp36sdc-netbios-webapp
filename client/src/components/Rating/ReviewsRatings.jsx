@@ -18,36 +18,50 @@ class ReviewsRatings extends React.Component {
   }
 
   componentDidMount(){
-    this.ratingDisplay();
-    this.summaryDisplay();
-
-  }
-
-  ratingDisplay(){
     let productId = this.props.productId;
     var sort = this.state.sort;
     var count = this.state.count;
     var page = 1;
-
-    console.log('d')
-    let url =`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
-    fetch(url)
-    .then(response => response.json())
-    .then(data=>{this.setState({reviewsResults:data.results})})
-    .catch(err=> console.log('err inside ratingdisplay'))
-
-
+    Promise.all([
+      fetch(`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`),
+      fetch(`/reviews/meta/${productId}`)])
+        .then(([res1, res2]) => {
+          return Promise.all([res1.json(), res2.json()])
+       })
+        .then(([data1, data2]) => {
+         // set state in here
+          this.setState({reviewsResults: data1.results,
+            metaData: data2,})
+        })
+        .catch(error=>{ console.log('error inside reviews Rating')});
   }
-  summaryDisplay(){
-    console.log('s');
-    let productId = this.props.productId;
-    let url =`/reviews/meta/${productId}`
 
-    fetch(url)
-    .then(response => response.json())
-    .then(data=>{console.log('data ID '+data.recommended.false);this.setState({metaData:data})})
-    .catch(err=> console.log('err inside summaryplay'))
-  }
+
+
+
+  // ratingDisplay(){
+  //   let productId = this.props.productId;
+  //   var sort = this.state.sort;
+  //   var count = this.state.count;
+  //   var page = 1;
+
+  //   console.log('d')
+  //   let url =`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
+  //   fetch(url)
+  //   .then(response => response.json())
+  //   .then(data=>{this.setState({reviewsResults:data.results})})
+  //   .catch(err=> console.log('err inside ratingdisplay'))
+
+
+  //   let url2 =`/reviews/meta/${productId}`
+  //   fetch(url2)
+  //   .then(response => response.json())
+  //   .then(data=>{console.log('data ID '+data.recommended.false);this.setState({metaData:data})})
+  //   .catch(err=> console.log('err inside summaryplay'))
+
+
+  // }
+
 
 
 
