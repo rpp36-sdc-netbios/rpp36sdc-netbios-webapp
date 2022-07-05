@@ -7,15 +7,14 @@ import ReviewsRatings from './Rating/ReviewsRatings.jsx';
 
 
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
       currentId: 71697,
       product: {},
-      sort:'newest',
-      count:5,
-      productId:71697,
+
     }
 
   }
@@ -31,38 +30,11 @@ class App extends React.Component {
     }).catch(err => {
       console.log(err);
     });
-    this.ratingDisplay();
-    this.summaryDisplay();
-
-  }
-
-
-
-  ratingDisplay(){
-    let productId = this.props.productId;
-    var sort = this.state.sort;
-    var count = this.state.count;
-    var page = 1;
-
-    console.log('d')
-    let url =`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
-    fetch(url)
-    .then(response => response.json())
-    .then(data=>{this.setState({reviewsResults:data.results})})
-    .catch(err=> console.log('err inside ratingdisplay'))
 
 
   }
-  summaryDisplay(){
-    console.log('s');
-    let productId = this.props.productId;
-    let url =`/reviews/meta/${productId}`
 
-    fetch(url)
-    .then(response => response.json())
-    .then(data=>{console.log('data ID '+data.recommended.false);this.setState({metaData:data})})
-    .catch(err=> console.log('err inside summaryplay'))
-  }
+
 
   render(){
     return (
@@ -80,7 +52,7 @@ class App extends React.Component {
           <QA productId={this.state.product.id}/>
         </section>
         <section>
-          <ReviewsRatings productId ={this.state.currentId}/>
+        <ReviewsRatings  productId={this.state.currentId} />
         </section>
       </div>
     );
