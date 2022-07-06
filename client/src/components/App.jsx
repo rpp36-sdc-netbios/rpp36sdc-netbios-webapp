@@ -37,7 +37,7 @@ class App extends React.Component {
           <Overview />
         </section>
         <section>
-          <RelatedProducts />
+          <RelatedProducts productId={this.state.currentId}/>
         </section>
         <section>
           <QA productId={this.state.currentId}/>

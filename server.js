@@ -47,3 +47,14 @@ app.get('/qa:product_id', (req, res) => {
   });
 });
 
+app.get('/related:product_id', (req, res) => {
+  var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}/related`;
+  axios.get(url, {headers: options.headers})
+  .then(apiRes => {
+    res.json(apiRes.data);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
