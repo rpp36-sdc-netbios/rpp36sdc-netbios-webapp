@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './related.css';
 
-var ProductCard = ({ id }) => {
+var ProductCard = ({ id, changeProduct }) => {
 
   var [ product, setProduct ] = useState({ name: ''})
   var [ photo, setPhoto ] = useState('')
@@ -31,12 +31,17 @@ var ProductCard = ({ id }) => {
   }, [photo])
 
   return (
-    <div className='rel-prod-card'>
+    <div className='rel-prod-card' onClick={() => changeProduct(id)}>
       <div className='rel-photo'>
         <img src={photo} alt=''/>
       </div>
-      <div className='res-description'>
-        <p>{product.name}</p>
+      <div className='rel-card-text'>
+        <div className='rel-cat'>
+          <p>{product.category}</p>
+        </div>
+        <div className='rel-desc'>
+          <p className='rel-desc'>{product.name}</p>
+        </div>
       </div>
     </div>
   );

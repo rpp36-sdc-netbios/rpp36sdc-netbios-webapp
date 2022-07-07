@@ -12,17 +12,30 @@ class App extends React.Component {
       currentId: 71701,
       product: {}
     }
+    this.changeProduct = this.changeProduct.bind(this);
   }
 
   componentDidMount() {
+    this.getProduct();
+  }
+  
+  getProduct() {
     fetch('products' + this.state.currentId)
     .then(res => {
       return res.json();
     }).then(product => {
       this.setState({ product }, () => {
+        console.log(this.state);
       });
     }).catch(err => {
       console.log(err);
+    });
+  }
+
+  changeProduct(id) {
+    console.log(id);
+    this.setState({ currentId: id }, () => {
+      this.getProduct();
     });
   }
 
@@ -36,7 +49,7 @@ class App extends React.Component {
           <Overview />
         </section>
         <section>
-          <RelatedProducts productId={this.state.currentId}/>
+          <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct}/>
         </section>
         <section>
           <QA productId={this.state.currentId}/>
