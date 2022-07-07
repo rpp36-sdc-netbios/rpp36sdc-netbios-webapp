@@ -20,7 +20,6 @@ class App extends React.Component {
       return res.json();
     }).then(product => {
       this.setState({ product }, () => {
-        console.log(this.state);
       });
     }).catch(err => {
       console.log(err);
@@ -37,10 +36,10 @@ class App extends React.Component {
           <Overview />
         </section>
         <section>
-          <RelatedProducts />
+          <RelatedProducts productId={this.state.currentId}/>
         </section>
         <section>
-          <QA productId={this.state.product.id}/>
+          <QA productId={this.state.currentId}/>
         </section>
         <section>
           <Rating />
