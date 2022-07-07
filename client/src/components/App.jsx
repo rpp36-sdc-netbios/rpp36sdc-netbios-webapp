@@ -24,16 +24,13 @@ class App extends React.Component {
     .then(res => {
       return res.json();
     }).then(product => {
-      this.setState({ product }, () => {
-        console.log(this.state);
-      });
+      this.setState({ product });
     }).catch(err => {
       console.log(err);
     });
   }
 
   changeProduct(id) {
-    console.log(id);
     this.setState({ currentId: id }, () => {
       this.getProduct();
     });
