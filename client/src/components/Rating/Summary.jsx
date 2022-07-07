@@ -2,6 +2,7 @@ import React from 'react';
 import './rating.css';
 import Stars from './Stars.jsx';
 import StarBar from "./StarBar.jsx";
+import Characteristics from "./Characteristics.jsx";
 
 
 class Summary extends React.Component {
@@ -9,8 +10,6 @@ class Summary extends React.Component {
     super(props);
 
   }
-
-
 
   render(){
     var recommend = parseInt(this.props.results.recommended.true);
@@ -58,6 +57,10 @@ class Summary extends React.Component {
     var  bar3Display =bar3.toString()+"%";
     var  bar2Display = bar2.toString()+"%";
     var  bar1Display= bar1.toString()+"%";
+    var array =[];
+    var keys = Object.keys(this.props.results.characteristics);
+
+
     return(
       <div s>
         <h1> RATINGS &amp; REVIEWS</h1>
@@ -85,6 +88,13 @@ class Summary extends React.Component {
         <div> Quality {quality} </div>
         <div> Length {length} </div>
         <div> Fit {fit} </div>
+        <div>
+          <div>
+        {/* {keys.map((item,key) =>
+          <Characteristics item ={item} key={key} />
+        )} */}
+          </div>
+        </div>
       </div>
 
     )

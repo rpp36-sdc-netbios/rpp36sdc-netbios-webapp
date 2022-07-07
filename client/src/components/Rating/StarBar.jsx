@@ -15,7 +15,7 @@ class StarBar extends React.Component {
     }
     return(
       <div className ="bar-container">
-        <div style ={bar}>
+        <div style = {bar}>
         </div>
       </div>
 
