@@ -1,8 +1,48 @@
 #related {
-  height: 300px;
-  width: 85%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 30px;
   min-width: 300px;
   padding-top: 20px;
+}
+
+.rel-slide-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.rel-prod-card {
+  width: 200px;
+  min-width: 200px;
+  background-color: ivory;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 300px;
+  border: 1px solid black;
+}
+
+.rel-btn {
+  display: inline-block;
+  background-color: brown;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.rel {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
+
+.rel-outfit {
+  height: 300px;
 }

@@ -41,7 +41,7 @@
   display: inline-block;
   width: 20%;
   margin-top: 20px;
-  font-size: x-small;
+  font-size: 11px;
   vertical-align: top;
   text-align: end;
 }
@@ -49,14 +49,16 @@
 .qa-question {
   margin-bottom: 10px;
   margin-top: 15px;
+  font-size: large;
 }
 
 .qa-answer {
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .qa-user {
-  font-size: x-small;
+  font-size: 11px;
   margin-left: 25px;
   margin-bottom: 15px
 }

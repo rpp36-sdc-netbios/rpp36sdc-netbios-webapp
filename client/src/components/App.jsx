@@ -20,7 +20,6 @@ class App extends React.Component {
       return res.json();
     }).then(product => {
       this.setState({ product }, () => {
-        console.log(this.state);
       });
     }).catch(err => {
       console.log(err);

@@ -22,7 +22,24 @@ var RelatedProducts = ({ productId }) => {
     <div id='related'>
       <h3>RELATED PRODUCTS</h3>
       <br />
-      {related.map(item => <ProductCard key={item} id={item} />)}
+
+      <div className='rel'>
+        <div className='rel-btn'>
+          <input type='button' value='left' />
+        </div>
+        <div className='rel-slide-container'>
+          {related.map(item => <ProductCard key={item} id={item} />)}
+        </div>
+        <div className='rel-btn'>
+          <input type='button' value='right' />
+        </div>
+      </div>
+
+      <h3>YOUR OUTFIT</h3>
+      <div className='rel-outfit'>
+
+      </div>
+
     </div>
   );
 };
