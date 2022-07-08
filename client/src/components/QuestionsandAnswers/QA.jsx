@@ -5,6 +5,7 @@ import { keyframes } from '@emotion/react';
 import QSet from './QSet.jsx';
 
 var QA = (props) => {
+
   var [ qSearch, setQSearch ] = useState('');
   var [ waiting, setWaiting ] = useState(true);
   var [ questions, setQuestions ] = useState([]);
@@ -28,7 +29,7 @@ var QA = (props) => {
     }).catch((err) => {
       console.log(err);
     });
-  }, []);
+  }, [props.productId]);
 
   useEffect(() => {
     if (temp) {
