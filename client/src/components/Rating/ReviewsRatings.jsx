@@ -11,17 +11,39 @@ class ReviewsRatings extends React.Component {
     super(props);
     this.state = {
       reviewsResults:[],
-      sort:'newest',
+      sort:'relevance',
       metaData:meta,
       count:5,
     }
+    this.changSort= this.changSort.bind(this)
+
   }
+  changSort(value){
+    console.log('inside sort'+ value);
+    this.setState({sort:value});
+    this.ratingDisplay();
+
+  }
+  ratingDisplay(){
+    let productId = this.props.productId;
+    var sort = this.state.sort;
+    var count = this.state.count;
+    var page = 1;
+    console.log('d')
+    let url =`reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data=>{this.setState({reviewsResults:data.results})})
+    .catch(err=> console.log(err))
+  }
+
 
   componentDidMount(){
     let productId = this.props.productId;
     var sort = this.state.sort;
     var count = this.state.count;
     var page = 1;
+    console.log('url'+ `/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`)
     Promise.all([
       fetch(`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`),
       fetch(`/reviews/meta/${productId}`)])
@@ -37,39 +59,14 @@ class ReviewsRatings extends React.Component {
   }
 
 
-
-
-  // ratingDisplay(){
-  //   let productId = this.props.productId;
-  //   var sort = this.state.sort;
-  //   var count = this.state.count;
-  //   var page = 1;
-
-  //   console.log('d')
-  //   let url =`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`
-  //   fetch(url)
-  //   .then(response => response.json())
-  //   .then(data=>{this.setState({reviewsResults:data.results})})
-  //   .catch(err=> console.log('err inside ratingdisplay'))
-
-
-  //   let url2 =`/reviews/meta/${productId}`
-  //   fetch(url2)
-  //   .then(response => response.json())
-  //   .then(data=>{console.log('data ID '+data.recommended.false);this.setState({metaData:data})})
-  //   .catch(err=> console.log('err inside summaryplay'))
-
-
-  // }
-
-
-
-
   render(){
+    var list ={
+
+    }
     return (
       <div >
         <div className ="rating-box">
-        <Rating results = {this.state.reviewsResults}/>
+        <Rating results = {this.state.reviewsResults} changSort={this.changSort} sort={this.state.sort}/>
         </div>
         <div className="summary-box">
         <Summary results ={this.state.metaData}/>

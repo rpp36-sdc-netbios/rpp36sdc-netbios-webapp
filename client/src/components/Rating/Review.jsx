@@ -14,10 +14,19 @@ class Review extends React.Component {
     }
   }
   render(){
+    var date = this.props.review.date;
+    var dateData = new Date(date);
+
+    var dateForm = dateData.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+
+  });
     return(
     <div className ='review'>
       <div className ="user-box">
-      {this.props.review.reviewer_name},{this.props.review.date}
+      {this.props.review.reviewer_name},{dateForm}
       </div>
       <Stars starsDisplay ={this.state.starsDisplay} />
       <div>
