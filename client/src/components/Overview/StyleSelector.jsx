@@ -1,6 +1,14 @@
 import React from 'react';
+import ButtonEntry from './ButtonEntry.jsx'
 
 const StyleSelector = (props) => {
+  console.log(props.styles.styles.results)
+
+  var buttonentries;
+
+  buttonentries = props.styles.styles.results.map(result =>
+    <ButtonEntry key={result.style_id} name={result.name} id={result.style_id} onSelect={props.onSelect}/>)
+
   return (
     <div>
       <div className='style-select-word'>
@@ -8,14 +16,7 @@ const StyleSelector = (props) => {
       </div>
 
       <div className='style-select'>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
-          <button id='style-button'></button>
+      {buttonentries}
       </div>
     </div>
   )

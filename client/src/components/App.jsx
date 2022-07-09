@@ -16,45 +16,52 @@ class App extends React.Component {
       product: {},
 
     }
+    this.changeProduct = this.changeProduct.bind(this);
 
   }
   componentDidMount() {
+    this.getProduct();
+  }
 
+  getProduct() {
     fetch('products' + this.state.currentId)
     .then(res => {
       return res.json();
     }).then(product => {
-      this.setState({ product }, () => {
-        console.log(this.state);
-      });
+      this.setState({ product});
     }).catch(err => {
       console.log(err);
     });
 
-
   }
 
+  changeProduct(id) {
+    this.setState({ currentId: id }, () => {
+      this.getProduct();
+    });
+  }
 
-
-  render(){
+  render() {
+    // console.log(this.state.product)
     return (
       <div id='container'>
       <div id='nav'>
         <span>Bauhaus</span>
       </div>
-      <section>
-          <Overview />
+        <section>
+          <Overview productId={this.state.currentId} product={this.state.product}/>
         </section>
         <section>
-          <RelatedProducts />
+          <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct}/>
         </section>
         <section>
-          <QA productId={this.state.product.id}/>
+          <QA productId={this.state.currentId}/>
         </section>
         <section>
         <ReviewsRatings  productId={this.state.currentId} />
         </section>
       </div>
+
     );
   }
 };

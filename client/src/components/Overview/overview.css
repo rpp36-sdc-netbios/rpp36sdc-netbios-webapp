@@ -33,14 +33,13 @@
   font-weight: bold;
 }
 
-#style-button {
+.style-button {
   background-color: grey;
   border: white;
-  padding: 25px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  margin: 10px 10px;
+  margin: 8px 8px;
   border-radius: 50%;
 }
 
@@ -88,3 +87,10 @@
   font-size: medium;
 }
 
+#main-pic {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  height: 80%;
+  display: block;
+}
