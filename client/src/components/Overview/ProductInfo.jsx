@@ -3,7 +3,14 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import './overview.css'
 
-const ProductInfo = () => {
+const ProductInfo = (props) => {
+  if (props.item) {
+    var price = props.item.original_price
+  } else {
+    var price = props.product.default_price
+  }
+  var category = props.product.category
+  var name = props.product.name
   var totalStars = 5;
   var activeStars = 3;
   return (
@@ -16,9 +23,9 @@ const ProductInfo = () => {
       </div>
 
       <div className='product-detail'>
-        <p id='category-name'>CATEGORY</p>
-        <h1 id='expand-name'>Expanded Product Name</h1>
-        <p id='price'>$369</p>
+        <p id='category-name'>{category}</p>
+        <h1 id='expand-name'>{name}</h1>
+        <p id='price'>${price}</p>
       </div>
     </div>
   )

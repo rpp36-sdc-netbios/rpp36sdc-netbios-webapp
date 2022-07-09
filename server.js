@@ -64,6 +64,7 @@ app.get('/styles:product_id', (req, res) => {
   axios.get(url, {headers: options.headers})
   .then(apiRes => {
     res.json(apiRes.data);
+    console.log(apiRes.data)
   }).catch(err => {
     console.log(err);
     res.sendStatus(500);

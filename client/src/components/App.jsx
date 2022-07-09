@@ -18,7 +18,7 @@ class App extends React.Component {
   componentDidMount() {
     this.getProduct();
   }
-  
+
   getProduct() {
     fetch('products' + this.state.currentId)
     .then(res => {
@@ -37,13 +37,14 @@ class App extends React.Component {
   }
 
   render() {
+    // console.log(this.state.product)
     return (
       <div id='container'>
       <div id='nav'>
         <span>Bauhaus</span>
       </div>
         <section>
-          <Overview />
+          <Overview productId={this.state.currentId} product={this.state.product}/>
         </section>
         <section>
           <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct}/>
