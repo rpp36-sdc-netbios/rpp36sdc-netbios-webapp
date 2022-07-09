@@ -1,20 +1,24 @@
 import React from 'react';
 import Overview from './Overview/Overview.jsx';
 import QA from './QuestionsandAnswers/QA.jsx';
-import Rating from './Rating/Rating.jsx';
 import RelatedProducts from './RelatedProducts/RelatedProducts.jsx';
 import './app.css';
+import ReviewsRatings from './Rating/ReviewsRatings.jsx';
+
+
+
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentId: 71701,
-      product: {}
+  constructor(props) {
+    super(props);
+    this.state ={
+      currentId: 71697,
+      product: {},
+
     }
     this.changeProduct = this.changeProduct.bind(this);
-  }
 
+  }
   componentDidMount() {
     this.getProduct();
   }
@@ -24,10 +28,11 @@ class App extends React.Component {
     .then(res => {
       return res.json();
     }).then(product => {
-      this.setState({ product });
+      this.setState({ product});
     }).catch(err => {
       console.log(err);
     });
+
   }
 
   changeProduct(id) {
@@ -53,9 +58,10 @@ class App extends React.Component {
           <QA productId={this.state.currentId}/>
         </section>
         <section>
-          <Rating />
+        <ReviewsRatings  productId={this.state.currentId} />
         </section>
       </div>
+
     );
   }
 };

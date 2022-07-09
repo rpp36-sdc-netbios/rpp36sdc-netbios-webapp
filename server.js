@@ -71,3 +71,43 @@ app.get('/styles:product_id', (req, res) => {
   });
 })
 
+app.get('/reviews',(req,res)=>{
+  // var product_id = req.body.product_id;
+  // var page = req.body.page;
+  // var sort = req.body.sort;
+  // var count = req.body.count;
+  console.log('req.query'+req.query.page)
+  var {product_id, sort, count,page} = req.query;
+
+
+  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
+  // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
+  console.log(url)
+
+  axios.get(url,options)
+  .then(data=>{
+    console.log('API data in get reviews '+ data.data.results);
+    res.send(data.data)
+  })
+  .catch(err=> res.status(500).send('API err inside data get reviews'))
+
+})
+app.get('/reviews/meta/:product_id',(req,res)=>{
+  // var product_id = req.body.product_id;
+  // var page = req.body.page;
+  // var sort = req.body.sort;
+  // var count = req.body.count;
+  console.log('req.params'+req.params.product_id)
+   var product_id = req.params.product_id;
+
+  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${product_id}`
+
+  axios.get(url,options)
+  .then(data=>{
+    console.log('API data in get meta reviews '+ data.data);
+    res.send(data.data)
+  })
+  .catch(err=> res.status(500).send('API err inside data get meta reviews'))
+})
+
+
