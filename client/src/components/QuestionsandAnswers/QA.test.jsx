@@ -25,7 +25,7 @@ describe('QA test', () => {
   afterEach(() => {
     global.fetch.mockClear();
     delete global.fetch;
-  })
+  });
 
   it('Should render QA title', () => {
     var el = qa.getByTestId('qa-title');

@@ -13,14 +13,12 @@ var QA = (props) => {
   }, [ questions ])
 
   useEffect(() => {
-    fetch('qa' + props.productId)
-    .then(res => {
-      return res.json();
-    }).then(data => {
-      setQuestions(data.results);
-    }).catch((err) => {
-      console.log(err);
-    });
+    (async () => {
+      setQuestions(await fetch('qa' + props.productId).res.json().results);
+      // var res = await fetch('qa' + props.productId);
+      // var data = await res.json();
+      // setQuestions(data.results);
+    })();
   }, [props.productId]);
 
 
