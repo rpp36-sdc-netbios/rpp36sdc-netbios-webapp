@@ -14,7 +14,6 @@ class App extends React.Component {
     this.state ={
       currentId: 71697,
       product: {},
-
     }
     this.changeProduct = this.changeProduct.bind(this);
 
@@ -42,7 +41,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.product)
     return (
       <div id='container'>
       <div id='nav'>

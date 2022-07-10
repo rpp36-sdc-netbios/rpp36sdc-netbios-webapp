@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 
 var Answers = ({ aFeedbackHandler, answer }) => {
 
@@ -11,7 +10,7 @@ var Answers = ({ aFeedbackHandler, answer }) => {
 
   var date = monthNames[aDate.getMonth()] + ' ' + aDate.getDate() + ', ' + aDate.getFullYear();
   return (
-    <div className='qa-answer-block'>
+    <div data-testid='qa-answer' className='qa-answer-block'>
       <div className='qa-answer'>
         <div className='qa-bold qa-label'>A:</div>
         <p>{answer.body}</p>
