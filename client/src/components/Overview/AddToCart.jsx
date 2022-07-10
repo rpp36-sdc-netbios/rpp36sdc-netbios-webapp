@@ -1,14 +1,30 @@
 import React from 'react';
 
 const AddToCart = (props) => {
+  var optionentries1;
+  var optionentries2;
+  if (props.item.skus) {
+    var skus = Object.keys(props.item.skus).map((key) => props.item.skus[key])
+    optionentries1 =skus.map(item =>
+      <option> {item.size}  </option>)
+    optionentries2 = skus.map(item =>
+      <option> {item.quantity} </option>)
+  } else {
+    optionentries1 = <option> SELECT SIZE </option>
+    optionentries2 = <option> 1 </option>
+  }
+
+
   return (
     <div>
        <div class="custom-select">
           <select id='select-size'>
-          <option>Select Size</option>
+          <option> SELECT SIZE </option>
+          {optionentries1}
           </select>
           <select id='select-quantity'>
-          <option >1</option>
+          <option> 1 </option>
+          {optionentries2}
           </select>
       </div>
       <div class='add-button'>
