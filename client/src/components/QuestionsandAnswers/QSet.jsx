@@ -23,7 +23,7 @@ var QSet = ({ aFeedbackHandler, question }) => {
 
 
   return (
-    <div className='qa-item'>
+    <div data-testid='qa-qset' className='qa-item'>
       <div className='qa-text'>
         <div className='qa-bold qa-question'>
           <div className='qa-label'>Q:</div><div className='qa-text'><p>{question.question_body}</p></div>

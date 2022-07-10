@@ -7,15 +7,7 @@ import QSet from './QSet.jsx';
 var QA = (props) => {
 
   var [ qSearch, setQSearch ] = useState('');
-  var [ waiting, setWaiting ] = useState(true);
   var [ questions, setQuestions ] = useState([]);
-  var temp = true;
-
-  var search = () => {
-    if (!waiting) {
-      console.log(qSearch);
-    }
-  }
 
   useEffect(() => {
   }, [ questions ])
@@ -31,15 +23,6 @@ var QA = (props) => {
     });
   }, [props.productId]);
 
-  useEffect(() => {
-    if (temp) {
-      setTimeout(() => {
-        setWaiting(false)
-      }, 3000)
-      temp = false;
-    }
-    search();
-  }, [qSearch]);
 
   var qHandler = (e) => {
     setQSearch(e.target.value);
@@ -51,9 +34,9 @@ var QA = (props) => {
 
   return (
     <div className='qa-container'>
-      <h3>QUESTIONS & ANSWERS</h3>
+      <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
         <div className='qa-search-container'>
-          <input className='qa-search' type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={qHandler} />
+          <input data-testid='qa-search' className='qa-search' type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={qHandler} />
           <i className="fa fa-search pointer"></i>
         </div>
       <div className='qa-list'>
