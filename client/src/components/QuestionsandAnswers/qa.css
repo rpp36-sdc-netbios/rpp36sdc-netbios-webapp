@@ -1,11 +1,12 @@
 .qa-container {
-  width: 85%;
+  width: 60vw;
   margin-left: auto;
   margin-right: auto;
   min-width: 300px;
 }
 
 .qa-search-container {
+  width: 100%;
   white-space: nowrap;
 }
 
@@ -30,7 +31,7 @@
 
 .qa-text {
   display: inline-block;
-  width: 80%;
+  width: 75%;
 }
 
 .qa-text p {
@@ -71,12 +72,25 @@
   width: 20px;
   display: inline-block;
   vertical-align: top;
+  font-weight: 800;
+  font-size: 12pt;
+}
+
+.qa-label-a {
+  position: relative;
+  top: -.09em;
+
+}
+
+.qa-label-q {
+  position: relative;
+  top: .1em;
 }
 
 .qa-more-answers {
   margin-left: 25px;
   margin-top: 10px;
-  font-size: x-small;
+  font-size: .75em;
   font-weight: 800;
 }
 
@@ -119,10 +133,17 @@ p {
 }
 
 .qa-item {
-  width: 110%;
+  width: 100%;
 }
 
 .underline {
   text-decoration: underline;
+}
+
+.qa-list {
+  width: 60vw;
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: auto;
 }
 
