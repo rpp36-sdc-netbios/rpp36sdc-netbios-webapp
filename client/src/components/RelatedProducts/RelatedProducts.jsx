@@ -1,49 +1,21 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import useFetch from '../useFetch.js';
 import './related.css';
-import ProductCard from './ProductCard.jsx';
+import SlideContainer from './SlideContainer.jsx';
+
 
 var RelatedProducts = ({ productId, changeProduct }) => {
 
-  var [ related, setRelated ] = useState([]);
-
-  useEffect(() => {
-    fetch('related' + productId)
-    .then(res => {
-      return res.json();
-    }).then(data => {
-      setRelated([...new Set(data)]);
-    }).catch(err => {
-      console.log(err);
-    })
-  }, [productId]);
-
-  var slide = (e) => {
-    var [ container, direction ] = e.target.id.split('-');
-    if (container === 'rel') {
-      container = document.getElementById('rel-container');
-      direction === 'left' ? container.scrollLeft -= 80 : container.scrollLeft += 80;
-    }
-  }
+  var [ data, pending, error ] = useFetch('related/' + productId);
 
   return (
     <div id='related'>
       <div className='rel-header'>
         <h3>RELATED PRODUCTS</h3>
       </div>
-
-      <div className='rel'>
-        <div className='rel-btn rel-btn-left'>
-          <input id='rel-left' type='button' value='<' onClick={slide} />
-        </div>
-        <div id='rel-container' className='rel-slide-container' >
-          {related.map(item => <ProductCard key={item} id={item} changeProduct={changeProduct}/>)}
-        </div>
-        <div className='rel-btn rel-btn-right'>
-          <input id='rel-right' type='button' value='>' onClick={slide} />
-        </div>
-      </div>
-
+      {error && <div>{error}</div>}
+      {pending && <div>Loading...</div>}
+      {data && <SlideContainer data={data} changeProduct={changeProduct}/>}
       <h3>YOUR OUTFIT</h3>
       <div className='rel-outfit'>
 

@@ -4,7 +4,6 @@ import RelatedProducts from './RelatedProducts.jsx';
 
 describe('Related Products test', () => {
     it('testing the test - Related', () => {
-    render(<RelatedProducts />);
         expect(true).toBe(true)
     });
 });
