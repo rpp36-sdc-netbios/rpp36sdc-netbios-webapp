@@ -13,7 +13,14 @@ var Answers = ({ feedbackHandler, questionId }) => {
 
   useEffect(() => {
     if (data) {
-      setAnswers([...answers, ...data.results])
+      var newAnswers = answers.concat(data.results);
+      var aIds = [];
+      setAnswers(newAnswers.filter(a => {
+        if (aIds.indexOf(a.answer_id) < 0) {
+          aIds.push(a.answer_id);
+          return true;
+        }
+      }));
       data.results.length < 2 ? setMore(false) : setMore(true);
     }
   }, [ data ]);
@@ -25,16 +32,14 @@ var Answers = ({ feedbackHandler, questionId }) => {
 
   return (
     <div className='qa-answer-block'>
-      {answers.map(a => <Answer key={a.answer_id + random()} answer={a} feedbackHandler={feedbackHandler} />)}
+      {answers.map(a => <Answer key={a.answer_id} answer={a} feedbackHandler={feedbackHandler} />)}
+      {pending && <div>Loading...</div>}
+      {error && <div>{error.message}</div>}
       {more && <p className='pointer qa-more-answers' onClick={loadMore}>LOAD MORE ANSWERS</p>}
     </div>
 
   );
 };
-
-var random = () => {
-  return Math.random() * 1000;
-}
 
 
 export default Answers

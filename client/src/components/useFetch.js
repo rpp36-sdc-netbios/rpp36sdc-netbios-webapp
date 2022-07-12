@@ -16,7 +16,6 @@ var useFetch = (url) => {
       }
       return res.json();
     }).then(data => {
-      // timeout to simulate network
       setData(data);
       setPending(false);
     }).catch(err => {

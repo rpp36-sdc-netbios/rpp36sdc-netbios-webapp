@@ -22,7 +22,14 @@ var QA = ({ productId }) => {
       if (page === 1) {
         setQuestions(data.results);
       } else {
-        setQuestions([ ...questions, ...data.results ]);
+        var newQuestions = questions.concat(data.results);
+        var qIds = [];
+        setQuestions(newQuestions.filter(q => {
+          if (qIds.indexOf(q.question_id) < 0) {
+            qIds.push(q.question_id);
+            return true;
+          }
+        }));
       }
     }
   }, [ data ])
@@ -44,9 +51,9 @@ var QA = ({ productId }) => {
       <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
       <QSearch productId={productId} setQuestions={setQuestions}/>
       <div className='qa-list'>
+        {questions.map(q => <QSet key={q.question_id} question={q} feedbackHandler={feedbackHandler} />)}
         {pending && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        {questions.map(q => <QSet key={q.question_id + random()} question={q} feedbackHandler={feedbackHandler} />)}
       </div>
       <div className='qa-buttons'>
         <div>
@@ -59,10 +66,5 @@ var QA = ({ productId }) => {
     </div>
   );
 }
-
-var random = () => {
-  return Math.random() * 1000;
-}
-
 
 export default QA;
