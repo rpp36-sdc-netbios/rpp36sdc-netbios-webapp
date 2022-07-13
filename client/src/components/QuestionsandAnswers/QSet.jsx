@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './qa.css';
 import Answers from './Answers.jsx';
 
 
-var QSet = ({ feedbackHandler, question, term }) => {
+var QSet = ({ question }) => {
 
   var id = question.question_id;
+  var [ helpfulness, setHelpfulness ] = useState(question.question_helpfulness);
+
+  var feedbackHandler = async ( qa, feedback, id) => {
+    var res = await fetch('qa/feedback', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ qa, feedback, id})
+    });
+    if (res.ok) {
+      setHelpfulness(helpfulness + 1);
+    }
+  };
 
   return (
     <div data-testid='qa-qset' className='qa-item'>
       <div className='qa-text'>
         <div className='qa-bold qa-question'>
-          <div className='qa-label qa-label-q'>Q:</div><div className='qa-text'>&nbsp;{question.question_body}</div>
+          <div className='qa-text'><span>Q:</span>&nbsp;{question.question_body}</div>
         </div>
         <Answers questionId={question.question_id} feedbackHandler={feedbackHandler} />
       </div>
       <div className='qa-item-right'>
-        <p>Helpful? <span className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes({question.question_helpfulness})</span>
-          |  <span className='pointer underline' onClick={(e) => {}}>Add&nbsp;Answer</span></p>
+        <p>Helpful? <span className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes({helpfulness})</span>&nbsp;|&nbsp;<span className='pointer underline' onClick={(e) => {}}>Add&nbsp;Answer</span></p>
       </div>
     </div>
   );

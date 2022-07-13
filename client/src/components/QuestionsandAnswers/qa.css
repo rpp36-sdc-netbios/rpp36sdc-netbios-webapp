@@ -6,7 +6,6 @@
 }
 
 .qa-search-container {
-  width: 100%;
   white-space: nowrap;
 }
 
@@ -29,13 +28,19 @@
   right: 25px;
 }
 
-.qa-text {
-  display: inline-block;
-  width: 75%;
+.qa-label {
+  font-size: 14pt;
+  font-weight: 700;
 }
 
-.qa-text p {
-  margin-left: 5px;
+.qa-text {
+  text-indent: -25px;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.qa-date {
+  white-space: nowrap;
 }
 
 .qa-item-right {
@@ -60,38 +65,26 @@
 
 .qa-user {
   font-size: 11px;
-  margin-left: 25px;
-  margin-bottom: 15px
+  margin-left: 4%;
+  margin-bottom: 15px;
+  text-indent: 0px;
 }
 
 .qa-bold {
   font-weight: bolder;
 }
 
-.qa-label {
-  width: 20px;
-  display: inline-block;
-  vertical-align: top;
-  font-weight: 800;
-  font-size: 12pt;
-}
-
-.qa-label-a {
-  position: relative;
-  top: -.09em;
-
-}
-
-.qa-label-q {
-  position: relative;
-  top: .1em;
-}
 
 .qa-more-answers {
-  margin-left: 25px;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 10%;
   font-size: .75em;
   font-weight: 800;
+}
+
+.qa-more-answers-item {
+  flex-basis: 200px;
 }
 
 .pointer {
@@ -104,7 +97,7 @@ p {
 
 .qa-buttons {
   margin-left: 25px;
-  margin-top: 20px;
+  margin-top: 5px;
   white-space: nowrap;
 }
 
@@ -132,18 +125,25 @@ p {
   display: inline-block;
 }
 
-.qa-item {
-  width: 100%;
-}
-
 .underline {
   text-decoration: underline;
 }
 
 .qa-list {
-  width: 60vw;
   max-height: 80vh;
-  overflow-y: scroll;
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+.qa-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.qa-item:last-child {
+  padding-bottom: 15px;
 }
 

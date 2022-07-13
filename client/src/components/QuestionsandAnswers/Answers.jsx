@@ -29,13 +29,21 @@ var Answers = ({ feedbackHandler, questionId }) => {
     setPage(page + 1);
   };
 
+  var collapseAnswers = () => {
+    setPage(1);
+    setAnswers(answers.slice(0, 2));
+  }
+
 
   return (
     <div className='qa-answer-block'>
       {answers.map(a => <Answer key={a.answer_id} answer={a} feedbackHandler={feedbackHandler} />)}
       {pending && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
-      {more && <p className='pointer qa-more-answers' onClick={loadMore}>LOAD MORE ANSWERS</p>}
+      <div className='qa-more-answers'>
+        {more && <div className='pointer qa-more-answers-item' onClick={loadMore}>LOAD MORE ANSWERS</div>}
+        {answers.length > 2 && <div className='pointer qa-more-answers-item' onClick={collapseAnswers}>COLLAPSE ANSWERS</div>}
+      </div>
     </div>
 
   );

@@ -10,7 +10,6 @@ var QA = ({ productId }) => {
   var [ count, setCount ] = useState(2);
   var [ questions, setQuestions ] = useState([]);
 
-
   var [ data, pending, error ] = useFetch(`questions?product_id=${productId}&page=${page}&count=${count}`);
 
   var loadMore = () => {
@@ -34,24 +33,17 @@ var QA = ({ productId }) => {
     }
   }, [ data ])
 
-  var feedbackHandler = async ( qa, feedback, id) => {
-    var res = await fetch('qa/feedback', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ qa, feedback, id})
-    });
-    console.log(res.status);
-  };
+  useEffect(() => {
+      var container = document.getElementsByClassName('qa-list')[0];
+      container.scroll({ top: container.scrollHeight, behavior: 'smooth'});
+  }, []);
 
   return (
     <div className='qa-container'>
       <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
       <QSearch productId={productId} setQuestions={setQuestions}/>
       <div className='qa-list'>
-        {questions.map(q => <QSet key={q.question_id} question={q} feedbackHandler={feedbackHandler} />)}
+        {questions.map(q => <QSet key={q.question_id} question={q} />)}
         {pending && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </div>
@@ -60,7 +52,7 @@ var QA = ({ productId }) => {
           <input className='pointer' type='button' value='MORE ANSWERED QUESTIONS' onClick={loadMore} />
         </div>
         <div>
-          <input className='pointer' type='button' value='ADD A QUESTION      ' /><i className="fa fa-plus" aria-hidden="true"></i>
+          <input className='pointer' type='button' value='ADD A QUESTION' style={{width: '200px'}} /><i className="fa fa-plus" aria-hidden="true"></i>
         </div>
       </div>
     </div>
