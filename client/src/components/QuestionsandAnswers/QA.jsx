@@ -3,12 +3,14 @@ import './qa.css';
 import useFetch from '../useFetch.js'
 import QSet from './QSet.jsx';
 import QSearch from './QSearch.jsx';
+import AddQuestion from './AddQuestion.jsx';
 
 var QA = ({ productId }) => {
 
   var [ page, setPage ] = useState(1);
   var [ count, setCount ] = useState(2);
   var [ questions, setQuestions ] = useState([]);
+  var [ addQuestion, setAddQuestion ] = useState(false);
 
   var [ data, pending, error ] = useFetch(`questions?product_id=${productId}&page=${page}&count=${count}`);
 
@@ -38,6 +40,10 @@ var QA = ({ productId }) => {
       container.scroll({ top: container.scrollHeight, behavior: 'smooth'});
   }, []);
 
+  var showAddQuestion = (showAddModal) => {
+    setAddQuestion(showAddModal);
+  };
+
   return (
     <div className='qa-container'>
       <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
@@ -49,12 +55,13 @@ var QA = ({ productId }) => {
       </div>
       <div className='qa-buttons'>
         <div>
-          <input className='pointer' type='button' value='MORE ANSWERED QUESTIONS' onClick={loadMore} />
+          <button className='pointer' type='button' onClick={loadMore}>MORE ANSWERED QUESTIONS</button>
         </div>
         <div>
-          <input className='pointer' type='button' value='ADD A QUESTION' style={{width: '200px'}} /><i className="fa fa-plus" aria-hidden="true"></i>
+          <button className='pointer qa-add-button' type='button' onClick={() => showAddQuestion(true)}>ADD A QUESTION</button><div className='qa-plus'>+</div>
         </div>
       </div>
+      {addQuestion && <AddQuestion />}
     </div>
   );
 }

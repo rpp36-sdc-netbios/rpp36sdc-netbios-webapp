@@ -50,6 +50,7 @@
   font-size: 11px;
   vertical-align: top;
   text-align: end;
+  padding-right: 10px;
 }
 
 .qa-question {
@@ -72,6 +73,18 @@
 
 .qa-bold {
   font-weight: bolder;
+}
+
+.qa-add-question {
+  position: fixed;
+  z-index: 1;
+  top: 25vh;
+  left: 17.5vw;
+  width: 65vw;
+  height: 50vh;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px;
 }
 
 
@@ -101,20 +114,25 @@ p {
   white-space: nowrap;
 }
 
-.qa-buttons input {
+.qa-buttons button {
   margin-right: 20px;
   height: 40px;
+  max-height: 40px;
   background-color: white;
   font-weight: bold;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-.fa-plus {
+.qa-add-button {
+  padding-right: 30px;
+}
+
+.qa-plus {
+  font-size: 1.5em;
   position: relative;
-  right: 50px;
-  top: 2px;
-  cursor: pointer;
+  left: -35%;
+  top: 3px;
 }
 
 .qa-buttons div {
