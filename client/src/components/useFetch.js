@@ -18,7 +18,7 @@ var useFetch = (url) => {
       setData(data);
       setPending(false);
     }).catch(err => {
-      console.log(err);
+      setError(err);
       setPending(false);
     });
 
