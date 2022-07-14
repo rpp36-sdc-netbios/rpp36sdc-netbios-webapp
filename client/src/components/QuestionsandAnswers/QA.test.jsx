@@ -1,7 +1,7 @@
 import React from 'react';
 import QA from './QA.jsx';
 import { render } from '@testing-library/react';
-import { Simulate, act } from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 
 var mockFetch = () => {
   return jest.fn((url) => {
@@ -28,7 +28,7 @@ describe('QA test', () => {
 
   afterEach(() => {
     global.fetch.mockClear();
-    //delete global.fetch;
+    delete global.fetch;
   });
 
   it('Should render QA title', async () => {
@@ -49,12 +49,6 @@ describe('QA test', () => {
   it('Should render two answers', async () => {
       var el = await qa.findAllByTestId('qa-answer');
       expect(el.length).toBe(4);
-  });
-
-  it('Should accept feedback for quesions', async () => {
-    var el = await qa.findAllByTestId('qa-question-helpful');
-    Simulate.click(el);
-    expect(true).toBe(true);
   });
 });
 
