@@ -34,7 +34,6 @@ var Answers = ({ feedbackHandler, questionId }) => {
     setAnswers(answers.slice(0, 2));
   }
 
-
   return (
     <div className='qa-answer-block'>
       {answers.map(a => <Answer key={a.answer_id} answer={a} feedbackHandler={feedbackHandler} />)}

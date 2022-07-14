@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 
 var AddQuestion = () => {
-  
+
   useEffect(() => {
-    console.log('Add Question');
   }, [])
 
   return (

@@ -126,12 +126,15 @@ p {
 
 .qa-add-button {
   padding-right: 30px;
+  width: 173px;
+  text-align: start;
+  padding-left: 20px;
 }
 
 .qa-plus {
   font-size: 1.5em;
   position: relative;
-  left: -35%;
+  left: -27%;
   top: 3px;
 }
 

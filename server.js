@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const {token} = require('./config.js');
 const axios = require('axios');
 const path = require('path');
+var compression = require('compression');
 
 const port = 3000;
 const BASEURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
@@ -10,6 +11,7 @@ const BASEURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
 const app = express();
 
 app.use(morgan('tiny'));
+app.use(compression());
 app.use(express.static(path.resolve(__dirname, 'client/dist')));
 app.use(express.json());
 

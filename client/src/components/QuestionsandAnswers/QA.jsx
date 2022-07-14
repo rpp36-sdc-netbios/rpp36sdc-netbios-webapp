@@ -35,11 +35,6 @@ var QA = ({ productId }) => {
     }
   }, [ data ])
 
-  useEffect(() => {
-      var container = document.getElementsByClassName('qa-list')[0];
-      container.scroll({ top: container.scrollHeight, behavior: 'smooth'});
-  }, []);
-
   var showAddQuestion = (showAddModal) => {
     setAddQuestion(showAddModal);
   };

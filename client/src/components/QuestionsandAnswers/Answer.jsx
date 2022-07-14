@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 
 var Answer = ({ answer, feedbackHandler }) => {
 
@@ -7,10 +6,11 @@ var Answer = ({ answer, feedbackHandler }) => {
   var date = monthNames[aDate.getMonth()] + ' ' + aDate.getDate() + ', ' + aDate.getFullYear();
   var id = answer.answer_id
 
+
   return (
     <React.Fragment>
       <div className='qa-answer'>
-        <div className='qa-text'><span className='qa-label'>A:</span>&nbsp;{answer.body}</div>
+        <div data-testid='qa-answer' className='qa-text'><span className='qa-label'>A:</span>&nbsp;{answer.body}</div>
       </div>
       <div className='qa-user'>
         by {answer.answerer_name}, <span className='qa-date'>{date}</span>&nbsp;|&nbsp;Helpful?&nbsp;<span className='pointer underline'

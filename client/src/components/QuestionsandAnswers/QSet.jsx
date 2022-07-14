@@ -31,7 +31,7 @@ var QSet = ({ question }) => {
         <Answers questionId={question.question_id} feedbackHandler={feedbackHandler} />
       </div>
       <div className='qa-item-right'>
-        <p>Helpful? <span className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes({helpfulness})</span>&nbsp;|&nbsp;<span className='pointer underline' onClick={(e) => {}}>Add&nbsp;Answer</span></p>
+        <p>Helpful? <span data-testid='qa-question-helpful' className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes({helpfulness})</span>&nbsp;|&nbsp;<span className='pointer underline' onClick={(e) => {}}>Add&nbsp;Answer</span></p>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 var useFetch = (url) => {
-
   var [ data, setData ] = useState(null);
   var [ pending, setPending ] = useState(true);
   var [ error, setError ] = useState(null);
@@ -19,7 +18,7 @@ var useFetch = (url) => {
       setData(data);
       setPending(false);
     }).catch(err => {
-      setError(err.message);
+      console.log(err);
       setPending(false);
     });
 
