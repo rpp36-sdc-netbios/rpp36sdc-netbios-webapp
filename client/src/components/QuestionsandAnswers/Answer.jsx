@@ -6,15 +6,16 @@ var Answer = ({ answer, feedbackHandler }) => {
   var date = monthNames[aDate.getMonth()] + ' ' + aDate.getDate() + ', ' + aDate.getFullYear();
   var id = answer.answer_id
 
+
   return (
     <React.Fragment>
       <div className='qa-answer'>
-      <div className='qa-label qa-label-a'>A:</div><div className='qa-text'>&nbsp;{answer.body}</div>
+        <div data-testid='qa-answer' className='qa-text'><span className='qa-label'>A:</span>&nbsp;{answer.body}</div>
       </div>
       <div className='qa-user'>
-        <p>by {answer.answerer_name}, {date}  |  Helpful? <span className='pointer underline'
-        onClick={(e) => feedbackHandler('answers', 'helpful', id)}>Yes</span>  |  <span className='pointer underline'
-        onClick={(e) => feedbackHandler('answers', 'report', id)}>Report</span></p>
+        by {answer.answerer_name}, <span className='qa-date'>{date}</span>&nbsp;|&nbsp;Helpful?&nbsp;<span className='pointer underline'
+        onClick={(e) => feedbackHandler('answers', 'helpful', id)}>Yes</span>&nbsp;|&nbsp;<span className='pointer underline'
+        onClick={(e) => feedbackHandler('answers', 'report', id)}>Report</span>
       </div>
       </React.Fragment>
   );

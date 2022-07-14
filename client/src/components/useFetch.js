@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 var useFetch = (url) => {
-
   var [ data, setData ] = useState(null);
   var [ pending, setPending ] = useState(true);
   var [ error, setError ] = useState(null);
@@ -16,11 +15,10 @@ var useFetch = (url) => {
       }
       return res.json();
     }).then(data => {
-      // timeout to simulate network
       setData(data);
       setPending(false);
     }).catch(err => {
-      setError(err.message);
+      setError(err);
       setPending(false);
     });
 
