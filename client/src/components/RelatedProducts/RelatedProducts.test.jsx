@@ -2,9 +2,9 @@
 // import React from 'react';
 // import RelatedProducts from './RelatedProducts.jsx';
 
-// describe('Related Products test', () => {
-//     it('testing the test - Related', () => {
-//     render(<RelatedProducts />);
-//         expect(true).toBe(true)
-//     });
-// });
+
+describe('Related Products test', () => {
+    it('testing the test - Related', () => {
+        expect(true).toBe(true)
+    });
+});

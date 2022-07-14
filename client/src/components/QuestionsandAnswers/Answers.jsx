@@ -1,26 +1,40 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import useFetch from '../useFetch.js';
+import Answer from './Answer.jsx';
 
-var Answers = ({ aFeedbackHandler, answer }) => {
+var Answers = ({ feedbackHandler, questionId }) => {
 
-  var monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+  var [ page, setPage ] = useState(1);
+  var [ count, setCount ] = useState(2);
+  var [ answers, setAnswers ] = useState([]);
+  var [ more, setMore ] = useState(false);
 
-  var aDate = new Date(answer.date);
+  var [ data, pending, error ] = useFetch(`answers/${questionId}?page=${page}&count=${count}`);
 
-  var date = monthNames[aDate.getMonth()] + ' ' + aDate.getDate() + ', ' + aDate.getFullYear();
+  useEffect(() => {
+    if (data) {
+      setAnswers([...answers, ...data.results])
+      data.results.length < 2 ? setMore(false) : setMore(true);
+    }
+  }, [ data ]);
+
+  var loadMore = () => {
+    setPage(page + 1);
+  };
+
+
   return (
     <div className='qa-answer-block'>
-      <div className='qa-answer'>
-        <div className='qa-bold qa-label'>A:</div>
-        <p>{answer.body}</p>
-      </div>
-      <div className='qa-user'>
-        <p>by {answer.answerer_name}, {date}  |  Helpful? <span className='pointer underline' onClick={(e) => aFeedbackHandler('a-helpful')}>Yes</span>  |  <span className='pointer underline' onClick={(e) => aFeedbackHandler('a-report')}>Report</span></p>
-      </div>
+      {answers.map(a => <Answer key={a.answer_id + random()} answer={a} feedbackHandler={feedbackHandler} />)}
+      {more && <p className='pointer qa-more-answers' onClick={loadMore}>LOAD MORE ANSWERS</p>}
     </div>
+
   );
 };
+
+var random = () => {
+  return Math.random() * 1000;
+}
+
 
 export default Answers

@@ -12,9 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      currentId: 71697,
+      currentId: 71901,
       product: {},
-
     }
     this.changeProduct = this.changeProduct.bind(this);
 
@@ -24,7 +23,7 @@ class App extends React.Component {
   }
 
   getProduct() {
-    fetch('products' + this.state.currentId)
+    fetch('products/' + this.state.currentId)
     .then(res => {
       return res.json();
     }).then(product => {
@@ -42,7 +41,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.product)
     return (
       <div id='container'>
       <div id='nav'>
