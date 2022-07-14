@@ -15,6 +15,7 @@ const Gallery = (props) => {
       )
   };
 
+
   const slides = document.querySelectorAll(".slide");
 
   slides.forEach((slide, indx) => {
@@ -64,8 +65,6 @@ const Gallery = (props) => {
       {photoslides}
       <button class='btn btn-next' >→</button>
       <button class='btn btn-prev' >←</button>
-      {/* <input class='btn btn-next' type='button' value='>' /> */}
-      {/* <input class='btn btn-prev' type='button' value='<' /> */}
     </div>
   )
 }
