@@ -101,6 +101,9 @@ var mockQuestions = {
       }
     }
   ]
+<<<<<<< HEAD
+};
+=======
 }
 
 var mockAnswers = {
@@ -134,3 +137,4 @@ var mockAnswers = {
     },
   ]
 }
+>>>>>>> e9efef544c99b0f03304bf5c7901c17bd0fe7e13
