@@ -39,8 +39,12 @@ var Overview = (props) => {
       </div>
 
       <div style={{width: '30%', float:'right'} }>
+        <div id='overview-product'>
         <ProductInfo product={props.product} item={item}/>
+        </div>
+        <div id='overview-style'>
         <StyleSelector styles={styles} onSelect={onSelect} item={item}/>
+        </div>
         <AddToCart item={item} />
       </div>
     </div>
