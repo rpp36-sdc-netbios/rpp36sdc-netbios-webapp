@@ -5,7 +5,7 @@ import QSet from './QSet.jsx';
 import QSearch from './QSearch.jsx';
 import AddQuestion from './AddQuestion.jsx';
 
-var QA = ({ productId }) => {
+var QA = ({ productId, product }) => {
 
   var [ page, setPage ] = useState(1);
   var [ count, setCount ] = useState(2);
@@ -53,10 +53,10 @@ var QA = ({ productId }) => {
           <button className='pointer' type='button' onClick={loadMore}>MORE ANSWERED QUESTIONS</button>
         </div>
         <div>
-          <button className='pointer qa-add-button' type='button' onClick={() => showAddQuestion(true)}>ADD A QUESTION</button><div className='qa-plus'>+</div>
+          <button className='pointer qa-add-button' type='button' onClick={() => showAddQuestion(true)}>ADD A QUESTION</button><div onClick={() => showAddQuestion(true)} className='qa-plus pointer'>+</div>
         </div>
       </div>
-      {addQuestion && <AddQuestion />}
+      {addQuestion && <AddQuestion productName={product.name} showAddQuestion={showAddQuestion}/>}
     </div>
   );
 }
