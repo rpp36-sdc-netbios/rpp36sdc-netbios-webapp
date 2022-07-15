@@ -11,12 +11,12 @@ var RelatedProducts = ({ productId, changeProduct }) => {
   return (
     <div id='related'>
       <div className='rel-header'>
-        <h3>RELATED PRODUCTS</h3>
+        <h2>RELATED PRODUCTS</h2>
       </div>
       {error && <div>{error}</div>}
       {pending && <div>Loading...</div>}
       {data && <SlideContainer data={data} changeProduct={changeProduct}/>}
-      <h3>YOUR OUTFIT</h3>
+      <h2>YOUR OUTFIT</h2>
       <div className='rel-outfit'>
 
       </div>
