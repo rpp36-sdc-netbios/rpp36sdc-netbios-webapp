@@ -10,8 +10,15 @@ class StarBar extends React.Component {
   render(){
     var bar ={
       width: this.props.barDisplay,
-      height: "16px",
+      height: "0.6em",
       backgroundColor: "black",
+
+
+
+
+
+
+
     }
     return(
       <div className ="bar-container">

@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 .button-box{
-  width: 85%;
+  width: 75%;
   display:flex;
   margin-left: auto;
   margin-right: auto;
@@ -31,7 +31,7 @@
 
 }
 .summary-box{
-  width: 35%;
+  width: 30%;
   float: left;
 
 }
@@ -73,7 +73,7 @@
 .stars {
   display: inline-block;
   position: relative;
-  line-height: 1em;
+  line-height: 0.1em;
  }
  .stars-base {
   white-space: nowrap;
@@ -95,8 +95,105 @@
 
 }
 .bar-container {
-  width: 100%;
+  width: 80%;
   background-color: #f1f1f1;
-  text-align: center;
-  color: white;
+  display:inline-block;
+  height: 0.6em;
+  margin-left: 1em;
+
 }
+
+/***********/
+
+
+.slidecontainer {
+  width:  100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+}
+
+.slider {
+  -webkit-appearance:none;
+  width: 100%;
+  height: 0.6em;
+background: linear-gradient(90deg, rgba(220,220,225,1) 0%, rgba(220,220,225,1) 32.9%, rgba(220,220,225,0) 33%, rgba(220,220,225,0) 33.2%, rgba(220,220,225,1) 33.21%, rgba(220,220,225,1) 34%, rgba(220,220,225,1) 62.9%, rgba(220,220,225,0) 63%, rgba(220,220,225,0) 63.2%, rgba(220,220,225,1) 63.3%, rgba(220,220,225,1) 68%);
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+
+
+/* .slider:hover {
+  opacity: 1;
+} */
+
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 1em solid black;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+}
+/***********/
+.alignleft {
+	float: left;
+  width:33.33333%;
+  text-align:left;
+  font-size: 0.8em;
+}
+
+.alignright {
+float: left;
+ width:33.33333%;
+ text-align:right;
+ font-size: 0.8em;
+}
+.aligncenter{
+  float: left;
+  width:33.33333%;
+  text-align:center;
+  font-size: 0.8em;
+}
+.alignStar{
+  float: right;
+
+
+
+}
+.alignScore {
+  float: left;
+  font-size: 4em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 0.5em;
+}
+.box{
+  padding-bottom: 1em;
+}
+.smallbox{
+  padding-top:0.5em ;
+  height: 2em;
+  display: flex;
+  justify-content: space-between
+}
+#underline{
+  text-decoration: underline;
+  font-size: 1em;
+  text-align: left;
+  float: left;
+  width: 20%;
+
+}
+

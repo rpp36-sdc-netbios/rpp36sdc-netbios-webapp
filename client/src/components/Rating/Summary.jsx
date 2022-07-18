@@ -58,41 +58,51 @@ class Summary extends React.Component {
     var  bar2Display = bar2.toString()+"%";
     var  bar1Display= bar1.toString()+"%";
     var array =[];
+
     var keys = Object.keys(this.props.results.characteristics);
+    // console.log('keys'+keys)
+    for(let i=0;i<keys.length;i++){
+      var list ={};
+      list[keys[i]]= this.props.results.characteristics[keys[i]]
+      array.push(list)
+
+    }
+    console.log('array'+array[0].Fit.value)
 
 
     return(
-      <div s>
-        <h1> RATINGS &amp; REVIEWS</h1>
-        <h2>{average}</h2>
-        <Stars starsDisplay ={starsDisplay}/>
+      <div >
+        <div>
+        <h1 className="box"> RATINGS &amp; REVIEWS</h1>
+        <h2 className ="alignScore">{average}</h2>
+        <Stars className ="alignStar" starsDisplay ={starsDisplay}/>
+        </div>
         <p> {percent}% of reviews recommend this product </p>
-        <div>5 stars
-          <StarBar barDisplay = {bar5Display}/>
+        <div className ="smallbox">
+          <span id ="underline">5 stars</span>
+          <StarBar barDisplay = {bar5Display} />
         </div>
-        <div>4 stars
+        <div className ="smallbox">
+          <span id ="underline">4 stars</span>
           <StarBar barDisplay = {bar4Display}/>
-        </div>
-        <div>3 starsDisplay
+        </div >
+        <div className ="smallbox">
+          <span id ="underline">3 stars</span>
           <StarBar barDisplay = {bar3Display}/>
         </div>
-        <div>2 stars
+        <div className ="smallbox">
+          <span id ="underline">2 stars</span>
           <StarBar barDisplay = {bar2Display}/>
         </div>
-        <div>1 stars
+        <div className ="smallbox">
+          <span id ="underline">1 stars</span>
           <StarBar barDisplay = {bar1Display}/>
         </div>
-        <div> Size {size} </div>
-        <div> Width {width} </div>
-        <div> Comfort {comfort} </div>
-        <div> Quality {quality} </div>
-        <div> Length {length} </div>
-        <div> Fit {fit} </div>
         <div>
           <div>
-        {/* {keys.map((item,key) =>
+            {array.map((item,key) =>
           <Characteristics item ={item} key={key} />
-        )} */}
+        )}
           </div>
         </div>
       </div>

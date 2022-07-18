@@ -21,8 +21,14 @@ class ReviewsRatings extends React.Component {
   changSort(value){
     console.log('inside sort'+ value);
     this.setState({sort:value});
-    this.ratingDisplay();
 
+
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.sort !== this.state.sort) {
+      console.log('pokemons state has changed.');
+      this.ratingDisplay();
+    }
   }
   ratingDisplay(){
     let productId = this.props.productId;
