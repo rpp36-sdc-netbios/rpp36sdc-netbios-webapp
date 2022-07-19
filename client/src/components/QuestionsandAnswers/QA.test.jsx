@@ -1,11 +1,15 @@
 import React from 'react';
 import QA from './QA.jsx';
-import { render } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 
 var mockFetch = () => {
   return jest.fn((url) => {
-    var data = url.includes('answers') ? mockAnswers : mockQuestions;
+    var data = mockQuestions;
+    if (url.includes('hello')) {
+      data = mockSearch;
+    } else if (url.includes('answers')) {
+      data = mockAnswers;
+    }
     return Promise.resolve({
       ok: true,
       json: () => {
@@ -15,43 +19,106 @@ var mockFetch = () => {
   });
 };
 
+describe('QA Search', () => {
+
+  beforeEach(() => {
+    global.fetch = mockFetch();
+  })
+
+  afterEach(() => {
+    global.fetch.mockClear();
+  })
+
+  it('Should allow input to change', async () => {
+    var qa = render(<QA productId={1} />);
+    var el = qa.getByPlaceholderText('HAVE A QUESTION? SEARCH FOR ANSWERS...');
+    fireEvent.change(el, { target: { value: 'hello' } });
+    expect(el.value).toBe('hello');
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'))
+  });
+
+  it('Should display results from search', (done) => {
+    var qa = render(<QA productId={1} />);
+    var searchBox = qa.getByPlaceholderText('HAVE A QUESTION? SEARCH FOR ANSWERS...');
+    waitForElementToBeRemoved(qa.getByText('Loading...'))
+    .then(() => {
+      fireEvent.change(searchBox, { target: {value: 'hello'}});
+      return qa.findAllByText(/hello123/)
+    }).then(el => {
+      expect(el[0]).toBeInTheDocument();
+      expect(el.length).toBe(2);
+      done();
+    }).catch(err => {
+      done(err);
+    });
+  });
+});
 
 describe('QA test', () => {
 
   var qa;
 
   beforeEach(async () => {
-
     global.fetch = mockFetch();
-    qa = await act(() => render(<QA productId={1} />));
+    qa = render(<QA productId={1} />);
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     global.fetch.mockClear();
-    delete global.fetch;
-  });
+  })
 
   it('Should render QA title', async () => {
-    var el = await qa.findByTestId('qa-title');
+    var el = qa.getByText('QUESTIONS & ANSWERS');
     expect(el).toBeInTheDocument();
-  });
-
-  it('Should render question search box', async () => {
-    var el = await qa.findByTestId('qa-search');
-    expect(el).toBeInTheDocument();
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
   });
 
   it('Should render two questions', async () => {
-    var el = await qa.findAllByTestId('qa-qset');
+    var el = qa.container.getElementsByClassName('qa-question');
+    expect(el.length).toBe(2);
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+  });
+
+  it('Should render four answers', async () => {
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+    var el = qa.container.getElementsByClassName('qa-answer');
+    expect(el.length).toBe(4);
+  });
+})
+
+describe('Answers', () => {
+
+  var qa;
+
+  beforeEach(async () => {
+    global.fetch = mockFetch();
+    qa = render(<QA productId={1} />);
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+  });
+
+  afterEach(async () => {
+    global.fetch.mockClear();
+  })
+
+  it('should render LOAD MORE ANSWERS option', async () => {
+    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+    var el = qa.getAllByText('LOAD MORE ANSWERS');
+    expect(el[0]).toBeInTheDocument();
     expect(el.length).toBe(2);
   });
 
-  it('Should render two answers', async () => {
-      var el = await qa.findAllByTestId('qa-answer');
-      expect(el.length).toBe(4);
-  });
-});
+  // it('should render COLLAPSE ANSWERS when load more answers is clicked', async () => {
+  //   await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+  //   var el = qa.getAllByText('LOAD MORE ANSWERS');
+  //   fireEvent.click(el[0]);
+  //   await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+  //   el = qa.getAllByText('COLLAPSE ANSWERS');
+  //   expect(el[0]).toBeInTheDocument();
+  //   expect(el.length).toBe(1);
+  // });
 
+});
 
 var mockQuestions = {
   "product_id": "5",
@@ -101,9 +168,48 @@ var mockQuestions = {
       }
     }
   ]
-<<<<<<< HEAD
-};
-=======
+}
+
+var mockSearch = {
+  "product_id": "5",
+  "results": [
+    {
+      "question_id": 37,
+      "question_body": "Hello hello123 hello hello.",
+      "question_date": "2018-10-18T00:00:00.000Z",
+      "asker_name": "williamsmith",
+      "question_helpfulness": 4,
+      "reported": false,
+      "answers": {
+        68: {
+          "id": 68,
+          "body": "We are selling it here without any markup from the middleman!",
+          "date": "2018-08-18T00:00:00.000Z",
+          "answerer_name": "Seller",
+          "helpfulness": 4,
+          "photos": []
+        }
+      }
+    },
+    {
+      "question_id": 38,
+      "question_body": "Hello hello123 hello hello.",
+      "question_date": "2018-10-18T00:00:00.000Z",
+      "asker_name": "williamsmith",
+      "question_helpfulness": 4,
+      "reported": false,
+      "answers": {
+        68: {
+          "id": 68,
+          "body": "We are selling it here without any markup from the middleman!",
+          "date": "2018-08-18T00:00:00.000Z",
+          "answerer_name": "Seller",
+          "helpfulness": 4,
+          "photos": []
+        }
+      }
+    }
+  ]
 }
 
 var mockAnswers = {
@@ -137,4 +243,3 @@ var mockAnswers = {
     },
   ]
 }
->>>>>>> e9efef544c99b0f03304bf5c7901c17bd0fe7e13
