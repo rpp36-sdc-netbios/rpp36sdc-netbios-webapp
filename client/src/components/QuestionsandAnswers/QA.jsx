@@ -19,6 +19,10 @@ var QA = ({ productId, product }) => {
   };
 
   useEffect(() => {
+    setQuestions([]);
+  }, [ productId ]);
+
+  useEffect(() => {
     if (data) {
       if (page === 1) {
         setQuestions(data.results);
@@ -33,7 +37,7 @@ var QA = ({ productId, product }) => {
         }));
       }
     }
-  }, [ data ])
+  }, [ data ]);
 
   var showAddQuestion = (showAddModal) => {
     setAddQuestion(showAddModal);

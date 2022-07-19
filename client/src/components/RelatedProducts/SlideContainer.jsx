@@ -7,7 +7,11 @@ var SlideContainer = ({ data, changeProduct }) => {
     var [ container, direction ] = e.target.id.split('-');
     if (container === 'rel') {
       container = document.getElementById('rel-container');
-      direction === 'left' ? container.scrollLeft -= 80 : container.scrollLeft += 80;
+      //direction === 'left' ? container.scrollLeft -= 80 : container.scrollLeft += 80;
+      container.scroll({
+        left: direction=== 'left' ? -5 : 5,
+        behavior: 'smooth'
+      });
     }
   }
 

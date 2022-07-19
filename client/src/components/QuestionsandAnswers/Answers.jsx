@@ -40,8 +40,8 @@ var Answers = ({ feedbackHandler, questionId }) => {
       {pending && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
       <div className='qa-more-answers'>
-        {more && <div className='pointer qa-more-answers-item' onClick={loadMore}>LOAD MORE ANSWERS</div>}
-        {answers.length > 2 && <div className='pointer qa-more-answers-item' onClick={collapseAnswers}>COLLAPSE ANSWERS</div>}
+        {more && <div className='pointer qa-more-answers-item' onClick={loadMore}>LOAD MORE ANSWERS&#9660;</div>}
+        {answers.length > 2 && <div className='pointer qa-more-answers-item' onClick={collapseAnswers}>COLLAPSE ANSWERS&#9650;</div>}
       </div>
     </div>
 
