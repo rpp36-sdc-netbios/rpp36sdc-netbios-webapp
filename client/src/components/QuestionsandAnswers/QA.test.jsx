@@ -2,7 +2,6 @@ import React from 'react';
 import QA from './QA.jsx';
 import Answers from './Answers.jsx' 
 import { render, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
-import e from 'express';
 
 var mockFetch = () => {
   return jest.fn((url) => {
@@ -11,7 +10,9 @@ var mockFetch = () => {
       data = mockSearch;
     } else if (url.includes('answers')) {
       data = mockAnswers;
-    }
+    } else if (url.includes('feedback')) {
+      return { status: 204, ok: true }
+    };
     return Promise.resolve({
       ok: true,
       json: () => {
@@ -124,6 +125,15 @@ describe('QA', () => {
     expect(form.length).toBe(0);
   });
 
+  it('Should increase helpful count for question when yes is clicked', async () => {
+    var el = qa.getAllByTestId('qa-question-helpful');
+    fireEvent.click(el[0]);
+    var count = await qa.findByText('(5)')
+    expect(count).toBeInTheDocument();
+
+
+  });
+
 });
 
 describe('QA Answers', () => {
@@ -131,15 +141,13 @@ describe('QA Answers', () => {
   var qa;
   var feedback;
 
-  var mockFeedbackHandler = () => {
-    return jest.fn((inFeedback) => {
+  var mockFeedbackHandler = jest.fn((inFeedback) => {
         feedback = inFeedback;
-    });
-  };
+  });
 
   beforeEach(async () => {
     global.fetch = mockFetch();
-    qa = render(<Answers feedbackHandler={mockFeedbackHandler()} questionId={1} />);
+    qa = render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />);
     await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
   });
 
@@ -163,9 +171,16 @@ describe('QA Answers', () => {
     mockAnswers = temp;
   });
 
-  it('shuld render answer date in the correct format', () => {
+  it('Should render answer date in the correct format', () => {
     var el = qa.getByText('January 3, 2018');
     expect(el).toBeInTheDocument();
+  });
+
+  it('Should send feedback on click', () => {
+    var el = qa.getAllByText('Yes');
+    fireEvent.click(el[0]);
+    expect(mockFeedbackHandler).toBeCalledTimes(1);
+    expect(feedback).toBe('answers');
   });
 
 });
