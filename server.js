@@ -45,6 +45,22 @@ app.get('/questions', (req, res) => {
   });
 });
 
+app.post('/question', (req, res) => {
+  console.log(req.body);
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/qa/questions`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(req.body)
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(204);
+  });
+});
+
 app.get('/answers/:qId', (req, res) => {
   apiReq({
     url: `${BASEURL}/qa/questions/${req.params.qId}/answers`,
