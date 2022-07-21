@@ -81,12 +81,64 @@
   top: 25vh;
   left: 17.5vw;
   width: 65vw;
-  height: 50vh;
+  height: 60vh;
   background-color: white;
   border-radius: 5px;
   box-shadow: 1px 2px 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
+.qa-add-question-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.qa-add-question-title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.qa-add-question-subtitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.qa-add-question-x {
+  font-size: 1.5em;
+  color: red;
+  font-weight: bold;
+}
+
+.qa-add-question-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.qa-add-question-form label {
+  margin-top: 15px;
+}
+
+.qa-add-question-form input {
+  height: 40px;
+  margin-top: 5px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+#qa-user-submit {
+  background-color: white;
+  width: 200px;
+  font-weight: bold;
+  margin-top: 20px;
+}
 
 .qa-more-answers {
   display: flex;
@@ -97,7 +149,7 @@
 }
 
 .qa-more-answers-item {
-  flex-basis: 200px;
+  width: 200px;
 }
 
 .pointer {
@@ -117,7 +169,6 @@ p {
 .qa-buttons button {
   margin-right: 20px;
   height: 40px;
-  max-height: 40px;
   background-color: white;
   font-weight: bold;
   padding-left: 15px;
