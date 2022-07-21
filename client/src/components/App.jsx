@@ -55,9 +55,9 @@ class App extends React.Component {
         <section>
           <QA productId={this.state.currentId}/>
         </section>
-        <section>
+        <div id='rating-main'>
         <ReviewsRatings  productId={this.state.currentId} />
-        </section>
+        </div>
       </div>
 
     );

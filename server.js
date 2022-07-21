@@ -104,6 +104,7 @@ app.get('/reviews',(req,res)=>{
   .catch(err=> res.status(500).send('API err inside data get reviews'))
 
 })
+
 app.get('/reviews/meta/:product_id',(req,res)=>{
   // var product_id = req.body.product_id;
   // var page = req.body.page;
@@ -130,5 +131,3 @@ var apiReq = async (config, cb) => {
     cb(err.message, null);
   }
 };
-
-
