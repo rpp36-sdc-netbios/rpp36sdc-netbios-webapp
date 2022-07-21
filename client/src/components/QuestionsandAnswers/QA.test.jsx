@@ -110,7 +110,6 @@ describe('QA', () => {
     expect(form.length).toBe(1);
     fireEvent.click(el);
     expect(form.length).toBe(0);
-<<<<<<< HEAD
   });
 
   it('Should increase helpful count for question when yes is clicked', async () => {
@@ -180,77 +179,6 @@ describe('QA Answers', () => {
 
 });
 
-=======
-  });
-
-  it('Should increase helpful count for question when yes is clicked', async () => {
-    var el = qa.getAllByTestId('qa-question-helpful');
-    fireEvent.click(el[0]);
-    var count = await qa.findByText('(5)')
-    expect(count).toBeInTheDocument();
-  });
-
-});
-
-describe('QA Answers', () => {
-
-  var qa;
-  var feedback;
-
-  var mockFeedbackHandler = jest.fn((inFeedback) => {
-        feedback = inFeedback;
-  });
-
-  beforeEach(async () => {
-    global.fetch = mockFetch();
-    qa = await act(() => render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />));
-    //qa = render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />)
-  });
-
-  afterEach(async () => {
-    global.fetch.mockClear();
-  })
-
-  it('should render LOAD MORE ANSWERS option', async () => {
-    await waitFor(() => {
-      var el = qa.getByText('LOAD MORE ANSWERS▼');
-      expect(el).toBeInTheDocument();
-    });
-  });
-
-  it('should render COLLAPSE ANSWERS when load more answers is clicked', async () => {
-    var temp = mockAnswers;
-    mockAnswers = mockAnswers2
-
-    await act(async () => {
-      var el = await qa.findByText('LOAD MORE ANSWERS▼');
-      fireEvent.click(el);
-    });
-
-    await waitFor(async () => {
-      var el = qa.getByText('COLLAPSE ANSWERS▲');
-      expect(el).toBeInTheDocument();
-      mockAnswers = temp;
-    });
-  });
-
-  it('Should render answer date in the correct format', async () => {
-    await waitFor(async () => {
-      var el = await qa.findByText('January 3, 2018');
-      expect(el).toBeInTheDocument();
-    });
-  });
-
-  it('Should send feedback on click', () => {
-      var el = qa.getAllByText('Yes');
-      fireEvent.click(el[0]);
-      expect(mockFeedbackHandler).toBeCalledTimes(1);
-      expect(feedback).toBe('answers');
-  });
-
-});
-
->>>>>>> eef25047d6a5b3cad426f8953576a939cd2d669d
 describe('Add question', () => {
 
   var qa;
@@ -514,9 +442,4 @@ var mockAnswers2 = {
       ]
     },
   ]
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> eef25047d6a5b3cad426f8953576a939cd2d669d
