@@ -180,7 +180,6 @@ describe('QA Answers', () => {
 
 });
 
-=======
   });
 
   it('Should increase helpful count for question when yes is clicked', async () => {
@@ -514,9 +513,4 @@ var mockAnswers2 = {
       ]
     },
   ]
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> eef25047d6a5b3cad426f8953576a939cd2d669d
