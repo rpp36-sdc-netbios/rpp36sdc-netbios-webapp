@@ -219,3 +219,32 @@ p {
   padding-bottom: 15px;
 }
 
+.qa-answer-photo {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10%;
+}
+
+.qa-photo {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  width: 75px;
+  height: 75px;
+}
+
+.qa-photoview {
+  position: fixed;
+  z-index: 1;
+  top: 15vh;
+  left: 25vw;
+  width: 50vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.qa-photoview-x {
+  display: inline-block;
+  margin-left: 98%;
+  margin-top: 2%;
+}
