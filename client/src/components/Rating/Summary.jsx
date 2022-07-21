@@ -20,12 +20,15 @@ class Summary extends React.Component {
     var star_4=0;
     var star_5=0;
     var total =0;
+    var count =0
     for(var key in this.props.results.ratings){
       total+=(parseInt(this.props.results.ratings[key])*parseInt(key))
+      count+=parseInt(this.props.results.ratings[key])
+
     }
 
     console.log('total'+total)
-    var num = (Math.round(total/25*10)/10/5)*100;
+    var num = (Math.round(total/count*10)/10/5)*100;
     var str =num.toString()+"%";
     console.log('str in summary'+str);
     var totalStars = parseInt(this.props.results.ratings[5])+
@@ -44,7 +47,7 @@ class Summary extends React.Component {
     var star3 = this.props.results.ratings[3];
     var star2 = this.props.results.ratings[2];
     var star1 = this.props.results.ratings[1];
-    var average = Math.round(total/25*10)/10;
+    var average = Math.round(total/count*10)/10;
     var size = this.props.results.characteristics.Size ? this.props.results.characteristics.Size.value:5;
     var fit = this.props.results.characteristics.Fit ? this.props.results.characteristics.Fit.value:5;
     var length = this.props.results.characteristics.Length ? this.props.results.characteristics.Length.value:5;
@@ -68,6 +71,7 @@ class Summary extends React.Component {
 
     }
     console.log('array'+array[0].Fit.value)
+    console.log('average'+ average)
 
 
     return(

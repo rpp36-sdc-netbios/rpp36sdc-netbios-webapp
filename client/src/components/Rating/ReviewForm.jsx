@@ -16,9 +16,22 @@ class ReviewForm extends React.Component{
       "photos":[],
       "helpful":"",
     }
+    this.handlePhotoChange =this.handlePhotoChange.bind(this)
   }
 
+  handlePhotoChange(e){
+    if(this.state.photos.length<5){
+      this.setState(preState => {
+        return ({photos: [...preState.photos, e.target.files[0]]})
+      })
+
+    }
+
+  }
+
+
   render(){
+    var urls =this.state.photos.map(photo=>URL.createObjectURL(photo))
 
 
     return(
@@ -50,10 +63,30 @@ class ReviewForm extends React.Component{
         </textarea>
       </div>
       <div>
-        <label>Why did you like the product or not?</label>
-        <textarea  minLength={50} maxLength={1000} rows={5} cols={30} placeholder ="Why did you like the product or not?" required>
+        <label>Review</label>
+        <textarea  minLength={50} maxLength={1000} rows={5} cols={30}
+        placeholder ="Why did you like the product or not?" required>
         </textarea>
       </div>
+      <>
+        <label> Upload your photos
+        <input type="file"  accept ="image/*" multiple onChange={this.handlePhotoChange}/>
+        {urls.map((url,index)=><div url={url} key={index}> <img src ={url} alt={url}/></div>)}
+        </label>
+      </>
+      <>
+      <label>What is your nickname?
+      <input type="text" maxLength={60} placeholder="Example: jackson11!" required></input>
+      </label>
+      <label>For privacy reasons, do not use your full name or email address</label>
+      </>
+      <>
+        <label>email
+        <input type="email" id="email" pattern=".+@globex\.com" maxLength={60}
+        placeholder="Example: jackson11@email.com" required></input>
+        </label>
+        <label>For authentication reasons, you will not be emailed</label>
+      </>
 
 
         {/* <input type="submit" value="submit" id="submit" /> */}
