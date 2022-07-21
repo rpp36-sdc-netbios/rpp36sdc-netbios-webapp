@@ -1,7 +1,9 @@
 import React from 'react';
 import QA from './QA.jsx';
-import Answers from './Answers.jsx' 
-import { render, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
+import Answers from './Answers.jsx'
+import { render, fireEvent, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import AddQuestion from './AddQuestion.jsx';
 
 var mockFetch = () => {
   return jest.fn((url) => {
@@ -24,36 +26,31 @@ var mockFetch = () => {
 
 describe('QA Search', () => {
 
-  beforeEach(() => {
+  var qa;
+
+  beforeEach(async () => {
     global.fetch = mockFetch();
-  })
+    qa = await act(() => render(<QA productId={1} />));
+  });
 
   afterEach(() => {
     global.fetch.mockClear();
   })
 
   it('Should allow input to change', async () => {
-    var qa = render(<QA productId={1} />);
     var el = qa.getByPlaceholderText('HAVE A QUESTION? SEARCH FOR ANSWERS...');
-    fireEvent.change(el, { target: { value: 'hello' } });
+    await act(() => {
+      fireEvent.change(el, { target: { value: 'hello' } });
+    });
     expect(el.value).toBe('hello');
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'))
   });
 
-  it('Should display results from search', (done) => {
-    var qa = render(<QA productId={1} />);
+  it('Should display results from search', async () => {
     var searchBox = qa.getByPlaceholderText('HAVE A QUESTION? SEARCH FOR ANSWERS...');
-    waitForElementToBeRemoved(qa.getByText('Loading...'))
-    .then(() => {
-      fireEvent.change(searchBox, { target: {value: 'hello'}});
-      return qa.findAllByText(/hello123/)
-    }).then(el => {
-      expect(el[0]).toBeInTheDocument();
-      expect(el.length).toBe(2);
-      done();
-    }).catch(err => {
-      done(err);
-    });
+    fireEvent.change(searchBox, { target: {value: 'hello'}});
+    var el = await qa.findAllByText(/hello123/)
+    expect(el[0]).toBeInTheDocument();
+    expect(el.length).toBe(2);
   });
 });
 
@@ -63,8 +60,7 @@ describe('QA', () => {
 
   beforeEach(async () => {
     global.fetch = mockFetch();
-    qa = render(<QA productId={1} product={{name: 'Test Product'}}/>);
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+    qa = await act(() => render(<QA productId={1} product={{name: 'Test Product'}}/>));
   });
 
   afterEach(async () => {
@@ -74,17 +70,14 @@ describe('QA', () => {
   it('Should render QA title', async () => {
     var el = qa.getByText('QUESTIONS & ANSWERS');
     expect(el).toBeInTheDocument();
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
   });
 
   it('Should render two questions', async () => {
     var el = qa.container.getElementsByClassName('qa-question');
     expect(el.length).toBe(2);
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
   });
 
   it('Should render four answers', async () => {
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
     var el = qa.container.getElementsByClassName('qa-answer');
     expect(el.length).toBe(4);
   });
@@ -94,8 +87,9 @@ describe('QA', () => {
     var temp = mockQuestions;
     mockQuestions = mockQuestions2;
     fireEvent.click(el);
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
-    el = qa.container.getElementsByClassName('qa-question');
+    await waitForElementToBeRemoved(await qa.findAllByText('Loading...'));
+    //await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+    el = await qa.findAllByTestId('qa-question');
     expect(el.length).toBe(4);
     mockQuestions = temp;
   });
@@ -106,13 +100,6 @@ describe('QA', () => {
     el = qa.container.getElementsByClassName('qa-add-question');
     expect(el[0]).toBeInTheDocument();
     expect(el.length).toBe(1);
-  });
-
-  it('Should display the product name in the add question form', () => {
-    var el = qa.getByText('ADD A QUESTION');
-    fireEvent.click(el);
-    el = qa.getByText('About the Test Product');
-    expect(el).toBeInTheDocument();
   });
 
   it('Should close the add question form when x is clicked', () => {
@@ -130,8 +117,6 @@ describe('QA', () => {
     fireEvent.click(el[0]);
     var count = await qa.findByText('(5)')
     expect(count).toBeInTheDocument();
-
-
   });
 
 });
@@ -147,8 +132,8 @@ describe('QA Answers', () => {
 
   beforeEach(async () => {
     global.fetch = mockFetch();
-    qa = render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />);
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
+    qa = await act(() => render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />));
+    //qa = render(<Answers feedbackHandler={mockFeedbackHandler} questionId={1} />)
   });
 
   afterEach(async () => {
@@ -156,33 +141,101 @@ describe('QA Answers', () => {
   })
 
   it('should render LOAD MORE ANSWERS option', async () => {
-    var el = qa.getByText('LOAD MORE ANSWERS▼');
-    expect(el).toBeInTheDocument();
+    await waitFor(() => {
+      var el = qa.getByText('LOAD MORE ANSWERS▼');
+      expect(el).toBeInTheDocument();
+    });
   });
 
   it('should render COLLAPSE ANSWERS when load more answers is clicked', async () => {
-    var el = qa.getByText('LOAD MORE ANSWERS▼');
     var temp = mockAnswers;
     mockAnswers = mockAnswers2
-    fireEvent.click(el);
-    await waitForElementToBeRemoved(qa.getAllByText('Loading...'));
-    el = qa.getByText('COLLAPSE ANSWERS▲');
-    expect(el).toBeInTheDocument();
-    mockAnswers = temp;
+
+    await act(async () => {
+      var el = await qa.findByText('LOAD MORE ANSWERS▼');
+      fireEvent.click(el);
+    });
+
+    await waitFor(async () => {
+      var el = qa.getByText('COLLAPSE ANSWERS▲');
+      expect(el).toBeInTheDocument();
+      mockAnswers = temp;
+    });
   });
 
-  it('Should render answer date in the correct format', () => {
-    var el = qa.getByText('January 3, 2018');
-    expect(el).toBeInTheDocument();
+  it('Should render answer date in the correct format', async () => {
+    await waitFor(async () => {
+      var el = await qa.findByText('January 3, 2018');
+      expect(el).toBeInTheDocument();
+    });
   });
 
   it('Should send feedback on click', () => {
-    var el = qa.getAllByText('Yes');
-    fireEvent.click(el[0]);
-    expect(mockFeedbackHandler).toBeCalledTimes(1);
-    expect(feedback).toBe('answers');
+      var el = qa.getAllByText('Yes');
+      fireEvent.click(el[0]);
+      expect(mockFeedbackHandler).toBeCalledTimes(1);
+      expect(feedback).toBe('answers');
   });
 
+});
+
+describe('Add question', () => {
+
+  var qa;
+
+  beforeEach(async () => {
+    global.fetch = mockFetch();
+    qa = await act(() => render(<AddQuestion showAddQuestion={()=>{}} productId={1} productName={'Test Product'}/>));
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
+  });
+
+  it('Should display the product name in the add question form', () => {
+    var el = qa.getByText('About the Test Product');
+    expect(el).toBeInTheDocument();
+  });
+
+  it('Should post question with valid information and display Question added', async () => {
+    var result;
+    global.fetch = jest.fn((url, obj) => {
+      result = JSON.parse(obj.body);
+      return Promise.resolve({
+        status: 204,
+        ok: true
+      });
+    });
+    var questionInput = qa.getByPlaceholderText('ENTER YOUR QUESTION HERE');
+    var nicknameInput = qa.getByPlaceholderText('ENTER YOUR NICKNAME HERE');
+    var emailInput = qa.getByPlaceholderText('ENTER YOUR EMAIL HERE');
+    var submitButton = qa.getByTestId('qa-addQuestion-submit');
+    fireEvent.change(questionInput, { target: { value: 'Test question' } });
+    fireEvent.change(nicknameInput, { target: { value: 'TestNickname' } });
+    fireEvent.change(emailInput, { target: { value: 'test@email.com' } });
+    fireEvent.click(submitButton);
+    expect(result.product_id).toBe(1);
+    expect(result.body).toBe('Test question');
+    expect(result.name).toBe('TestNickname');
+    expect(result.email).toBe('test@email.com');
+    var message = await qa.findByText('Question added');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('Should display Invalid information if add question form is filled out incorrectly', async () => {
+    var questionInput = qa.getByPlaceholderText('ENTER YOUR QUESTION HERE');
+    var nicknameInput = qa.getByPlaceholderText('ENTER YOUR NICKNAME HERE');
+    var emailInput = qa.getByPlaceholderText('ENTER YOUR EMAIL HERE');
+    var submitButton = qa.getByTestId('qa-addQuestion-submit');
+    fireEvent.change(questionInput, { target: { value: 'Test question' } });
+    fireEvent.change(nicknameInput, { target: { value: 'TestNickname' } });
+    fireEvent.change(emailInput, { target: { value: 'test' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      var message = qa.getByText('Invalid information');
+      expect(message).toBeInTheDocument();
+    });
+  });
 });
 
 var mockQuestions = {

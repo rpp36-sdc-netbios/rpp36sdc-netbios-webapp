@@ -60,7 +60,7 @@ var QA = ({ productId, product }) => {
           <button className='pointer qa-add-button' type='button' onClick={() => showAddQuestion(true)}>ADD A QUESTION</button><div onClick={() => showAddQuestion(true)} className='qa-plus pointer'>+</div>
         </div>
       </div>
-      {addQuestion && <AddQuestion productName={product.name} showAddQuestion={showAddQuestion}/>}
+      {addQuestion && <AddQuestion productName={product.name} productId={productId} showAddQuestion={showAddQuestion}/>}
     </div>
   );
 }

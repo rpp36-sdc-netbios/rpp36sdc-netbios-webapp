@@ -25,7 +25,7 @@ var QSet = ({ question }) => {
   return (
     <div data-testid='qa-qset' className='qa-item'>
       <div className='qa-text'>
-        <div className='qa-bold qa-question'>
+        <div data-testid='qa-question' className='qa-bold qa-question'>
           <div className='qa-text'><span>Q:</span>&nbsp;{question.question_body}</div>
         </div>
         <Answers questionId={question.question_id} feedbackHandler={feedbackHandler} />
