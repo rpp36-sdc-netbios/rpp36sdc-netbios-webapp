@@ -98,8 +98,8 @@
 #pic {
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
 }
 
 .slider-wrapper {
@@ -145,13 +145,11 @@
 }
 
 .btn-prev {
-  top: 45%;
-  left: 2%;
+   margin-left: 50px;
 }
 
 .btn-next {
-  top: 45%;
-  right: 2%;
+  margin-left: 60px;
 }
 
 .star-line {
@@ -196,10 +194,10 @@
 .prev,.next {
   cursor: pointer;
   position: absolute;
-  top: 40%;
+  top: 50%;
   width: auto;
   padding: 16px;
-  margin-top: -100px;
+  /* margin-top: -100px; */
   color: white;
   font-weight: bold;
   font-size: 20px;
@@ -211,10 +209,15 @@
 /* Position the "next button" to the right */
 .prev {
   left: 0;
+  border-radius: 3px 0 0 3px;
+  margin-left: 100px;
+  margin-top: 200px;
 }
 .next {
   right: 0;
+  margin-top: 200px;
   border-radius: 3px 0 0 3px;
+  margin-right: 100px
 }
 
 /* On hover, add a black background color with a little bit see-through */
@@ -227,13 +230,18 @@
   content: "";
   display: table;
   clear: both;
+  height:400px;
+}
+
+.row{
+  max-height: 500px;
+  overflow:hidden;
 }
 
 /* Six columns side by side */
 .column {
   float: left;
   width: 10%;
-  height: 70%
 }
 
 /* Add a transparency effect for thumnbail images */
@@ -245,3 +253,4 @@
 .demo:hover {
   opacity: 1;
 }
+

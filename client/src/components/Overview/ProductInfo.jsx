@@ -34,7 +34,6 @@ const ProductInfo = (props) => {
   var totalStars = 5;
   var activeStars = avg;
 
-  console.log(sale, sale == null)
   if (isNaN(sale)|| sale == null || sale === undefined) {
     if (isNaN(activeStars)) {
 
