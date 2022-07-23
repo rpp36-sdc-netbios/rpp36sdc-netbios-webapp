@@ -12,6 +12,7 @@ var Overview = (props) => {
   var [ item, setItem ] = useState('');
   var [ rating, setRating] = useState({});
   var [ pic, setPic] = useState('');
+  var [ index, setSlideIndex] = useState({index:0});
 
   useEffect(() => {
     Promise.all([
@@ -37,14 +38,56 @@ var Overview = (props) => {
 
   var onPic = (e) => {
     var select = e.target.src
-    setPic({pic:select });
+    var picindex = item.photos.findIndex(x => x.thumbnail_url === String(e.target.src));
+    setPic({pic:select});
+    setSlideIndex({index: picindex})
+  }
+
+  var showSlides = (n) => {
+    let i;
+    let slides =  document.getElementsByClassName("mySlides")
+    let dots = document.getElementsByClassName("demo");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    setSlideIndex({index:n})
+    }
+
+  let slideIndex = index.index;
+  // showSlides(slideIndex);
+
+  // Next/previous controls
+  var plusSlides = (e) => {
+    if (e.target.className === 'prev') {
+      showSlides(slideIndex += -1);
+    }
+
+    if (e.target.className === 'next') {
+      showSlides(slideIndex += 1);
+    }
+
+    console.log('seehere',slideIndex)
+  }
+
+  // Thumbnail image controls
+  var currentSlide = (n) => {
+    showSlides(slideIndex = n);
   }
 
 
+
+  console.log(index);
   return (
     <div>
       <div style={{width: '70%', float:'left'}}>
-        <Gallery styles={styles} onPic={onPic} pic = {pic}/>
+        <Gallery styles={styles} item={item} onPic={onPic} pic ={pic} plusSlides={plusSlides} index={index}/>
       </div>
 
       <div style={{width: '30%', float:'right'} }>
