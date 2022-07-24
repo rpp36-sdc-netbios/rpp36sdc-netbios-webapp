@@ -53,7 +53,7 @@ var QA = ({ productId, product }) => {
       <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
       <QSearch productId={productId} setQuestions={setQuestions}/>
       <div className='qa-list'>
-        {questions.map(q => <QSet key={q.question_id} question={q} />)}
+        {questions.map(q => <QSet key={q.question_id} question={q} productName={product.name} />)}
         {pending && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </div>
