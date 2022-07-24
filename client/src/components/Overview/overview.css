@@ -254,3 +254,115 @@
   opacity: 1;
 }
 
+
+/* NEW STUFF */
+
+.overview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.mainphoto {
+  width: 600px;
+  height: 500px;
+}
+
+.mainphoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.picslider {
+  width: 75px;
+  height: 279px;
+  overflow: hidden;
+}
+
+.sliderphoto {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.sliderphoto img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.gallery {
+  display: inline-block;
+  background-color: aqua;
+  height: 500px;
+  width: 600px;
+  position: relative;
+}
+
+.angles {
+  font-size: 2em;
+  opacity: 0.5;
+}
+
+.slideleft {
+  position: absolute;
+  top: 240px;
+  left: 100px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slideright {
+  position: absolute;
+  top: 240px;
+  left: 530px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slidedown {
+  font-size: 1.35em;
+  background-color: white;
+  margin-left: 7px;
+  margin-top: 10px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.slideup {
+  font-size: 1.35em;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-left: 7px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.imageresize {
+  background-color: white;
+  opacity: .5;
+  border-radius: 10px;
+  font-size: 2em;
+  color: black;
+  position: absolute;
+  top: 20px;
+  left: 550px;
+}
+
+

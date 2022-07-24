@@ -3,9 +3,9 @@ import ButtonEntry from './ButtonEntry.jsx'
 
 const StyleSelector = (props) => {
   var buttonentries;
-  if (props.styles.styles) {
-    buttonentries = props.styles.styles.results.map(result =>
-      <ButtonEntry key={result.style_id} name={result.name} id={result.style_id} onSelect={props.onSelect}/>)
+  if (props.styles) {
+    buttonentries = props.styles.results.map(result =>
+      <ButtonEntry key={result.style_id} name={result.name} setStyle={props.setStyle} style={result}/>)
 
   } else {
     buttonentries = ''

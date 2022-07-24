@@ -7,18 +7,17 @@ import './overview.css'
 
 const ProductInfo = (props) => {
   var selectentry;
-
   if (props.item) {
     var price = props.item.original_price
     var sale = props.item.sale_price
-    selectentry = <p> <span id='bold'>STYLE ></span><span> {props.item.name} </span></p>
+    selectentry = <p> <span id='bold'>STYLE {'>'}</span><span> {props.item.name} </span></p>
   } else {
     var price = props.product.default_price
-    selectentry = <p> <span id='bold'>STYLE ></span><span>  SELETED STYLE</span></p>
+    selectentry = <p> <span id='bold'>STYLE {'>'}</span><span>  SELETED STYLE</span></p>
   }
 
-  if (props.rating.rating) {
-    var rates = props.rating.rating.ratings;
+  if (props.rating) {
+    var rates = props.rating.ratings;
     var sum = 0;
     var count = 0
     for (var i = 0; i < Object.entries(rates).length; i++) {
@@ -64,7 +63,7 @@ const ProductInfo = (props) => {
             </div>
             </div>
 
-           <p id='read-review' onClick={() => window.location.replace("/#rating-main")}>Read all reviews</p>
+            <p id='read-review' onClick={() => window.location.replace("/#rating-main")}>Read all reviews</p>
           <div className='product-detail'>
             <p id='category-name'>{category}</p>
             <h1 id='expand-name'>{name}</h1>
@@ -81,7 +80,7 @@ const ProductInfo = (props) => {
 
   } else {
 
-       if (isNaN(activeStars)) {
+    if (isNaN(activeStars)) {
 
       return (
         <div>
@@ -111,7 +110,7 @@ const ProductInfo = (props) => {
             </div>
             </div>
 
-           <p id='read-review' onClick={() => window.location.replace("/#rating-main")}>Read all reviews</p>
+            <p id='read-review' onClick={() => window.location.replace("/#rating-main")}>Read all reviews</p>
           <div className='product-detail'>
             <p id='category-name'>{category}</p>
             <h1 id='expand-name'>{name}</h1>
