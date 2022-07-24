@@ -17,7 +17,7 @@ const AddToCart = (props) => {
 
   return (
     <div>
-       <div class="custom-select">
+       <div className="custom-select">
           <select id='select-size'>
           <option> SELECT SIZE </option>
           {optionentries1}
@@ -27,7 +27,7 @@ const AddToCart = (props) => {
           {optionentries2}
           </select>
       </div>
-      <div class='add-button'>
+      <div className='add-button'>
         <button id='add-to-bag'>Add to Bag + </button>
         <button id='favourite'>☆</button>
       </div>
