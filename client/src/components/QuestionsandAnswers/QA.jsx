@@ -21,6 +21,7 @@ var QA = ({ productId, product }) => {
 
 
   useEffect(() => {
+    setPage(1);
     setQuestions([]);
   }, [ productId ]);
 
