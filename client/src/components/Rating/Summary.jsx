@@ -79,7 +79,7 @@ class Summary extends React.Component {
         <div>
         <h1 className="box"> RATINGS &amp; REVIEWS</h1>
         <h2 className ="alignScore">{average}</h2>
-        <Stars className ="alignStar" starsDisplay ={starsDisplay}/>
+        <Stars  starsDisplay ={starsDisplay}/>
         </div>
         <p> {percent}% of reviews recommend this product </p>
         <div className ="smallbox">

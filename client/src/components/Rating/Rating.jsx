@@ -15,8 +15,7 @@ class Rating extends React.Component {
     this.changeIndex =this.changeIndex.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.displayForm =this.displayForm.bind(this);
-
-
+    this.handleClose =this.handleClose.bind(this);
   }
 
 
@@ -31,10 +30,14 @@ class Rating extends React.Component {
   handleChange(event){
     var name = event.target.value;
     console.log('name in handle select change   '+ name )
-
     this.props.changSort(event.target.value)
   }
   displayForm(){
+    this.setState({displayForm:!this.state. displayForm,
+      displayButton:!this.state.displayButton});
+
+  }
+  handleClose(e){
     this.setState({displayForm:!this.state. displayForm,
       displayButton:!this.state.displayButton});
 
@@ -56,18 +59,21 @@ class Rating extends React.Component {
             <option value="relevance">relevance</option>
           </select>
         </label>
-      <div>
+        <div>
       {list.map((review, key)=>
-      <Review review={review} key ={review.review_id}/>
+        <Review review={review} key ={review.review_id}/>
       )}
-      </div>
-      <div className ="button-box">
-      <button className ="button" onClick={this.changeIndex}> MORE REVIEWS</button>
+        </div>
+        <div className ="button-box">
+        <button className ="button" onClick={this.changeIndex}> MORE REVIEWS</button>
       {this.state.displayButton&&<button className ="button" onClick ={this.displayForm}>
         ADD A REVIEW  +</button>}
       </div>
-      {this.state.displayForm&&<ReviewForm/>}
+      {this.state.displayForm&&<ReviewForm handleClose ={this.handleClose} char={this.props.char}/>}
       </div>
+
+
+
 
 
     )
