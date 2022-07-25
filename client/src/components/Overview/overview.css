@@ -98,8 +98,8 @@
 #pic {
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
 }
 
 .slider-wrapper {
@@ -115,8 +115,8 @@
 
 .slide {
   flex: 0;
-  min-width: 150px;
-  height: 200px;
+  width: 80px;
+  height: 100px;
   position: relative;
   transition: all 0.5s;
 }
@@ -145,13 +145,11 @@
 }
 
 .btn-prev {
-  top: 45%;
-  left: 2%;
+   margin-left: 50px;
 }
 
 .btn-next {
-  top: 45%;
-  right: 2%;
+  margin-left: 60px;
 }
 
 .star-line {
@@ -174,3 +172,197 @@
 #sale{
   color: red;
 }
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+  height: 70px;
+  width: 70px;
+}
+
+/* Next & previous buttons */
+.prev,.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  /* margin-top: -100px; */
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+  margin-left: 100px;
+  margin-top: 200px;
+}
+.next {
+  right: 0;
+  margin-top: 200px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 100px
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  height:400px;
+}
+
+.row{
+  max-height: 500px;
+  overflow:hidden;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 10%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+
+/* NEW STUFF */
+
+.overview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.mainphoto {
+  width: 600px;
+  height: 500px;
+}
+
+.mainphoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.picslider {
+  width: 75px;
+  height: 380px;
+  overflow: hidden;
+}
+
+.sliderphoto {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.sliderphoto img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.gallery {
+  display: inline-block;
+  background-color: aqua;
+  height: 500px;
+  width: 600px;
+  position: relative;
+}
+
+.angles {
+  font-size: 2em;
+  opacity: 0.5;
+}
+
+.slideleft {
+  position: absolute;
+  top: 240px;
+  left: 100px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slideright {
+  position: absolute;
+  top: 240px;
+  left: 530px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slidedown {
+  font-size: 1.35em;
+  background-color: white;
+  margin-left: 7px;
+  margin-top: 10px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.slideup {
+  font-size: 1.35em;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-left: 7px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.imageresize {
+  background-color: white;
+  opacity: .5;
+  border-radius: 10px;
+  font-size: 2em;
+  color: black;
+  position: absolute;
+  top: 20px;
+  left: 550px;
+}
+
+
