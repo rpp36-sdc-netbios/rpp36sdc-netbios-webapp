@@ -29,7 +29,7 @@ const AddToCart = (props) => {
       </div>
       <div className='add-button'>
         <button id='add-to-bag'>Add to Bag + </button>
-        <button id='favourite'>☆</button>
+        <button id='favourite' onClick={props.saveOutfit}>☆</button>
       </div>
 
     </div>

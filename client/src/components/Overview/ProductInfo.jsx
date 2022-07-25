@@ -43,7 +43,6 @@ const ProductInfo = (props) => {
             <p id='category-name'>{category}</p>
             <h1 id='expand-name'>{name}</h1>
             <p id='price'>${price}</p>
-            <text id='description'>{description}</text>
           </div>
 
           <div className='style-select-word'>
@@ -90,7 +89,6 @@ const ProductInfo = (props) => {
             <h1 id='expand-name'>{name}</h1>
             <p id='price'><s>${price}</s></p>
             <p id='sale'>${sale}</p>
-            <text id='description'>{description}</text>
           </div>
 
           <div className='style-select-word'>

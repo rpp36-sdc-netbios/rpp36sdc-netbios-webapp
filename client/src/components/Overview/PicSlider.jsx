@@ -6,7 +6,6 @@ var PicSlider = ({ photos, setSelectedImage, selectedImage }) => {
   var style = {
     border: '1px solid white'
   };
-
   return (
     <div className='picslider'>
       {photos && photos.map(photo => {
