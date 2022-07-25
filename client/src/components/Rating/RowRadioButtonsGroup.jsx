@@ -9,7 +9,13 @@ import './rating.css';
 class RowRadioButtonsGroup extends React.Component {
   constructor(props){
     super(props);
+    this.handleRadio=this.handleRadio.bind(this)
 
+
+  }
+
+  handleRadio(event){
+    this.props.handleRadio(event)
 
   }
   render(){
@@ -21,8 +27,9 @@ class RowRadioButtonsGroup extends React.Component {
       Length: ["Runs Short", "Runs slightly short", "Perfect", "Runs slightly long", "Runs long"],
       Fit: ["Runs tight", "Runs slightly tight", "Perfect", "Runs slightly long", "Runs long"]
     }
-    const radioKey = this.props.item
-    const radioLables= radios[radioKey]
+    const radioItem = this.props.item
+    const radioKey = this.props.itemKey
+    const radioLables= radios[radioItem]
 
 
   return (
@@ -33,8 +40,8 @@ class RowRadioButtonsGroup extends React.Component {
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
       >
-        {radioLables.map((radioLabel) =>
-        <FormControlLabel value={radioLabel} control={<Radio />} label={radioLabel}/>)}
+        {radioLables.map((radioLabel,index) =>
+        <FormControlLabel name ={radioKey} value={index+1} key={index} control={<Radio />} label={radioLabel} onClick={this.handleRadio}/>)}
 
 
       </RadioGroup>
