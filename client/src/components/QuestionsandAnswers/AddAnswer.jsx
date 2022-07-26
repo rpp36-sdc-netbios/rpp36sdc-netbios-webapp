@@ -6,6 +6,8 @@ var AddQuestion = ({ showAddAnswer, questionId, productName, question }) => {
   var [nickname, setNickname] = useState('');
   var [email, setEmail] = useState('');
   var [message, setMessage] = useState(null);
+  var [addPhotos, setAddPhotos] = useState(false);
+  var [photos, setPhotos] = useState([]);
 
   var handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,8 @@ var AddQuestion = ({ showAddAnswer, questionId, productName, question }) => {
         question_id: questionId,
         body: answer,
         name: nickname,
-        email
+        email,
+        photos
       })
     });
     if (res.ok) {
@@ -34,6 +37,47 @@ var AddQuestion = ({ showAddAnswer, questionId, productName, question }) => {
     setMessage(null);
     setter(e.target.value);
   };
+
+  var showAddPhotos = () => {
+    return (
+      <div className='qa-add-photos qa-add-question'>
+        <label>Photo URL</label>
+        <input id='qa-user-photo' type='file' name='image' />
+        <button onClick={addPhoto} type='button'>Add</button>
+        <button onClick={() => setAddPhotos(!addPhotos)} type='button'>Done</button>
+          {photos.length > 0 && <div style={{marginTop: '15px'}}>Click Image to Remove</div>}
+        <div className='qa-user-photos'>
+          {photos.map(photo => <img key={photo} onClick={removePhoto} className='qa-user-photo-added' src={photo}/>)}
+        </div>
+      </div>
+    );
+  };
+
+  var addPhoto = async () => {
+    var upload = document.getElementById('qa-user-photo');
+    var formData = new FormData();
+    formData.append(upload.name, upload.files[0]);
+    var res = await fetch('image', {
+      method: 'POST',
+      body: formData
+    });
+    var data = await res.json();
+    console.log(data);
+    setPhotos([...photos, data.url]);
+  }
+
+  var removePhoto = (e) => {
+    var src = e.target.src;
+    for (var i = 0; i < photos.length; i++) {
+      if (photos[i] === src) {
+        var temp = [...photos];
+        temp.splice(i, 1);
+        setPhotos(temp);
+        return;
+      }
+    }
+  }
+
 
   return (
     <div className='qa-add-question'>
@@ -51,8 +95,10 @@ var AddQuestion = ({ showAddAnswer, questionId, productName, question }) => {
         <input id='qa-user-nickname' onChange={(e) => handleInputChange(e, setNickname)} placeholder='ENTER YOUR NICKNAME HERE' style={{width: '50%'}} required />
         <label htmlFor='qa-user-email'>Your Email</label>
         <input id='qa-user-email' onChange={(e) => handleInputChange(e, setEmail)} placeholder='ENTER YOUR EMAIL HERE' style={{width: '50%'}} required />
+        <button type='button' onClick={() => setAddPhotos(!addPhotos)}>Add Photos</button>
         <input data-testid='qa-addQuestion-submit' id='qa-user-submit' type='submit' />
         {message && <div>{message}</div>}
+        {addPhotos && showAddPhotos()}
       </form>
     </div>
   );

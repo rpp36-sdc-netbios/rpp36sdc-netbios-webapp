@@ -79,10 +79,11 @@
 .qa-add-question {
   position: fixed;
   z-index: 1;
-  top: 25vh;
-  left: 17.5vw;
-  width: 65vw;
-  height: 60vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 520px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 1px 2px 5px;
@@ -176,6 +177,15 @@ p {
   padding-right: 15px;
 }
 
+.qa-add-question-form button {
+  margin-top: 20px;
+  height: 40px;
+  background-color: white;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .qa-add-button {
   padding-right: 30px;
   width: 173px;
@@ -249,3 +259,30 @@ p {
   margin-left: 98%;
   margin-top: 2%;
 }
+
+.qa-add-photos {
+  z-index: 10;
+  width: 300px;
+  position: absolute;
+  background-color: white;
+  width: 70%;
+  height: 75%;
+}
+
+.qa-add-photos img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.qa-user-photos {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.qa-user-photos img {
+  margin: 5px;
+}
+
+
