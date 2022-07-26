@@ -90,7 +90,7 @@ var AddQuestion = ({ showAddAnswer, questionId, productName, question }) => {
       </div>
       <form id='qa-add-question-form' className='qa-add-question-form' onSubmit={handleSubmit}>
         <label htmlFor='qa-user-question'>Your Answer</label>
-        <input id='qa-user-question' onChange={(e) => handleInputChange(e, setAnswer)} placeholder='ENTER YOUR QUESTION HERE' style={{width: '80%'}} required />
+        <input id='qa-user-question' onChange={(e) => handleInputChange(e, setAnswer)} placeholder='ENTER YOUR ANSWER HERE' style={{width: '80%'}} required />
         <label htmlFor='qa-user-nickname'>What Is Your Nickname</label>
         <input id='qa-user-nickname' onChange={(e) => handleInputChange(e, setNickname)} placeholder='ENTER YOUR NICKNAME HERE' style={{width: '50%'}} required />
         <label htmlFor='qa-user-email'>Your Email</label>
