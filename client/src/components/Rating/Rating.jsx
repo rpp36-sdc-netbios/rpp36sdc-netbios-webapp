@@ -69,7 +69,7 @@ class Rating extends React.Component {
       {this.state.displayButton&&<button className ="button" onClick ={this.displayForm}>
         ADD A REVIEW  +</button>}
       </div>
-      {this.state.displayForm&&<ReviewForm handleClose ={this.handleClose} char={this.props.char}/>}
+      {this.state.displayForm&&<ReviewForm productId={this.props.productId} handleClose ={this.handleClose} char={this.props.char}/>}
       </div>
 
 

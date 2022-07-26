@@ -28,7 +28,7 @@ class RowRadioButtonsGroup extends React.Component {
       Fit: ["Runs tight", "Runs slightly tight", "Perfect", "Runs slightly long", "Runs long"]
     }
     const radioItem = this.props.item
-    const radioKey = this.props.itemKey
+    const radioKey = (this.props.itemKey).toString()
     const radioLables= radios[radioItem]
 
 
@@ -37,11 +37,11 @@ class RowRadioButtonsGroup extends React.Component {
       <FormLabel className="form-word">{this.props.item}</FormLabel>
       <RadioGroup
         row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
+
       >
         {radioLables.map((radioLabel,index) =>
-        <FormControlLabel name ={radioKey} value={index+1} key={index} control={<Radio />} label={radioLabel} onClick={this.handleRadio}/>)}
+        <FormControlLabel name ={radioKey} value={index+1} key={index} control={<Radio />} label={radioLabel}
+        onClick={this.handleRadio}/>)}
 
 
       </RadioGroup>

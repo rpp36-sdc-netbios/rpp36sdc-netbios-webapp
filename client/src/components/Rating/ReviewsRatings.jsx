@@ -77,7 +77,8 @@ class ReviewsRatings extends React.Component {
     return (
       <div >
         <div className ="rating-box">
-        <Rating results = {this.state.reviewsResults} char ={this.state.metaData.characteristics}changSort={this.changSort} sort={this.state.sort}/>
+        <Rating productId={this.props.productId} results = {this.state.reviewsResults}
+        char ={this.state.metaData.characteristics}changSort={this.changSort} sort={this.state.sort}/>
         </div>
         <div className="summary-box">
         <Summary results ={this.state.metaData}/>
