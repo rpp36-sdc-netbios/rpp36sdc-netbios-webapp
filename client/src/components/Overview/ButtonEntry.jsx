@@ -2,7 +2,7 @@ import React from 'react';
 
 const ButtonEntry = (props) => {
   return (
-  <button className='style-button' id={props.id} onClick={props.onSelect}>{props.name}</button>
+    <button className='style-button'  onClick={() => props.setStyle(props.style)}>{props.name}</button>
   )
  }
 
