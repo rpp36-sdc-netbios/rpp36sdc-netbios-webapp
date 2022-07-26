@@ -4,6 +4,8 @@ const {token} = require('./config.js');
 const axios = require('axios');
 const path = require('path');
 var compression = require('compression');
+var multer = require('multer');
+var { uploadFile } = require('./s3');
 
 const port = 3000;
 const BASEURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
@@ -25,6 +27,28 @@ var options ={
     'Authorization': token
   }
 }
+
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+})
+
+var upload = multer({storage: storage});
+
+app.post('/image', upload.single('image'), (req, res) => {
+  uploadFile(req.file)
+  .then(apiRes => {
+    console.log(apiRes);
+    res.json({ url: apiRes.Location });
+  }).catch(err => {
+    console.log(err.message);
+    res.sendStatus(500);
+  });
+});
 
 app.get('/products/:pId',(req,res)=>{
   apiReq({

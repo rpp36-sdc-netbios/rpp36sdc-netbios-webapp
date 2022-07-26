@@ -18,13 +18,19 @@ var QA = ({ productId, product }) => {
     setPage(page + 1);
   };
 
+
+
   useEffect(() => {
+    setPage(1);
     setQuestions([]);
   }, [ productId ]);
 
   useEffect(() => {
     if (data) {
       if (page === 1) {
+        if (data.results.length === 0) {
+          setPage(2);
+        }
         setQuestions(data.results);
       } else {
         var newQuestions = questions.concat(data.results);
