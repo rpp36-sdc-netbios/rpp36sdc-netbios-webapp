@@ -39,6 +39,21 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage});
 
+app.post('/interactions', (req, res) => {
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/interactions`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(req.body)
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(201);
+  });
+});
+
 app.post('/image', upload.single('image'), (req, res) => {
   uploadFile(req.file)
   .then(apiRes => {
