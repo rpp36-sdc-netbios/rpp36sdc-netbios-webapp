@@ -3,6 +3,7 @@ import useFetch from '../useFetch.js';
 import './related.css';
 import SlideContainer from './SlideContainer.jsx';
 import YourOutfit from './YourOutfit.jsx';
+import withInteractions from '../withInteractions.jsx';
 
 var RelatedProducts = ({ productId, changeProduct , outfit}) => {
 
@@ -23,4 +24,4 @@ var RelatedProducts = ({ productId, changeProduct , outfit}) => {
   );
 };
 
-export default RelatedProducts;
+export default withInteractions(RelatedProducts, 'Related Products');

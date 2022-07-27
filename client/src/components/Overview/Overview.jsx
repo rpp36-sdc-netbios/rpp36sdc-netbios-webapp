@@ -6,6 +6,7 @@ import AddToCart from './AddToCart.jsx';
 import { useState, useEffect } from 'react';
 import useFetch from '../useFetch.js';
 import Description from './Description.jsx'
+import withInteractions from '../withInteractions.jsx';
 
 var Overview = (props) => {
   // var [ styles, setStyle ] = useState({});
@@ -140,4 +141,4 @@ var Overview = (props) => {
   // )
 }
 
-export default Overview;
+export default withInteractions(Overview, 'Overview');

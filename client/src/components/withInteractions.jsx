@@ -3,7 +3,6 @@ import React from 'react';
 var withInteractions = (WrappedComponent, componentName) => {
     
   var handleInteractions = async (e) => {
-    console.log(e.target.tagName, componentName, Date.now());
     var res = await fetch('interactions', {
       method: 'POST',
       headers: {
