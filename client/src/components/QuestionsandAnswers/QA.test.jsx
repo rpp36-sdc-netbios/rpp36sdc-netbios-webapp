@@ -4,6 +4,7 @@ import Answers from './Answers.jsx'
 import { render, fireEvent, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import AddQuestion from './AddQuestion.jsx';
+import AddAnswer from './AddAnswer.jsx'
 
 var mockFetch = () => {
   return jest.fn((url) => {
@@ -30,7 +31,7 @@ describe('QA Search', () => {
 
   beforeEach(async () => {
     global.fetch = mockFetch();
-    qa = await act(() => render(<QA productId={1} />));
+    qa = await act(() => render(<QA productId={1} product={{name: 'Test Product'}} />));
   });
 
   afterEach(() => {
@@ -228,6 +229,65 @@ describe('Add question', () => {
     var emailInput = qa.getByPlaceholderText('ENTER YOUR EMAIL HERE');
     var submitButton = qa.getByTestId('qa-addQuestion-submit');
     fireEvent.change(questionInput, { target: { value: 'Test question' } });
+    fireEvent.change(nicknameInput, { target: { value: 'TestNickname' } });
+    fireEvent.change(emailInput, { target: { value: 'test' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      var message = qa.getByText('Invalid information');
+      expect(message).toBeInTheDocument();
+    });
+  });
+});
+
+describe('Add answer', () => {
+
+  var qa;
+
+  beforeEach(async () => {
+    global.fetch = mockFetch();
+    qa = await act(() => render(<AddAnswer showAddAnswer={()=>{}} questionId={1} productName={'Test Product'} question={'Some question?'} />));
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
+  });
+
+  it('Should display the product name and question in the add answer form', () => {
+    var el = qa.getByText('Test Product: Some question?');
+    expect(el).toBeInTheDocument();
+  });
+
+  it('Should post answer with valid information and display Answer added', async () => {
+    var result;
+    global.fetch = jest.fn((url, obj) => {
+      result = JSON.parse(obj.body);
+      return Promise.resolve({
+        status: 204,
+        ok: true
+      });
+    });
+    var questionInput = qa.getByPlaceholderText('ENTER YOUR ANSWER HERE');
+    var nicknameInput = qa.getByPlaceholderText('ENTER YOUR NICKNAME HERE');
+    var emailInput = qa.getByPlaceholderText('ENTER YOUR EMAIL HERE');
+    var submitButton = qa.getByTestId('qa-addQuestion-submit');
+    fireEvent.change(questionInput, { target: { value: 'Test answer' } });
+    fireEvent.change(nicknameInput, { target: { value: 'TestNickname' } });
+    fireEvent.change(emailInput, { target: { value: 'test@email.com' } });
+    fireEvent.click(submitButton);
+    expect(result.question_id).toBe(1);
+    expect(result.body).toBe('Test answer');
+    expect(result.name).toBe('TestNickname');
+    expect(result.email).toBe('test@email.com');
+    var message = await qa.findByText('Answer added');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('Should display Invalid information if add question form is filled out incorrectly', async () => {
+    var questionInput = qa.getByPlaceholderText('ENTER YOUR ANSWER HERE');
+    var nicknameInput = qa.getByPlaceholderText('ENTER YOUR NICKNAME HERE');
+    var emailInput = qa.getByPlaceholderText('ENTER YOUR EMAIL HERE');
+    var submitButton = qa.getByTestId('qa-addQuestion-submit');
+    fireEvent.change(questionInput, { target: { value: 'Test answer' } });
     fireEvent.change(nicknameInput, { target: { value: 'TestNickname' } });
     fireEvent.change(emailInput, { target: { value: 'test' } });
     fireEvent.click(submitButton);

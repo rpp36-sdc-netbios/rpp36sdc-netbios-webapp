@@ -4,6 +4,7 @@ import useFetch from '../useFetch.js'
 import QSet from './QSet.jsx';
 import QSearch from './QSearch.jsx';
 import AddQuestion from './AddQuestion.jsx';
+import withInteractions from '../withInteractions.jsx';
 
 var QA = ({ productId, product }) => {
 
@@ -71,4 +72,4 @@ var QA = ({ productId, product }) => {
   );
 }
 
-export default QA;
+export default withInteractions(QA, 'Questions & Answers');
