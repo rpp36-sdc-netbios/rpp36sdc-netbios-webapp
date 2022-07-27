@@ -5,6 +5,7 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import { useState, useEffect } from 'react';
 import useFetch from '../useFetch.js';
+import Description from './Description.jsx'
 
 var Overview = (props) => {
   // var [ styles, setStyle ] = useState({});
@@ -16,6 +17,7 @@ var Overview = (props) => {
   var [ currentStyle, setCurrentStyle ] = useState(null);
   var [ styles, stylesPending, stylesError ] = useFetch('styles' + props.productId);
   var [ rating, ratingPending, ratingError ] = useFetch('reviews/meta/' + props.productId);
+
 
   useEffect(() => {
     if(styles) {
@@ -33,13 +35,18 @@ var Overview = (props) => {
 
       <div style={{width: '30%', float:'right', marginLeft: '20px', minWidth: '200px'} }>
         <div id='overview-product'>
-        {rating && <ProductInfo product={props.product} item={currentStyle} rating={rating}/>}
+          {rating && <ProductInfo product={props.product} item={currentStyle} rating={rating}/>}
         </div>
         <div id='overview-style'>
-        {styles && <StyleSelector styles={styles} setStyle={setStyle} item={currentStyle}/>}
+          {styles && <StyleSelector styles={styles} setStyle={setStyle} item={currentStyle}/>}
         </div>
+        <div id='add-to-cart'>
         {currentStyle && <AddToCart item={currentStyle} saveOutfit={props.saveOutfit}/>}
+        </div>
       </div>
+      <div id='overview-description'>
+          {<Description product={props.product} ></Description>}
+        </div>
     </div>
   );
 

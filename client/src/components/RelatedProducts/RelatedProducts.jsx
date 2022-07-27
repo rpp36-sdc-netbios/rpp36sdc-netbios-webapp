@@ -7,7 +7,6 @@ import YourOutfit from './YourOutfit.jsx';
 var RelatedProducts = ({ productId, changeProduct , outfit}) => {
 
   var [ data, pending, error ] = useFetch('related/' + productId);
-  console.log(outfit)
   var outfit = [...new Set(outfit)]
 
 
@@ -20,11 +19,6 @@ var RelatedProducts = ({ productId, changeProduct , outfit}) => {
       {pending && <div>Loading...</div>}
       {data && <SlideContainer data={data} changeProduct={changeProduct}/>}
       { outfit.length >= 1 ? <YourOutfit outfit={outfit} changeProduct={changeProduct}/> : null }
-      {/* <div className='rel-outfit'>
-        <h2>YOUR OUTFIT</h2>
-        {outfit && <YourOutfit outfit={outfit} changeProduct={changeProduct}/>}
-      </div> */}
-
     </div>
   );
 };

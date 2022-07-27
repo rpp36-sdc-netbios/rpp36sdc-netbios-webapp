@@ -65,7 +65,6 @@ class App extends React.Component {
           <ReviewsRatings  productId={this.state.currentId} />
         </div>
       </div>
-
     );
   }
 };
