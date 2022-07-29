@@ -71,31 +71,32 @@ class ReviewForm extends React.Component{
   }
   handleSubmit(event){
     event.preventDefault();
-    var postData={};
-    postData.product_id = parseInt(this.props.productId);
-    postData.rating = parseInt(this.state.rating);
-    postData.summary =this.state.summary;
-    postData.body = this.state.body;
+    var formData = new FormData();
+    formData.append("product_id",parseInt(this.props.productId))
+    formData.append("rating",parseInt(this.state.rating))
+    formData.append("summary", this.state.summary);
+    formData.append("body", this.state.body);
+
+    formData.append("name", this.state.name);
+    formData.append("email", this.state.email);
+    for(let i=0; i<this.state.photos.length; i++) {
+        formData.append(`images`, this.state.photos[i])
+      }
+
     if(this.state.recommend==="true"){
-      postData.recommend = true
+      formData.append("recommend",true)
 
     }else if (this.state.recommend==="false"){
-      postData.recommend =false
+      formData.append("recommend",false)
     }
-    postData.name=this.state.name;
-    postData.email=this.state.email;
-    postData.photos=[];
-    postData.characteristics=this.state.characteristics;
+    formData.append("characteristics", this.state.characteristics)
+    fetch('/reviews',
+      {method:'POST',
+       headers:{'content-type':"multipart/form-data"},
+       body: formData
 
-
-    // console.log('postdataRatings'+postData.rating)
-    // console.log('postdataID'+postData.product_id)
-    // console.log('postdatsummary'+postData.summary)
-    // console.log('postdatbody'+postData.body)
-    // console.log('postdatrecommd'+postData.recommend)
-    // console.log('postdatemail'+postData.email)
-    // console.log('postdatname'+postData.name)
-    // console.log('postdatch'+Object.keys(postData.characteristics))
+      })
+    .then((data)=>console.log('post success'))
 
   }
 
