@@ -3,6 +3,7 @@ import Rating from './Rating.jsx';
 import fakeData from './FakeData.js';
 import Summary from './Summary.jsx';
 import meta from './MetaData.js';
+import withInteractions from '../withInteractions.jsx';
 
 
 
@@ -88,4 +89,4 @@ class ReviewsRatings extends React.Component {
   }
 };
 
-export default  ReviewsRatings;
+export default  withInteractions(ReviewsRatings, 'Ratings & Reviews');

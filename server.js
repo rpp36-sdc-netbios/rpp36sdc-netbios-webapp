@@ -1,17 +1,21 @@
 const express = require('express');
 const morgan = require('morgan');
 const {token} = require('./config.js');
-var bodyParser = require('body-parser');
 const axios = require('axios');
 const path = require('path');
+var compression = require('compression');
+var multer = require('multer');
+var { uploadFile } = require('./s3');
+
 const port = 3000;
+const BASEURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
 
 const app = express();
 
 app.use(morgan('tiny'));
+app.use(compression());
 app.use(express.static(path.resolve(__dirname, 'client/dist')));
 app.use(express.json());
-app.use(bodyParser.json());
 
 app.listen(port, () => {
   console.log('Listening on port', port);
@@ -24,49 +28,130 @@ var options ={
   }
 }
 
-app.get('/products:product_id',(req,res)=>{
-  var id = req.params.product_id;
-  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`;
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+})
 
-  axios.get(url,{headers:options.headers})
-  .then(apiRes=>{
-    res.json(apiRes.data)
-  })
-  .catch(err=> res.status(500).send('Error when retrieving data'))
+var upload = multer({storage: storage});
 
+app.post('/interactions', (req, res) => {
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/interactions`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(req.body)
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(201);
+  });
 });
 
-app.get('/qa:product_id', (req, res) => {
-  var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${req.params.product_id}`;
-  axios.get(url, {headers: options.headers})
+app.post('/image', upload.single('image'), (req, res) => {
+  uploadFile(req.file)
   .then(apiRes => {
-    res.json(apiRes.data);
+    console.log(apiRes);
+    res.json({ url: apiRes.Location });
   }).catch(err => {
-    console.log(err);
+    console.log(err.message);
     res.sendStatus(500);
   });
 });
 
-app.get('/related:product_id', (req, res) => {
-  var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}/related`;
-  axios.get(url, {headers: options.headers})
-  .then(apiRes => {
-    res.json(apiRes.data);
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500);
+app.get('/products/:pId',(req,res)=>{
+  apiReq({
+    url: `${BASEURL}/products/${req.params.pId}`,
+    headers: options.headers
+  }, (err, data) => {
+    err ? res.sendStatus(500) : res.json(data);
+  });
+});
+
+app.get('/questions', (req, res) => {
+  apiReq({
+    url: `${BASEURL}/qa/questions`,
+    headers: options.headers,
+    params: req.query
+  }, (err, data) => {
+    err ? res.sendStatus(500) : res.json(data);
+  });
+});
+
+app.post('/question', (req, res) => {
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/qa/questions`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(req.body)
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(204);
+  });
+});
+
+app.post('/answer', (req, res) => {
+  console.log(req.body);
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/qa/questions/${req.body.question_id}/answers`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(req.body)
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(204);
+  });
+});
+
+app.get('/answers/:qId', (req, res) => {
+  apiReq({
+    url: `${BASEURL}/qa/questions/${req.params.qId}/answers`,
+    headers: options.headers,
+    params: req.query
+  }, (err, data) => {
+    err ? res.sendStatus(500) : res.json(data);
+  });
+})
+
+app.put('/qa/feedback', (req, res) => {
+  apiReq({
+    method: 'PUT',
+    url: `${BASEURL}/qa/${req.body.qa}/${req.body.id}/${req.body.feedback}`,
+    headers: options.headers,
+  }, (err) => {
+    err ? res.sendStatus(500) : res.sendStatus(204);
+  })
+});
+
+app.get('/related/:product_id', (req, res) => {
+  apiReq({
+    url: `${BASEURL}/products/${req.params.product_id}/related`,
+    headers: options.headers,
+  }, (err, data) => {
+    err ? res.sendStatus(500) : res.json(data);
   });
 });
 
 app.get('/styles:product_id', (req, res) => {
   var id = req.params.product_id;
-  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`;
+  var url =`${BASEURL}/products/${id}/styles`;
   axios.get(url, {headers: options.headers})
   .then(apiRes => {
     res.json(apiRes.data);
-    console.log(apiRes.data)
   }).catch(err => {
-    console.log(err);
+    console.log(err.message);
     res.sendStatus(500);
   });
 })
@@ -76,38 +161,43 @@ app.get('/reviews',(req,res)=>{
   // var page = req.body.page;
   // var sort = req.body.sort;
   // var count = req.body.count;
-  console.log('req.query'+req.query.page)
   var {product_id, sort, count,page} = req.query;
 
 
-  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
-  // var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp36/reviews?product_id=1&sort=newest&count=5`
-  console.log(url)
+  var url =`${BASEURL}/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
+  // var url =`${BASEURL}/reviews?product_id=1&sort=newest&count=5`
 
   axios.get(url,options)
   .then(data=>{
-    console.log('API data in get reviews '+ data.data.results);
     res.send(data.data)
   })
   .catch(err=> res.status(500).send('API err inside data get reviews'))
 
 })
+
 app.get('/reviews/meta/:product_id',(req,res)=>{
   // var product_id = req.body.product_id;
   // var page = req.body.page;
   // var sort = req.body.sort;
   // var count = req.body.count;
-  console.log('req.params'+req.params.product_id)
    var product_id = req.params.product_id;
 
-  var url =`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${product_id}`
+  var url =`${BASEURL}/reviews/meta?product_id=${product_id}`
 
   axios.get(url,options)
   .then(data=>{
-    console.log('API data in get meta reviews '+ data.data);
     res.send(data.data)
   })
   .catch(err=> res.status(500).send('API err inside data get meta reviews'))
 })
 
-
+// for fetching from api
+var apiReq = async (config, cb) => {
+  try {
+    var res = await axios(config);
+    cb(null, res.data);
+  } catch (err) {
+    console.log(err.message);
+    cb(err.message, null);
+  }
+};

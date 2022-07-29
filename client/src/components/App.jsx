@@ -12,11 +12,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      currentId: 71697,
+      currentId: 71701,
       product: {},
-
+      outfit: []
     }
     this.changeProduct = this.changeProduct.bind(this);
+    this.saveOutfit = this.saveOutfit.bind(this);
 
   }
   componentDidMount() {
@@ -24,7 +25,7 @@ class App extends React.Component {
   }
 
   getProduct() {
-    fetch('products' + this.state.currentId)
+    fetch('products/' + this.state.currentId)
     .then(res => {
       return res.json();
     }).then(product => {
@@ -41,27 +42,29 @@ class App extends React.Component {
     });
   }
 
+  saveOutfit() {
+    this.setState({ outfit: [...this.state.outfit, this.state.currentId ]})
+  }
+
   render() {
-    // console.log(this.state.product)
     return (
       <div id='container'>
       <div id='nav'>
         <span>Bauhaus</span>
       </div>
         <section>
-          <Overview productId={this.state.currentId} product={this.state.product}/>
+          <Overview productId={this.state.currentId} product={this.state.product} saveOutfit={this.saveOutfit}/>
         </section>
         <section>
-          <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct}/>
+          <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct} outfit={this.state.outfit}/>
         </section>
         <section>
-          <QA productId={this.state.currentId}/>
+          <QA productId={this.state.currentId} product={this.state.product}/>
         </section>
-        <section>
-        <ReviewsRatings  productId={this.state.currentId} />
-        </section>
+        <div id='rating-main'>
+          <ReviewsRatings  productId={this.state.currentId} />
+        </div>
       </div>
-
     );
   }
 };

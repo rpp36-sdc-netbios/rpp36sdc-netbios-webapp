@@ -1,74 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './qa.css';
-import { useState, useEffect } from 'react';
-import { keyframes } from '@emotion/react';
+import useFetch from '../useFetch.js'
 import QSet from './QSet.jsx';
+import QSearch from './QSearch.jsx';
+import AddQuestion from './AddQuestion.jsx';
+import withInteractions from '../withInteractions.jsx';
 
-var QA = (props) => {
+var QA = ({ productId, product }) => {
 
-  var [ qSearch, setQSearch ] = useState('');
-  var [ waiting, setWaiting ] = useState(true);
+  var [ page, setPage ] = useState(1);
+  var [ count, setCount ] = useState(2);
   var [ questions, setQuestions ] = useState([]);
-  var temp = true;
+  var [ addQuestion, setAddQuestion ] = useState(false);
 
-  var search = () => {
-    if (!waiting) {
-      console.log(qSearch);
-    }
-  }
+  var [ data, pending, error ] = useFetch(`questions?product_id=${productId}&page=${page}&count=${count}`);
 
-  useEffect(() => {
-  }, [ questions ])
-
-  useEffect(() => {
-    fetch('qa' + props.productId)
-    .then(res => {
-      return res.json();
-    }).then(data => {
-      setQuestions(data.results);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }, [props.productId]);
-
-  useEffect(() => {
-    if (temp) {
-      setTimeout(() => {
-        setWaiting(false)
-      }, 3000)
-      temp = false;
-    }
-    search();
-  }, [qSearch]);
-
-  var qHandler = (e) => {
-    setQSearch(e.target.value);
+  var loadMore = () => {
+    setPage(page + 1);
   };
 
-  var aFeedbackHandler = (e) => {
-    console.log(e);
+
+
+  useEffect(() => {
+    setPage(1);
+    setQuestions([]);
+  }, [ productId ]);
+
+  useEffect(() => {
+    if (data) {
+      if (page === 1) {
+        if (data.results.length === 0) {
+          setPage(2);
+        }
+        setQuestions(data.results);
+      } else {
+        var newQuestions = questions.concat(data.results);
+        var qIds = [];
+        setQuestions(newQuestions.filter(q => {
+          if (qIds.indexOf(q.question_id) < 0) {
+            qIds.push(q.question_id);
+            return true;
+          }
+        }));
+      }
+    }
+  }, [ data ]);
+
+  var showAddQuestion = (showAddModal) => {
+    setAddQuestion(showAddModal);
   };
 
   return (
     <div className='qa-container'>
-      <h3>QUESTIONS & ANSWERS</h3>
-        <div className='qa-search-container'>
-          <input className='qa-search' type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={qHandler} />
-          <i className="fa fa-search pointer"></i>
-        </div>
+      <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
+      <QSearch productId={productId} setQuestions={setQuestions}/>
       <div className='qa-list'>
-        {questions.map(q => <QSet key={q.question_id} question={q} aFeedbackHandler={aFeedbackHandler}/>)}
+        {questions.map(q => <QSet key={q.question_id} question={q} productName={product.name} />)}
+        {pending && <div>Loading...</div>}
+        {error && <div>{error}</div>}
       </div>
       <div className='qa-buttons'>
         <div>
-          <input className='pointer' type='button' value='MORE ANSWERED QUESTIONS' />
+          <button className='pointer' type='button' onClick={loadMore}>MORE ANSWERED QUESTIONS</button>
         </div>
         <div>
-          <input className='pointer' type='button' value='ADD A QUESTION      ' /><i className="fa fa-plus" aria-hidden="true"></i>
+          <button className='pointer qa-add-button' type='button' onClick={() => showAddQuestion(true)}>ADD A QUESTION</button><div onClick={() => showAddQuestion(true)} className='qa-plus pointer'>+</div>
         </div>
       </div>
+      {addQuestion && <AddQuestion productName={product.name} productId={productId} showAddQuestion={showAddQuestion}/>}
     </div>
   );
 }
 
-export default QA;
+export default withInteractions(QA, 'Questions & Answers');

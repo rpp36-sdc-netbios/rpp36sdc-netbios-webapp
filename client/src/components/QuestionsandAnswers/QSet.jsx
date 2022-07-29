@@ -1,41 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './qa.css';
 import Answers from './Answers.jsx';
-import { useState, useEffect } from 'react';
+import AddAnswer from './AddAnswer.jsx';
 
 
-var QSet = ({ aFeedbackHandler, question }) => {
+var QSet = ({ question, productName }) => {
 
-  var answerKeys = Object.keys(question.answers);
-  var [ keyNum, setKeyNum ] = useState(0);
-  var [ answers, setAnswers ] = useState([answerKeys[keyNum]]);
+  var id = question.question_id;
+  var [ helpfulness, setHelpfulness ] = useState(question.question_helpfulness);
+  var [ addAnswer, setAddAnswer ] = useState(false);
 
-  var moreAnswersOption = () => {
-    if (keyNum < answerKeys.length - 1) {
-      return <p className='pointer' onClick={loadMoreAnswers}>LOAD MORE ANSWERS</p>
+  var feedbackHandler = async ( qa, feedback, id) => {
+    var res = await fetch('qa/feedback', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ qa, feedback, id})
+    });
+    if (res.ok) {
+      setHelpfulness(helpfulness + 1);
     }
   };
 
-  var loadMoreAnswers = () => {
-    setAnswers([ ...answers, answerKeys[keyNum + 1] ]);
-    setKeyNum(keyNum + 1);
+  var showAddAnswer = (val) => {
+    setAddAnswer(val);
   };
 
-
   return (
-    <div className='qa-item'>
+    <div data-testid='qa-qset' className='qa-item'>
       <div className='qa-text'>
-        <div className='qa-bold qa-question'>
-          <div className='qa-label'>Q:</div><div className='qa-text'><p>{question.question_body}</p></div>
+        <div data-testid='qa-question' className='qa-bold qa-question'>
+          <div className='qa-text'><span>Q:</span>&nbsp;{question.question_body}</div>
         </div>
-          {answers.map(a => <Answers key={question.answers[a].id} answer={question.answers[a]} aFeedbackHandler={aFeedbackHandler}/>)}
-        <div className='qa-more-answers'>
-          {moreAnswersOption()}
-        </div>
+        <Answers questionId={question.question_id} feedbackHandler={feedbackHandler} />
       </div>
       <div className='qa-item-right'>
-        <p>Helpful? <span className='pointer underline' onClick={(e) => aFeedbackHandler('q-helpful')}>Yes({question.question_helpfulness})</span>  |  <span className='pointer underline' onClick={(e) => aFeedbackHandler('q-add')}>Add&nbsp;Answer</span></p>
+        <p>Helpful? <span data-testid='qa-question-helpful' className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes<span>({helpfulness})</span></span>&nbsp;|&nbsp;<span className='pointer underline' onClick={() => showAddAnswer(true)}>Add&nbsp;Answer</span></p>
       </div>
+      {addAnswer && <AddAnswer showAddAnswer={showAddAnswer} productName={productName} questionId={question.question_id} question={question.question_body}/>}
     </div>
   );
 }

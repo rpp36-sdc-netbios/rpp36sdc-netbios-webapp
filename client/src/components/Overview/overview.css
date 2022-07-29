@@ -33,14 +33,26 @@
   font-weight: bold;
 }
 
-.style-button {
-  background-color: grey;
-  border: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  margin: 8px 8px;
+
+#button-img {
   border-radius: 50%;
+  margin: 8px 8px;
+  padding: 5px;
+  height:50px;
+  width:50px;
+}
+
+.active {
+  border-color: white;
+  box-shadow:0px 2px 2px 1px #333;
+}
+
+#button-img:active {
+  box-shadow:0px 12px 22px 1px #333;
+ }
+
+.selected{
+  box-shadow:0px 12px 22px 1px #333;
 }
 
 .style-select-word{
@@ -87,10 +99,304 @@
   font-size: medium;
 }
 
-#main-pic {
+.main-img {
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
-  height: 80%;
+  width: 500px;
+  height: 400px;
   display: block;
 }
+
+#pic {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 500px;
+}
+
+.slider-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 80%;
+  max-width: 650px;
+  height: 400px;
+  position: absolute;
+  overflow: scroll;
+}
+
+.slide {
+  flex: 0;
+  width: 80px;
+  height: 100px;
+  position: relative;
+  transition: all 0.5s;
+}
+
+.slide img {
+  width: 80px;
+  height: 100px;
+  /* object-fit: cover; */
+}
+
+.btn {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  z-index: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 18px;
+}
+
+.btn:active {
+  transform: scale(1.1);
+}
+
+.btn-prev {
+   margin-left: 50px;
+}
+
+.btn-next {
+  margin-left: 60px;
+}
+
+.star-line {
+  position: relative;
+  max-width: fit-content;
+}
+
+.star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.description{
+  margin-bottom:20px;
+}
+
+#sale{
+  color: red;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+  height: 70px;
+  width: 70px;
+}
+
+/* Next & previous buttons */
+.prev,.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  /* margin-top: -100px; */
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+  margin-left: 100px;
+  margin-top: 200px;
+}
+.next {
+  right: 0;
+  margin-top: 200px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 100px
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  height:400px;
+}
+
+.row{
+  max-height: 500px;
+  overflow:hidden;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 10%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+
+/* NEW STUFF */
+
+.overview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 700px
+}
+
+.mainphoto {
+  width: 600px;
+  height: 500px;
+}
+
+.mainphoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.picslider {
+  width: 75px;
+  height: 380px;
+  overflow: hidden;
+}
+
+.sliderphoto {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.sliderphoto img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.gallery {
+  display: inline-block;
+  background-color: aqua;
+  height: 500px;
+  width: 600px;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li:before {
+  content: '✓';
+}
+
+#overview-description {
+  position:absolute;
+  width:70%;
+  margin-top: 600px;
+}
+
+.angles {
+  font-size: 2em;
+  opacity: 0.5;
+}
+
+.vl {
+  border-left: 3px solid gray;
+  height:100px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+}
+
+.slideleft {
+  position: absolute;
+  top: 240px;
+  left: 100px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slideright {
+  position: absolute;
+  top: 240px;
+  left: 530px;
+  background-color: white;
+  width: 20px;
+  padding-left: 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.slidedown {
+  font-size: 1.35em;
+  background-color: white;
+  margin-left: 7px;
+  margin-top: 10px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.slideup {
+  font-size: 1.35em;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-left: 7px;
+  padding-left: 10px;
+  width: 23px;
+  border-radius: 10px;
+}
+
+.imageresize {
+  background-color: white;
+  opacity: .5;
+  border-radius: 10px;
+  font-size: 2em;
+  color: black;
+  position: absolute;
+  top: 20px;
+  left: 550px;
+}
+

@@ -1,56 +1,35 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import useFetch from '../useFetch.js';
 import './related.css';
-import ProductCard from './ProductCard.jsx';
+import SlideContainer from './SlideContainer.jsx';
+import YourOutfit from './YourOutfit.jsx';
+import withInteractions from '../withInteractions.jsx';
 
-var RelatedProducts = ({ productId, changeProduct }) => {
+var RelatedProducts = ({ productId, changeProduct , outfit}) => {
 
-  var [ related, setRelated ] = useState([]);
+  var [products, setProducts] = useState([]);
+
+  var [ data, pending, error ] = useFetch('related/' + productId);
+  var outfit = [...new Set(outfit)]
 
   useEffect(() => {
-    fetch('related' + productId)
-    .then(res => {
-      return res.json();
-    }).then(data => {
-      setRelated([...new Set(data)]);
-    }).catch(err => {
-      console.log(err);
-    })
-  }, [productId]);
 
-  var slide = (e) => {
-    var [ container, direction ] = e.target.id.split('-');
-    if (container === 'rel') {
-      container = document.getElementById('rel-container');
-      direction === 'left' ? container.scrollLeft -= 80 : container.scrollLeft += 80;
+    if (data) {
+      setProducts([...new Set(data)]);
     }
-  }
+  }, [data]);
 
   return (
     <div id='related'>
       <div className='rel-header'>
-        <h3>RELATED PRODUCTS</h3>
+        <h2>RELATED PRODUCTS</h2>
       </div>
-
-      <div className='rel'>
-        <div className='rel-btn rel-btn-left'>
-          <input id='rel-left' type='button' value='<' onClick={slide} />
-        </div>
-        <div id='rel-container' className='rel-slide-container' >
-          {related.map(item => <ProductCard key={item} id={item} changeProduct={changeProduct}/>)}
-        </div>
-        <div className='rel-btn rel-btn-right'>
-          <input id='rel-right' type='button' value='>' onClick={slide} />
-        </div>
-      </div>
-
-      <h3>YOUR OUTFIT</h3>
-      <div className='rel-outfit'>
-
-      </div>
-
+      {error && <div>{error}</div>}
+      {pending && <div>Loading...</div>}
+      <SlideContainer data={products} changeProduct={changeProduct}/>
+      { outfit.length >= 1 ? <YourOutfit outfit={outfit} changeProduct={changeProduct}/> : null }
     </div>
   );
 };
 
-export default RelatedProducts;
+export default withInteractions(RelatedProducts, 'Related Products');
