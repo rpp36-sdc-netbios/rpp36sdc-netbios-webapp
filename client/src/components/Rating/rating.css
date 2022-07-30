@@ -3,7 +3,7 @@
 
 }
 .review{
-  background-color: honeydew;
+
   padding-top: 20px;
 }
 .button {
@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 .button-box{
-  width: 85%;
+  width: 75%;
   display:flex;
   margin-left: auto;
   margin-right: auto;
@@ -30,8 +30,9 @@
   padding-top: 30px;
 
 }
+
 .summary-box{
-  width: 35%;
+  width: 30%;
   float: left;
 
 }
@@ -50,6 +51,18 @@
   margin: 1px 1px;
   cursor: pointer;
 }
+.button-helpful2{
+  font-weight: bold;
+  background-color: white;
+  border: 0;
+  padding: 1px 1px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+  margin: 1px 1px;
+  cursor: pointer;
+}
+
 .helpful-line {
   background-color: white;
   border: 0;
@@ -73,7 +86,7 @@
 .stars {
   display: inline-block;
   position: relative;
-  line-height: 1em;
+  line-height: 0.1em;
  }
  .stars-base {
   white-space: nowrap;
@@ -92,11 +105,251 @@
   width: 40%;
   font-size: 10px;
   float: right;
+  padding-top: 2%;
+  padding-bottom: 2%;
 
 }
+.user-box2{
+
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+}
+
+.review-textbox{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  background-color: lightgray;
+  height:max-content;
+}
 .bar-container {
-  width: 100%;
+  width: 80%;
   background-color: #f1f1f1;
+  display:inline-block;
+  height: 0.6em;
+  margin-left: 1em;
+
+}
+
+/***********/
+.slidecontainer {
+  width:  100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+}
+
+.slider {
+  -webkit-appearance:none;
+  width: 100%;
+  height: 0.6em;
+background: linear-gradient(90deg, rgba(220,220,225,1) 0%, rgba(220,220,225,1) 32.9%, rgba(220,220,225,0) 33%, rgba(220,220,225,0) 33.2%, rgba(220,220,225,1) 33.21%, rgba(220,220,225,1) 34%, rgba(220,220,225,1) 62.9%, rgba(220,220,225,0) 63%, rgba(220,220,225,0) 63.2%, rgba(220,220,225,1) 63.3%, rgba(220,220,225,1) 68%);
+  /* -webkit-transition: .2s; */
+  /* transition: opacity .2s; */
+}
+
+
+
+/* .slider:hover {
+  opacity: 1;
+} */
+
+
+.slider::-webkit-slider-thumb {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 1em solid black;
+  cursor: pointer;
+}
+
+/* .slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+} */
+/***********/
+.alignleft {
+	float: left;
+  width:33.33333%;
+  text-align:left;
+  font-size: 0.8em;
+}
+
+.alignright {
+float: left;
+ width:33.33333%;
+ text-align:right;
+ font-size: 0.8em;
+}
+.aligncenter{
+  float: left;
+  width:33.33333%;
+  text-align:center;
+  font-size: 0.8em;
+}
+.alignStar{
+  float: right;
+}
+.alignScore {
+  float: left;
+  font-size: 4em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 0.5em;
+}
+.box{
+  padding-bottom: 1em;
+}
+.smallbox{
+  padding-top:0.5em ;
+  height: 2em;
+  display: flex;
+  justify-content: space-between
+}
+#underline{
+  text-decoration: underline;
+  font-size: 1em;
+  text-align: left;
+  float: left;
+  width: 20%;
+
+}
+
+/***********/
+.star-rating {
+  display: flex;
+  align-items: left;
+  width: 0.3 em;
+  flex-direction: row-reverse;
+  justify-content:space-between;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top:5%;
+
+  position: relative;
+}
+/* hide the inputs */
+.star-rating input {
+  display: none;
+}
+/* set properties of all labels */
+.star-rating > label {
+  width: 30px;
+  height: 30px;
+  font-family: Arial;
+  font-size: 30px;
+  transition: 0.2s ease;
+  color: orange;
+}
+/* give label a hover state */
+.star-rating label:hover {
+  color: #ff69b4;
+  transition: 0.2s ease;
+}
+.star-rating label:active::before {
+  transform:scale(1.1);
+}
+
+/* set shape of unselected label */
+.star-rating label::before {
+  content: '\2606';
+  position: absolute;
+  top: 0px;
+  line-height: 26px;
+}
+/* set full star shape for checked label and those that come after it */
+.star-rating input:checked ~ label:before {
+  content:'\2605';
+}
+
+@-moz-document url-prefix() {
+  .star-rating input:checked ~ label:before {
+  font-size: 36px;
+  line-height: 21px;
+  }
+}
+
+
+.close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(25% - 25px);
+  top: calc(100vh - 85vh - 33px);
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
   text-align: center;
-  color: white;
+  border: 1px solid #999;
+  font-size: 20px;
+}
+
+
+.popup-box {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.box1 {
+  position: relative;
+  width: 50%;
+  z-index: 2;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
+.form-p {
+
+  text-align:center;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 3%;
+
+
+}
+.form-section{
+  text-align:left;
+  margin: 3%;
+
+}
+.form-word{
+  font-weight: bold;
+  text-align:left;
+
+}
+.form-textarea{
+  margin-left: 0%;
+  margin-top: 3%;
+  display:block;
+  resize: none;
+
+}
+
+.form-button{
+  margin-left: 3%;
+  margin-top: 3%;
+  display:block;
+  font-weight: bold;
+  width: 57%;
+  height: 20%;
+
 }
