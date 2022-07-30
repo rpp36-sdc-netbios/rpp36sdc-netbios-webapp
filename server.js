@@ -157,10 +157,7 @@ app.get('/styles:product_id', (req, res) => {
 })
 
 app.get('/reviews',(req,res)=>{
-  // var product_id = req.body.product_id;
-  // var page = req.body.page;
-  // var sort = req.body.sort;
-  // var count = req.body.count;
+
   var {product_id, sort, count,page} = req.query;
 
 
@@ -176,11 +173,8 @@ app.get('/reviews',(req,res)=>{
 })
 
 app.get('/reviews/meta/:product_id',(req,res)=>{
-  // var product_id = req.body.product_id;
-  // var page = req.body.page;
-  // var sort = req.body.sort;
-  // var count = req.body.count;
-   var product_id = req.params.product_id;
+
+  var product_id = req.params.product_id;
 
   var url =`${BASEURL}/reviews/meta?product_id=${product_id}`
 
@@ -190,6 +184,7 @@ app.get('/reviews/meta/:product_id',(req,res)=>{
   })
   .catch(err=> res.status(500).send('API err inside data get meta reviews'))
 })
+
 
 // for fetching from api
 var apiReq = async (config, cb) => {
@@ -201,3 +196,20 @@ var apiReq = async (config, cb) => {
     cb(err.message, null);
   }
 };
+
+app.put('/reviews/:review_id/helpful',(req,res)=>{
+  var url =`${BASEURL}/reviews/${req.params.review_id}/helpful`
+  axios.put(url,{},options)
+  .then(data=>{
+    res.sendStatus(data.status)
+  })
+  .catch(err=> res.status(500).send('API err put meta reviews'))
+})
+app.put('/reviews/:review_id/report',(req,res)=>{
+  var url =`${BASEURL}/reviews/${req.params.review_id}/report`
+  axios.put(url,{},options)
+  .then(data=>{
+    res.sendStatus(data.status)
+  })
+  .catch(err=> res.status(500).send('API err put report'))
+})

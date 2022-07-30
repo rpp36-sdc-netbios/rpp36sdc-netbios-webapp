@@ -16,6 +16,7 @@ class Rating extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.displayForm =this.displayForm.bind(this);
     this.handleClose =this.handleClose.bind(this);
+
   }
 
 
@@ -45,6 +46,7 @@ class Rating extends React.Component {
 
 
 
+
   render(){
     var index = this.state.cur;
     var list = this.props.results.slice(0,index)
@@ -61,7 +63,7 @@ class Rating extends React.Component {
         </label>
         <div>
       {list.map((review, key)=>
-        <Review review={review} key ={review.review_id}/>
+        <Review handlehelp={this.props.handlehelp}review={review} key ={review.review_id}/>
       )}
         </div>
         <div className ="button-box">

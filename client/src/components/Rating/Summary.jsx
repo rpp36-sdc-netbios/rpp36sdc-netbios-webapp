@@ -70,7 +70,7 @@ class Summary extends React.Component {
       array.push(list)
 
     }
-    console.log('array'+array[0].Fit.value)
+
     console.log('average'+ average)
 
 

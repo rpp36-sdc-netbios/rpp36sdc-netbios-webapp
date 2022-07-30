@@ -11,7 +11,7 @@ class ReviewsRatings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewsResults:[],
+      reviewsResults:fakeData,
       sort:'relevance',
       metaData:meta,
       count:5,
@@ -19,16 +19,31 @@ class ReviewsRatings extends React.Component {
       displayButton:true,
     }
     this.changSort= this.changSort.bind(this);
+    this.handlehelp = this.handlehelp.bind(this);
 
 
   }
   changSort(value){
     console.log('inside sort'+ value);
     this.setState({sort:value});
-
-
   }
 
+  handlehelp(review_id){
+    console.log('change help'+review_id)
+
+    fetch(`/reviews/${review_id}/helpful`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+    })
+    .then(data =>{
+      console.log('helpful data is ' +data.status)
+    });
+
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.sort !== this.state.sort) {
@@ -78,7 +93,7 @@ class ReviewsRatings extends React.Component {
     return (
       <div >
         <div className ="rating-box">
-        <Rating productId={this.props.productId} results = {this.state.reviewsResults}
+        <Rating handlehelp ={this.handlehelp} productId={this.props.productId} results = {this.state.reviewsResults}
         char ={this.state.metaData.characteristics}changSort={this.changSort} sort={this.state.sort}/>
         </div>
         <div className="summary-box">
