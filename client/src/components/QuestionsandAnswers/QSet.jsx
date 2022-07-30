@@ -4,13 +4,13 @@ import Answers from './Answers.jsx';
 import AddAnswer from './AddAnswer.jsx';
 
 
-var QSet = ({ question, productName }) => {
+var QSet = ({ question, productName, search }) => {
 
   var id = question.question_id;
   var [ helpfulness, setHelpfulness ] = useState(question.question_helpfulness);
   var [ addAnswer, setAddAnswer ] = useState(false);
 
-  var feedbackHandler = async ( qa, feedback, id) => {
+  var feedbackHandler = async ( qa, feedback, id, e) => {
     var res = await fetch('qa/feedback', {
       method: 'PUT',
       headers: {
@@ -21,6 +21,7 @@ var QSet = ({ question, productName }) => {
     });
     if (res.ok) {
       setHelpfulness(helpfulness + 1);
+      e.target.style.color = 'blue';
     }
   };
 
@@ -37,7 +38,7 @@ var QSet = ({ question, productName }) => {
         <Answers questionId={question.question_id} feedbackHandler={feedbackHandler} />
       </div>
       <div className='qa-item-right'>
-        <p>Helpful? <span data-testid='qa-question-helpful' className='pointer underline' onClick={(e) => feedbackHandler('questions', 'helpful', id)}>Yes<span>({helpfulness})</span></span>&nbsp;|&nbsp;<span className='pointer underline' onClick={() => showAddAnswer(true)}>Add&nbsp;Answer</span></p>
+        <p>Helpful? <span data-testid='qa-question-helpful' className='pointer underline' onClick={(e) => {feedbackHandler('questions', 'helpful', id, e)}}>Yes({helpfulness})</span>&nbsp;|&nbsp;<span className='pointer underline' onClick={() => showAddAnswer(true)}>Add&nbsp;Answer</span></p>
       </div>
       {addAnswer && <AddAnswer showAddAnswer={showAddAnswer} productName={productName} questionId={question.question_id} question={question.question_body}/>}
     </div>

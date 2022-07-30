@@ -6,7 +6,7 @@ var PhotoView = ({photo, setPhoto}) => {
     backgroundSize: 'cover',
   }
   return (
-    <div className='qa-photoview' style={style}>
+    <div data-testid='qa-photoview' className='qa-photoview' style={style}>
         <span className='pointer qa-add-question-x qa-photoview-x' onClick={() => setPhoto('')}>X</span>
     </div>
   );
