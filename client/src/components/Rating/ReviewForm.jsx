@@ -15,6 +15,7 @@ class ReviewForm extends React.Component{
       startext:"",
       email:"",
       characteristics:{},
+      images:[],
 
     }
     this.handlePhotoChange =this.handlePhotoChange.bind(this);
@@ -31,9 +32,25 @@ class ReviewForm extends React.Component{
         return ({photos: [...preState.photos, e.target.files[0]]})
       })
 
-    }
+      console.log("upload"+e.target.files[0])
+      console.log("upload"+e.target.name)
 
+      var formData =new FormData();
+      formData.append(e.target.name, e.target.files[0])
+      fetch('image', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response=>response.json())
+      .then(data=>{ var url = data.url;
+        console.log("data image "+ data.url);
+        this.setState((preState)=> ({
+        images: [...preState.images, url]}
+      ))})
+      .catch(error=>console.log("err inside image"))
+    }
   }
+
   handleClose(e){
     this.props.handleClose(e)
 
@@ -76,11 +93,10 @@ class ReviewForm extends React.Component{
     formData.append("rating",parseInt(this.state.rating))
     formData.append("summary", this.state.summary);
     formData.append("body", this.state.body);
-
     formData.append("name", this.state.name);
     formData.append("email", this.state.email);
     for(let i=0; i<this.state.photos.length; i++) {
-        formData.append(`images`, this.state.photos[i])
+        formData.append(`images`, this.state.images[i])
       }
 
     if(this.state.recommend==="true"){
@@ -152,9 +168,10 @@ class ReviewForm extends React.Component{
           </textarea>
           </div>
           <div className="form-section">
-            <label className="form-word" > Upload your photos
-            <input name="photos" className="form-textarea" type="file"  accept ="image/*"  onChange={this.handlePhotoChange}/>
-            {urls.map((url,index)=><div url={url} key={index}> <img src ={url} alt={url}/></div>)}
+            <label className="form-word" id ="form-photos" > Upload your photos
+            <input name="image" className="form-textarea" type="file"  accept ="image/*"  onChange={this.handlePhotoChange}/>
+
+            {urls.map((url,index)=><div  url={url} key={index}> <img src ={url} alt={url}/></div>)}
             </label>
           </div>
         <div className="form-section">

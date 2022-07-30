@@ -55,12 +55,13 @@ app.post('/interactions', (req, res) => {
 });
 
 app.post('/image', upload.single('image'), (req, res) => {
+  console.log('hello in images')
   uploadFile(req.file)
   .then(apiRes => {
-    console.log(apiRes);
+    console.log("hello imgaes"+apiRes);
     res.json({ url: apiRes.Location });
   }).catch(err => {
-    console.log(err.message);
+    console.log("err___"+err.message);
     res.sendStatus(500);
   });
 });

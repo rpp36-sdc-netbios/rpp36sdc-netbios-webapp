@@ -71,7 +71,7 @@ class Summary extends React.Component {
 
     }
 
-    console.log('average'+ average)
+    // console.log('average'+ average)
 
 
     return(
