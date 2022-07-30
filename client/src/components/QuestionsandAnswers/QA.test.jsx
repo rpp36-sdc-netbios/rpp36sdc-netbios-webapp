@@ -1,10 +1,10 @@
 import React from 'react';
 import QA from './QA.jsx';
 import Answers from './Answers.jsx'
-import { render, fireEvent, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitForElementToBeRemoved, waitFor, getByTestId } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import AddQuestion from './AddQuestion.jsx';
-import AddAnswer from './AddAnswer.jsx'
+import AddAnswer from './AddAnswer.jsx';
 
 var mockFetch = () => {
   return jest.fn((url) => {
@@ -116,7 +116,7 @@ describe('QA', () => {
   it('Should increase helpful count for question when yes is clicked', async () => {
     var el = qa.getAllByTestId('qa-question-helpful');
     fireEvent.click(el[0]);
-    var count = await qa.findByText('(5)')
+    var count = await qa.findByText('Yes(5)')
     expect(count).toBeInTheDocument();
   });
 
@@ -178,6 +178,10 @@ describe('QA Answers', () => {
       expect(feedback).toBe('answers');
   });
 
+  it('Should show photos in answers', () => {
+    var el = qa.getAllByTestId('answer-photo');
+    expect(el[0]).toBeInTheDocument();
+  });
 });
 
 describe('Add question', () => {
@@ -451,7 +455,7 @@ var mockAnswers = {
       "date": "2018-01-04T00:00:00.000Z",
       "answerer_name": "metslover",
       "helpfulness": 8,
-      "photos": [],
+      "photos": ['somephoto.jpg'],
     },
     {
       "answer_id": 5,
