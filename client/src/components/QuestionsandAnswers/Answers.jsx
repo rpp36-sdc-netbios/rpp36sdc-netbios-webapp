@@ -36,7 +36,7 @@ var Answers = ({ feedbackHandler, questionId }) => {
 
   return (
     <div className='qa-answer-block'>
-      {answers.map(a => <Answer key={a.answer_id} answer={a} feedbackHandler={feedbackHandler} />)}
+      {answers.map(a => <Answer key={a.answer_id} answer={a} feedbackHandler={feedbackHandler}/>)}
       {pending && <div>Loading...</div>}
       {error && <div className='error' >{error.message}</div>}
       <div className='qa-more-answers'>
