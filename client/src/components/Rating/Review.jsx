@@ -85,7 +85,6 @@ class Review extends React.Component {
       <p>{this.props.review.response}</p>
       </div>}
 
-
       <div> {this.state.text}
         <button className ="button-helpful" onClick={this.handlehelp}> Yes </button>
         <p className ="helpul-inline">({this.state.yes})</p>
@@ -93,8 +92,13 @@ class Review extends React.Component {
         :<p className ="button-helpful2" > Reported </p>}
       </div>
 
-    </div>
-    )
+       {this.props.review.photos.length > 0 &&
+       <div>
+         {this.props.review.photos.map((photo,index)=>(<img src ={photo.url} alt={photo.url} key={photo.id}/>))}
+        </div> }
+      </div>
+   )
+
   }
 
 }

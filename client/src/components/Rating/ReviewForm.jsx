@@ -88,31 +88,39 @@ class ReviewForm extends React.Component{
   }
   handleSubmit(event){
     event.preventDefault();
-    var formData = new FormData();
-    formData.append("product_id",parseInt(this.props.productId))
-    formData.append("rating",parseInt(this.state.rating))
-    formData.append("summary", this.state.summary);
-    formData.append("body", this.state.body);
-    formData.append("name", this.state.name);
-    formData.append("email", this.state.email);
-    for(let i=0; i<this.state.photos.length; i++) {
-        formData.append(`images`, this.state.images[i])
-      }
+
+    var form={
+      product_id:parseInt(this.props.productId),
+      rating:parseInt(this.state.rating),
+      summary:this.state.summary,
+      body:this.state.body,
+      name:this.state.name,
+      email:this.state.email,
+      photos:this.state.images,
+      characteristics:this.state.characteristics,
+      recommend:false
+
+
+    };
 
     if(this.state.recommend==="true"){
-      formData.append("recommend",true)
+      form.recommend=true
 
     }else if (this.state.recommend==="false"){
-      formData.append("recommend",false)
+      form.recommend=false
     }
-    formData.append("characteristics", this.state.characteristics)
+
+
     fetch('/reviews',
       {method:'POST',
-       headers:{'content-type':"multipart/form-data"},
-       body: formData
-
+       headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+       body:  JSON.stringify(form)
       })
-    .then((data)=>console.log('post success'))
+    .then((response)=>console.log('post success'))
+    .catch((err)=>(console.log('err iside post form')))
 
   }
 
