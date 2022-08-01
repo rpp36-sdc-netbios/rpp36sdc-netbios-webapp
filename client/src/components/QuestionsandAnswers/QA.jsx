@@ -12,17 +12,14 @@ var QA = ({ productId, product }) => {
   var [ count, setCount ] = useState(2);
   var [ questions, setQuestions ] = useState([]);
   var [ addQuestion, setAddQuestion ] = useState(false);
-  var [ search, setSearch ] = useState('');
 
-  var [ data, pending, error ] = useFetch(`questions?product_id=${productId}&page=${page}&count=${count}&search=${search}`);
+  var [ data, pending, error ] = useFetch(`questions?product_id=${productId}&page=${page}&count=${count}`);
 
   var loadMore = () => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
-    setPage(1);
-  }, [search])
+
 
   useEffect(() => {
     setPage(1);
@@ -56,9 +53,9 @@ var QA = ({ productId, product }) => {
   return (
     <div className='qa-container'>
       <h3 data-testid='qa-title'>QUESTIONS & ANSWERS</h3>
-      <QSearch productId={productId} setQuestions={setQuestions} setSearch={setSearch}/>
+      <QSearch productId={productId} setQuestions={setQuestions}/>
       <div className='qa-list'>
-        {questions.map(q => <QSet key={q.question_id} question={q} productName={product.name} search={search} />)}
+        {questions.map(q => <QSet key={q.question_id} question={q} productName={product.name} />)}
         {pending && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </div>
