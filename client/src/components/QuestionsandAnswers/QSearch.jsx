@@ -1,22 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-var QSearch = ({ setQuestions, productId }) => {
-
-  var [ search, setSearch ] = useState('');
-  var [ page, setPage ] = useState(1);
-  var [ count, setCount ] = useState(2);
-
-
-  useEffect(() => {
-      fetch(`questions?product_id=${productId}&page=${page}&count=${count}&search=${search}`)
-      .then(res => {
-        return res.json();
-      }).then(data => {
-        setQuestions(data.results);
-      }).catch(err => {
-        console.log(err);
-      });
-  }, [ search ]);
+var QSearch = ({ setSearch }) => {
 
   var qHandler = (e) => {
     if (e.target.value.length > 2) {

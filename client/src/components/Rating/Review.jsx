@@ -92,9 +92,13 @@ class Review extends React.Component {
         :<p className ="button-helpful2" > Reported </p>}
       </div>
 
+       {this.props.review.photos.length > 0 &&
+       <div>
+         {this.props.review.photos.map((photo,index)=>(<img src ={photo.url} alt={photo.url} key={photo.id}/>))}
+        </div> }
+      </div>
+   )
 
-    </div>
-    )
   }
 
 }

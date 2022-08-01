@@ -39,6 +39,10 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage});
 
+app.get('/p-:pId', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+});
+
 app.post('/interactions', (req, res) => {
   apiReq({
     method: 'POST',
@@ -55,13 +59,12 @@ app.post('/interactions', (req, res) => {
 });
 
 app.post('/image', upload.single('image'), (req, res) => {
-  console.log('hello in images')
   uploadFile(req.file)
   .then(apiRes => {
-    console.log("hello imgaes"+apiRes);
+    console.log(apiRes);
     res.json({ url: apiRes.Location });
   }).catch(err => {
-    console.log("err___"+err.message);
+    console.log(err.message);
     res.sendStatus(500);
   });
 });
@@ -158,7 +161,10 @@ app.get('/styles:product_id', (req, res) => {
 })
 
 app.get('/reviews',(req,res)=>{
-
+  // var product_id = req.body.product_id;
+  // var page = req.body.page;
+  // var sort = req.body.sort;
+  // var count = req.body.count;
   var {product_id, sort, count,page} = req.query;
   var url =`${BASEURL}/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
   // var url =`${BASEURL}/reviews?product_id=1&sort=newest&count=5`
@@ -172,8 +178,11 @@ app.get('/reviews',(req,res)=>{
 })
 
 app.get('/reviews/meta/:product_id',(req,res)=>{
-
-  var product_id = req.params.product_id;
+  // var product_id = req.body.product_id;
+  // var page = req.body.page;
+  // var sort = req.body.sort;
+  // var count = req.body.count;
+   var product_id = req.params.product_id;
 
   var url =`${BASEURL}/reviews/meta?product_id=${product_id}`
 
@@ -183,7 +192,6 @@ app.get('/reviews/meta/:product_id',(req,res)=>{
   })
   .catch(err=> res.status(500).send('API err inside data get meta reviews'))
 })
-
 
 // for fetching from api
 var apiReq = async (config, cb) => {
@@ -235,3 +243,4 @@ app.post('/reviews',(req,res)=>{
   });
 
 })
+

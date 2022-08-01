@@ -13,7 +13,7 @@ var Answer = ({ answer, feedbackHandler }) => {
   var getPhotos = () => {
     return (
         <div className='qa-answer-photos'>
-          {photos.map(photo => <img onClick={() => viewPhoto(photo.url)} className='qa-photo' key={photo.id} src={photo.url}/>)}
+          {photos.map(photo => <img data-testid='answer-photo' onClick={() => viewPhoto(photo.url)} className='qa-photo' key={photo.id} src={photo.url} />)}
         </div>
     );
   }
@@ -30,8 +30,8 @@ var Answer = ({ answer, feedbackHandler }) => {
       {photos.length > 0 && getPhotos()}
       <div className='qa-user'>
         by {answer.answerer_name}, <span className='qa-date'>{date}</span>&nbsp;|&nbsp;Helpful?&nbsp;<span className='pointer underline'
-        onClick={(e) => feedbackHandler('answers', 'helpful', id)}>Yes</span>&nbsp;|&nbsp;<span className='pointer underline'
-        onClick={(e) => feedbackHandler('answers', 'report', id)}>Report</span>
+        onClick={(e) => feedbackHandler('answers', 'helpful', id, e)}>Yes</span>&nbsp;|&nbsp;<span className='pointer underline'
+        onClick={(e) => feedbackHandler('answers', 'report', id, e)}>Report</span>
       </div>
       {photo && <PhotoView photo={photo} setPhoto={setPhoto}/>}
       </React.Fragment>
