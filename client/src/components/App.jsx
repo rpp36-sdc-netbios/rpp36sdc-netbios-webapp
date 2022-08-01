@@ -10,9 +10,12 @@ import ReviewsRatings from './Rating/ReviewsRatings.jsx';
 
 class App extends React.Component {
   constructor(props) {
+    if (window.location.href.split('-').length === 1) {
+      window.location.href = window.location.href + 'p-71701';
+    }
     super(props);
     this.state ={
-      currentId:  71697,
+      currentId: window.location.href.split('-').pop(),
       product: {},
       outfit: []
     }
@@ -37,9 +40,7 @@ class App extends React.Component {
   }
 
   changeProduct(id) {
-    this.setState({ currentId: id }, () => {
-      this.getProduct();
-    });
+    window.location.href = window.location.href.split('-')[0] + '-' + id
   }
 
   saveOutfit() {
