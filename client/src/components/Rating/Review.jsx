@@ -85,13 +85,13 @@ class Review extends React.Component {
       <p>{this.props.review.response}</p>
       </div>}
 
-
       <div> {this.state.text}
         <button className ="button-helpful" onClick={this.handlehelp}> Yes </button>
         <p className ="helpul-inline">({this.state.yes})</p>
         {this.state.report ? <button className ="button-helpful" onClick={this.handleReport}> Report </button>
         :<p className ="button-helpful2" > Reported </p>}
       </div>
+
 
     </div>
     )

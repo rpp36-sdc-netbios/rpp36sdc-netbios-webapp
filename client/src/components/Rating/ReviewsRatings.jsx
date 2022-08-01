@@ -14,12 +14,13 @@ class ReviewsRatings extends React.Component {
       reviewsResults:fakeData,
       sort:'relevance',
       metaData:meta,
-      count:5,
+      count:50,
       displayForm:false,
       displayButton:true,
     }
     this.changSort= this.changSort.bind(this);
     this.handlehelp = this.handlehelp.bind(this);
+    this.refresh =this.refresh.bind(this)
 
 
   }
@@ -50,6 +51,9 @@ class ReviewsRatings extends React.Component {
       console.log('pokemons state has changed.');
       this.ratingDisplay();
     }
+    if (this.props.productId !== prevProps.productId) {
+      this.componentDidMount();
+    }
   }
   ratingDisplay(){
     let productId = this.props.productId;
@@ -70,7 +74,7 @@ class ReviewsRatings extends React.Component {
     var sort = this.state.sort;
     var count = this.state.count;
     var page = 1;
-    console.log('url'+ `/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`)
+    // console.log('url'+ `/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`)
     Promise.all([
       fetch(`/reviews?product_id=${productId}&sort=${sort}&count=${count}&page=${page}`),
       fetch(`/reviews/meta/${productId}`)])
@@ -83,6 +87,12 @@ class ReviewsRatings extends React.Component {
             metaData: data2,})
         })
         .catch(error=>{ console.log('error inside reviews Rating')});
+  }
+
+  refresh(){
+    this.setState({sort:"newest"})
+    this.componentDidMount()
+
   }
 
 

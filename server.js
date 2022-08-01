@@ -160,8 +160,6 @@ app.get('/styles:product_id', (req, res) => {
 app.get('/reviews',(req,res)=>{
 
   var {product_id, sort, count,page} = req.query;
-
-
   var url =`${BASEURL}/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
   // var url =`${BASEURL}/reviews?product_id=1&sort=newest&count=5`
 
@@ -213,4 +211,27 @@ app.put('/reviews/:review_id/report',(req,res)=>{
     res.sendStatus(data.status)
   })
   .catch(err=> res.status(500).send('API err put report'))
+})
+
+app.post('/reviews',(req,res)=>{
+
+ console.log("reviews post___**"+req.body.summary)
+ console.log("JSON REVIEWS"+JSON.stringify(req.body))
+//  axios.post(`${BASEURL}/reviews`,JSON.stringify(req.body),options)
+//  .then(response=>{console.log('sucess post review ');res.status(201).send('sucess post reviews')})
+//  .catch((err)=>res.status(500).send('err inside post'))
+
+  apiReq({
+    method: 'POST',
+    url: `${BASEURL}/reviews`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    data: req.body
+  }, (err) => {
+    err ? res.sendStatus(500) : res.status(201).send('post review success');
+  });
+
 })
