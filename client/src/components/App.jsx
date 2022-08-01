@@ -40,7 +40,10 @@ class App extends React.Component {
   }
 
   changeProduct(id) {
-    window.location.href = window.location.href.split('-')[0] + '-' + id
+    this.setState({ currentId: id}, () => {
+      this.getProduct();
+      window.history.pushState('','', window.location.href.split('-')[0] + '-' + id);
+    });
   }
 
   saveOutfit() {
