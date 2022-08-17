@@ -7,7 +7,8 @@ var compression = require('compression');
 var multer = require('multer');
 var { uploadFile } = require('./s3');
 
-const port = 3000;
+
+const port = 1234;
 const BASEURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
 
 const app = express();
@@ -43,20 +44,20 @@ app.get('/p-:pId', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
-app.post('/interactions', (req, res) => {
-  apiReq({
-    method: 'POST',
-    url: `${BASEURL}/interactions`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': token,
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify(req.body)
-  }, (err) => {
-    err ? res.sendStatus(500) : res.sendStatus(201);
-  });
-});
+// app.post('/interactions', (req, res) => {
+//   apiReq({
+//     method: 'POST',
+//     url: `${BASEURL}/interactions`,
+//     headers: {
+//       'User-Agent': 'request',
+//       'Authorization': token,
+//       'Content-Type': 'application/json'
+//     },
+//     data: JSON.stringify(req.body)
+//   }, (err) => {
+//     err ? res.sendStatus(500) : res.sendStatus(201);
+//   });
+// });
 
 app.post('/image', upload.single('image'), (req, res) => {
   uploadFile(req.file)
@@ -79,16 +80,19 @@ app.get('/products/:pId',(req,res)=>{
 });
 
 app.get('/questions', (req, res) => {
+  // console.log('fetching questions')
   apiReq({
     url: `${BASEURL}/qa/questions`,
     headers: options.headers,
     params: req.query
   }, (err, data) => {
+    console.log(data)
     err ? res.sendStatus(500) : res.json(data);
   });
 });
 
 app.post('/question', (req, res) => {
+  // console.log('posting question')
   apiReq({
     method: 'POST',
     url: `${BASEURL}/qa/questions`,
@@ -104,7 +108,9 @@ app.post('/question', (req, res) => {
 });
 
 app.post('/answer', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
+
+  console.log('posting answer')
   apiReq({
     method: 'POST',
     url: `${BASEURL}/qa/questions/${req.body.question_id}/answers`,
@@ -120,6 +126,7 @@ app.post('/answer', (req, res) => {
 });
 
 app.get('/answers/:qId', (req, res) => {
+  console.log('fetching answers for a given question')
   apiReq({
     url: `${BASEURL}/qa/questions/${req.params.qId}/answers`,
     headers: options.headers,
@@ -130,6 +137,7 @@ app.get('/answers/:qId', (req, res) => {
 })
 
 app.put('/qa/feedback', (req, res) => {
+  console.log('feedback for questions and answers')
   apiReq({
     method: 'PUT',
     url: `${BASEURL}/qa/${req.body.qa}/${req.body.id}/${req.body.feedback}`,
@@ -139,59 +147,10 @@ app.put('/qa/feedback', (req, res) => {
   })
 });
 
-app.get('/related/:product_id', (req, res) => {
-  apiReq({
-    url: `${BASEURL}/products/${req.params.product_id}/related`,
-    headers: options.headers,
-  }, (err, data) => {
-    err ? res.sendStatus(500) : res.json(data);
-  });
-});
 
-app.get('/styles:product_id', (req, res) => {
-  var id = req.params.product_id;
-  var url =`${BASEURL}/products/${id}/styles`;
-  axios.get(url, {headers: options.headers})
-  .then(apiRes => {
-    res.json(apiRes.data);
-  }).catch(err => {
-    console.log(err.message);
-    res.sendStatus(500);
-  });
-})
 
-app.get('/reviews',(req,res)=>{
-  // var product_id = req.body.product_id;
-  // var page = req.body.page;
-  // var sort = req.body.sort;
-  // var count = req.body.count;
-  var {product_id, sort, count,page} = req.query;
-  var url =`${BASEURL}/reviews?product_id=${product_id}&sort=${sort}&count=${count}&page=${page}`
-  // var url =`${BASEURL}/reviews?product_id=1&sort=newest&count=5`
 
-  axios.get(url,options)
-  .then(data=>{
-    res.send(data.data)
-  })
-  .catch(err=> res.status(500).send('API err inside data get reviews'))
 
-})
-
-app.get('/reviews/meta/:product_id',(req,res)=>{
-  // var product_id = req.body.product_id;
-  // var page = req.body.page;
-  // var sort = req.body.sort;
-  // var count = req.body.count;
-   var product_id = req.params.product_id;
-
-  var url =`${BASEURL}/reviews/meta?product_id=${product_id}`
-
-  axios.get(url,options)
-  .then(data=>{
-    res.send(data.data)
-  })
-  .catch(err=> res.status(500).send('API err inside data get meta reviews'))
-})
 
 // for fetching from api
 var apiReq = async (config, cb) => {
@@ -203,44 +162,4 @@ var apiReq = async (config, cb) => {
     cb(err.message, null);
   }
 };
-
-app.put('/reviews/:review_id/helpful',(req,res)=>{
-  var url =`${BASEURL}/reviews/${req.params.review_id}/helpful`
-  axios.put(url,{},options)
-  .then(data=>{
-    res.sendStatus(data.status)
-  })
-  .catch(err=> res.status(500).send('API err put meta reviews'))
-})
-app.put('/reviews/:review_id/report',(req,res)=>{
-  var url =`${BASEURL}/reviews/${req.params.review_id}/report`
-  axios.put(url,{},options)
-  .then(data=>{
-    res.sendStatus(data.status)
-  })
-  .catch(err=> res.status(500).send('API err put report'))
-})
-
-app.post('/reviews',(req,res)=>{
-
- console.log("reviews post___**"+req.body.summary)
- console.log("JSON REVIEWS"+JSON.stringify(req.body))
-//  axios.post(`${BASEURL}/reviews`,JSON.stringify(req.body),options)
-//  .then(response=>{console.log('sucess post review ');res.status(201).send('sucess post reviews')})
-//  .catch((err)=>res.status(500).send('err inside post'))
-
-  apiReq({
-    method: 'POST',
-    url: `${BASEURL}/reviews`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': token,
-      'Content-Type': 'application/json'
-    },
-    data: req.body
-  }, (err) => {
-    err ? res.sendStatus(500) : res.status(201).send('post review success');
-  });
-
-})
 
