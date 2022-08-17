@@ -57,16 +57,16 @@ class App extends React.Component {
         <span>Bauhaus</span>
       </div>
         <section>
-          {/* <Overview productId={this.state.currentId} product={this.state.product} saveOutfit={this.saveOutfit}/> */}
+          <Overview productId={this.state.currentId} product={this.state.product} saveOutfit={this.saveOutfit}/>
         </section>
         <section>
-          {/* <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct} outfit={this.state.outfit}/> */}
+          <RelatedProducts productId={this.state.currentId} changeProduct={this.changeProduct} outfit={this.state.outfit}/>
         </section>
         <section>
           <QA productId={this.state.currentId} product={this.state.product}/>
         </section>
         <div id='rating-main'>
-          {/* <ReviewsRatings  productId={this.state.currentId} /> */}
+          <ReviewsRatings  productId={this.state.currentId} />
         </div>
       </div>
     );
